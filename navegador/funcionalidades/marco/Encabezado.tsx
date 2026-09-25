@@ -39,6 +39,10 @@ export function Encabezado({ idioma, pagina }: PropiedadesEncabezado) {
         >
           {textos.comparacion}
         </Link>
+        <span className="text-ink/30">/</span>
+        <Link to={`${rutaDe("inicio", idioma)}#seccion-despliegue`} className={enlace}>
+          {textos.desplegar}
+        </Link>
       </nav>
 
       <div className="flex items-center gap-6 justify-self-end font-mono text-xs md:gap-8">

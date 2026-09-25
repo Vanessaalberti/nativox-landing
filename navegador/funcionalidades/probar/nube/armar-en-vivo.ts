@@ -12,6 +12,7 @@ import {
   ultimoTramoSinCerrar,
   type Traductor,
 } from "@nativox/navegador/modulos/traduccion";
+import { GLOSARIO_TECNICO } from "./glosario-tecnico";
 import type { PruebaArmada } from "../motor/armar-prueba";
 import { crearTranscriptorNube, type EventosTranscriptorNube } from "./transcriptor-nube";
 
@@ -52,7 +53,7 @@ export async function armarEnVivo(
     idSesion: "nube",
     idiomaOriginal: configuracion.idiomaHablado,
     idiomasDestino: traduccion ? [traduccion.idioma] : [],
-    glosario: [],
+    glosario: GLOSARIO_TECNICO,
     pasadaProvisoriaCadaMs: PASADA_PROVISORIA_MS,
     // El mínimo es fijo: el ajuste por velocidad (1,5 a 4 s) es para el motor local.
     cortador: { ...cortador, cambiarMinimo: () => undefined },
@@ -66,7 +67,7 @@ export async function armarEnVivo(
             traducirConContexto(traduccion.traductor, {
               texto,
               contexto: ultimoTramoSinCerrar(anterior),
-              glosario: [],
+              glosario: GLOSARIO_TECNICO,
               de,
               a,
             }),

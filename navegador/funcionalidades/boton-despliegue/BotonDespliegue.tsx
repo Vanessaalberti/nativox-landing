@@ -42,7 +42,10 @@ const TEXTOS: Record<
 export function BotonDespliegue({ idioma }: { idioma: Idioma }) {
   const textos = TEXTOS[idioma];
   return (
-    <div className="mt-10 w-full border-[1.5px] border-ink/20 bg-canvas p-5 text-left">
+    <div
+      id="seccion-despliegue"
+      className="mt-10 w-full scroll-mt-20 border-[1.5px] border-ink/20 bg-canvas p-5 text-left"
+    >
       <h3 className="font-display text-3xl leading-none uppercase">{textos.titulo}</h3>
       <ul className="mt-3 flex flex-col gap-1.5 font-mono text-xs text-ink/75">
         {textos.requisitos.map((requisito) => (

@@ -1,0 +1,348 @@
+# Glosario técnico de la portada. Formato (una entrada por línea):
+#   Término
+#   Término ~ variante que Whisper escribe mal, otra variante
+#   término => en: traducción fija | pt: traducción fija
+#
+# El ORDEN ES LA PRIORIDAD: los primeros ~50 términos entran en el prompt de Whisper (le da ~470
+# caracteres); todos sirven para corregir lo que se transcribió y para proteger el término al
+# traducir. Es un glosario general de tecnología, no de una charla en particular: cada evento carga
+# el suyo.
+#
+# Reglas para no arruinar una charla normal (la corrección tolera 1 o 2 letras de diferencia y
+# reemplaza por el término tal cual está escrito acá):
+# - Nada que sea una palabra común de español, inglés o portugués (astro, scala/escala, prisma,
+#   llama, meta, pandas, redis/redes, spa, elixir, cursor...).
+# - Ninguna variante que sea una palabra bien escrita (producción, despliegue, contenedores) ni un
+#   plural del término (pull requests, endpoints): los cambiaría por el singular.
+# - Sin C++ ni C#: quedan reducidos a "c", que aparece suelto en cualquier frase.
+
+# --- Lo primero: el evento y lo que más se equivoca ---
+Nerdearla ~ nerd earla, ner de arla, nerdeárla, nerdear la, nerd e arla
+Cloudflare ~ cloud flare, clau flare, cloudflér, cloud fler
+Workers AI ~ workers ai, worker AI, workers a i
+Kubernetes ~ cubernetes, kubernetis, cuber netes, kubernétes, k8s
+GitHub ~ git hub, guit hab, guithub
+pull request ~ pul request, pool request, pul rikuest
+rollback ~ roll back, rol bak
+CI/CD
+DevOps ~ dev ops, dev-ops
+TypeScript ~ type script, taipscript
+JavaScript ~ java script, yavascript
+WebSocket ~ web socket, web sockets
+Docker ~ dóker
+PostgreSQL ~ postgres SQL, postgre SQL, post gres SQL, post gres, postgres q l
+GraphQL ~ graph QL, graph q l
+Next.js ~ next js, nextjs, next punto js
+Node.js ~ node js, nodejs, node punto js
+Terraform
+OpenAI ~ open AI, open a i
+Anthropic ~ antropic, antrópic
+Claude ~ clod, claud
+LLM ~ elle elle eme
+RAG
+Hugging Face ~ jugging face
+Whisper ~ wisper, guisper
+WebGPU ~ web GPU, web g p u
+WebAssembly ~ web assembly, web asembly
+serverless ~ server less
+open source ~ opensource, open sors
+Bergamot
+API ~ a p i
+SDK
+CLI
+JSON
+YAML ~ yámel
+OAuth ~ o auth, o-auth
+JWT
+SQL
+NoSQL ~ no SQL
+microservicios ~ micro servicios, micro-servicios
+edge computing ~ edge computin
+Durable Objects ~ durable object
+Wrangler ~ rangler
+Vite ~ vait
+React ~ riact
+Tailwind ~ tail wind, tailwin
+D1
+R2
+KV
+
+# --- Cloudflare y plataforma ---
+Cloudflare Pages ~ cloudflare page
+AI Gateway ~ a i gateway
+Workers KV
+Cloudflare Access
+Zero Trust ~ cero trust, zero trus
+Argo Tunnel
+cloudflared
+Vectorize
+Hyperdrive
+Wasm
+
+# --- Lenguajes ---
+Python ~ paiton, pyton
+Rust
+Golang ~ go lang, go-lang
+Kotlin ~ cotlin
+Haskell
+Ruby on Rails ~ rubi on rails
+PHP
+Zig
+Deno
+
+# --- Frontend ---
+Vue ~ vue js
+Svelte ~ esvelte
+SvelteKit
+Vercel ~ versel
+Netlify
+Storybook
+Webpack ~ web pack
+esbuild ~ es build
+Prettier ~ pretier
+ESLint ~ es lint, e s lint
+Vitest ~ vi test
+Playwright ~ play right
+Cypress
+shadcn
+Radix
+CSS
+HTML
+DOM
+SSR
+PWA
+Core Web Vitals
+Lighthouse
+Web Components ~ web component
+Shadow DOM
+WebRTC ~ web RTC
+WebGL ~ web GL
+Web Workers ~ web worker
+Service Workers ~ service worker
+IndexedDB ~ indexed DB
+localStorage ~ local storage
+sessionStorage ~ session storage
+
+# --- Backend, datos y APIs ---
+Fastify
+NestJS ~ nest js
+Django ~ yango
+FastAPI ~ fast API
+Spring Boot
+Laravel
+gRPC ~ g RPC
+REST API
+OpenAPI
+Swagger
+tRPC ~ t RPC
+Zod
+Drizzle ORM
+SQLite ~ sql lite, esquelait
+MySQL ~ my SQL, mai sql
+MongoDB ~ mongo DB, mongo D B
+DynamoDB ~ dynamo DB
+Elasticsearch ~ elastic search
+Kafka
+RabbitMQ ~ rabbit MQ
+Supabase ~ super base
+Firebase ~ fire base
+CockroachDB
+ORM
+CRUD
+CDN
+DNS
+TLS
+SSL
+HTTPS
+HTTP/2
+HTTP/3
+QUIC
+CORS
+CSRF
+XSS
+rate limiting ~ rate-limit
+endpoint ~ end point
+webhook ~ web hook
+middleware ~ middle ware
+payload ~ pay load
+backend ~ back end, back-end
+frontend ~ front end, front-end
+fullstack ~ full stack, full-stack
+
+# --- Infraestructura, DevOps y nube ---
+Ansible
+Grafana
+Prometheus
+Jenkins
+GitLab ~ git lab
+Bitbucket
+GitHub Actions ~ git hub actions
+ArgoCD ~ argo CD
+Helm
+kubectl ~ cube control, cube CTL, kube control
+Istio
+nginx ~ engine x, enginex
+Linux ~ línux
+Ubuntu ~ ubuntú
+Debian
+Bash
+Vagrant
+AWS
+Amazon Web Services
+Google Cloud ~ google claud
+Azure ~ ajur
+DigitalOcean ~ digital ocean
+Heroku
+Lambda
+S3
+EC2
+IaC
+SRE
+OpenTelemetry ~ open telemetry
+Datadog ~ data dog
+Sentry
+PagerDuty ~ pager duty
+Docker Compose
+Dockerfile ~ docker file
+pipeline
+deploy
+staging
+hotfix ~ hot fix
+monorepo ~ mono repo
+feature flag
+blue green ~ blue-green
+uptime ~ up time
+downtime ~ down time
+SLA
+SLO
+autoscaling ~ auto scaling
+
+# --- Git y desarrollo ---
+Git
+merge ~ merch
+branch
+commit ~ comit
+rebase ~ re base
+cherry-pick ~ cherry pick
+issue
+fork
+stash
+main
+npm ~ n p m
+pnpm
+yarn
+npx
+package.json
+README
+changelog
+code review
+MIT
+Apache 2.0
+localhost ~ local host
+API key ~ api ki
+token
+refresh token
+bearer
+TDD
+BDD
+linter
+refactor
+debugging
+breakpoint ~ break point
+stack trace ~ stack-trace
+bug
+boilerplate
+polyfill ~ poly fill
+transpiler
+tree shaking ~ tree-shaking
+hot reload ~ hot-reload
+HMR
+
+# --- IA y datos ---
+Gemini ~ yemini
+Gemma
+Mistral
+DeepSeek ~ deep seek
+Qwen ~ quen
+GPT
+ChatGPT ~ chat GPT, chat g p t
+Copilot
+Claude Code ~ clod code
+MCP
+prompt
+prompt engineering
+fine-tuning ~ fine tuning, finetuning
+embeddings
+GPU ~ g p u
+TPU
+CUDA
+ONNX ~ onix
+Transformers.js ~ transformers js, transformers punto js
+Hugging Face Hub
+PyTorch ~ pay torch, pi torch
+TensorFlow ~ tensor flow
+scikit-learn ~ sci-kit learn, saikit learn
+NumPy ~ num pi
+Jupyter ~ yupiter
+dataset ~ data set
+WER
+Whisper large-v3 ~ whisper large v3, whisper large v tres
+TranslateGemma
+speech to text ~ speech-to-text
+text to speech ~ text-to-speech
+diarización ~ diarizacion
+
+# --- Seguridad ---
+OWASP
+pentesting ~ pen testing
+CVE
+zero-day ~ zero day
+ransomware
+phishing ~ fishing
+MFA
+SSO
+OIDC
+SAML
+RBAC
+hash
+bcrypt ~ b crypt
+PBKDF2
+argon2
+WAF
+DDoS ~ d dos, di dos
+VPN
+firewall ~ fire wall
+
+# --- Comunidad, eventos y empresas ---
+Buenos Aires
+Konex
+Vibeathon
+hackathon ~ hackatón, hackaton
+meetup ~ mitap, meet up
+keynote ~ key note
+lightning talk
+workshop
+speaker
+open mic
+networking
+Mozilla
+Linux Foundation
+Cloud Native
+CNCF
+Google
+Microsoft
+Netflix
+Spotify
+MercadoLibre ~ mercado libre
+Globant
+Ualá ~ uala
+Naranja X
+UTC
+LinkedIn ~ linked in
+Discord
+Slack
+Figma
+Jira
+Zoom
+OBS
+vMix ~ v mix
