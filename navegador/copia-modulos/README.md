@@ -5,7 +5,7 @@
 Se copia (sin las pruebas, que usan `muestras/` de la aplicación):
 
 - `compartido/`: `contratos`, `distancia-edicion`, `glosario`, `metricas`
-- `navegador/modulos/`: `captura-audio`, `cortador-audio`, `flujo-subtitulos`, `modelos-compartidos`, `transcripcion`, `traduccion`
+- `navegador/modulos/`: `captura-audio`, `cortador-audio`, `evaluar-equipo`, `flujo-subtitulos`, `modelos-compartidos`, `transcripcion`, `traduccion`
 - `navegador/interfaz/`: `sistema-diseno`, `subtitulos`
 
 Se importa con el alias `@nativox/…`; los módulos copiados importan `@compartido/…`, que apunta a la copia.

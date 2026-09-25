@@ -12,6 +12,7 @@ export const CARPETAS_COPIADAS = [
   "compartido/metricas",
   "navegador/modulos/captura-audio",
   "navegador/modulos/cortador-audio",
+  "navegador/modulos/evaluar-equipo",
   "navegador/modulos/flujo-subtitulos",
   "navegador/modulos/modelos-compartidos",
   "navegador/modulos/transcripcion",

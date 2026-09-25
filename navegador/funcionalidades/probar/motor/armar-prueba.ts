@@ -2,6 +2,7 @@ import type { Idioma, Linea, Resultado } from "@nativox/compartido/contratos";
 import { leerGlosario } from "@nativox/compartido/glosario";
 import { abrirArchivo, abrirEntrada, type Captura } from "@nativox/navegador/modulos/captura-audio";
 import { crearCortador } from "@nativox/navegador/modulos/cortador-audio";
+import { pasadaProvisoriaDelNivel, type Nivel } from "@nativox/navegador/modulos/evaluar-equipo";
 import {
   crearFlujoSubtitulos,
   type FlujoSubtitulos,
@@ -26,6 +27,8 @@ export interface ConfiguracionPrueba {
   idiomaOriginal: Idioma;
   idiomasDestino: readonly Idioma[];
   glosario: string;
+  // La barra de velocidad: cada cuánto se muestra lo que se viene diciendo (0 = solo frases enteras).
+  nivel: Nivel;
 }
 
 export interface EventosPrueba {
@@ -39,9 +42,6 @@ export interface PruebaArmada {
   captura: Captura;
   flujo: FlujoSubtitulos;
 }
-
-// Igual que la sesión en vivo de la aplicación: texto provisorio cada ~1 s mientras se habla.
-const PASADA_PROVISORIA_MS = 1000;
 
 export async function armarPrueba(
   { modelos, traductor }: ModelosListos,
@@ -57,7 +57,7 @@ export async function armarPrueba(
     idiomaOriginal: configuracion.idiomaOriginal,
     idiomasDestino: configuracion.idiomasDestino,
     glosario,
-    pasadaProvisoriaCadaMs: PASADA_PROVISORIA_MS,
+    pasadaProvisoriaCadaMs: pasadaProvisoriaDelNivel(configuracion.nivel),
     cortador: crearCortador({ minimoSegundos: 1.5 }),
     transcribir: (audio, opciones) => transcribirSinAlucinaciones(transcriptor, audio, opciones),
     quitarRepetido: borrarSuperposicion,

@@ -2,9 +2,9 @@
 
 **No se edita a mano.** Se actualiza con `npm run sincronizar` y el CI comprueba (`npm run verificar-copia`) que cada archivo coincida con su resumen.
 
-- Commit de origen: `d583054` (con cambios todavía sin commitear en la aplicación)
+- Commit de origen: `b2ecfe7` (con cambios todavía sin commitear en la aplicación)
 - Fecha: 2026-09-25
-- Carpetas: `compartido/contratos`, `compartido/distancia-edicion`, `compartido/glosario`, `compartido/metricas`, `navegador/modulos/captura-audio`, `navegador/modulos/cortador-audio`, `navegador/modulos/flujo-subtitulos`, `navegador/modulos/modelos-compartidos`, `navegador/modulos/transcripcion`, `navegador/modulos/traduccion`, `navegador/interfaz/sistema-diseno`, `navegador/interfaz/subtitulos`
+- Carpetas: `compartido/contratos`, `compartido/distancia-edicion`, `compartido/glosario`, `compartido/metricas`, `navegador/modulos/captura-audio`, `navegador/modulos/cortador-audio`, `navegador/modulos/evaluar-equipo`, `navegador/modulos/flujo-subtitulos`, `navegador/modulos/modelos-compartidos`, `navegador/modulos/transcripcion`, `navegador/modulos/traduccion`, `navegador/interfaz/sistema-diseno`, `navegador/interfaz/subtitulos`
 
 | Archivo | SHA-256 |
 | --- | --- |
@@ -50,6 +50,12 @@
 | `navegador/modulos/cortador-audio/pausas.ts` | `92ebd9ea9ba08fdc0c1fd5ba6f9089c3ca78bde27220e8d7cf7fd37729ec9190` |
 | `navegador/modulos/cortador-audio/README.md` | `d22b880fb328dac71c1640966e270c8b7474bf945b6c5fe6ac2daf008052547f` |
 | `navegador/modulos/cortador-audio/silencios.ts` | `f39d167f8b92e359072234c1b5a416549f9ef053447e9e495be95171e0530c7f` |
+| `navegador/modulos/evaluar-equipo/index.ts` | `f3cfb50584d3c8a973261de3682c0f0c824cd0ee3355911eb41437be4669ba34` |
+| `navegador/modulos/evaluar-equipo/medicion.ts` | `b6a04f18e5aea419094d1010ff75b4d2d211e0ac2c00af2a4ba742f7b6cdde49` |
+| `navegador/modulos/evaluar-equipo/niveles.ts` | `09d4a98f235f64949a4b8639569fb8806e4aff67f007004e738a3a8dcab81d23` |
+| `navegador/modulos/evaluar-equipo/placa.ts` | `a9401cee363335eee5af3b99039ca04f92e9c70808e3f3287c49bbe988c9ae17` |
+| `navegador/modulos/evaluar-equipo/README.md` | `4652f02c2a02646cee6522d193e4ed9337e7519132424cfad3629a56bedb32c1` |
+| `navegador/modulos/evaluar-equipo/recomendacion.ts` | `8af003d48ad1e2ce8bd37dc42d8f40f1168248ecfde9296041a42d32992d4ac7` |
 | `navegador/modulos/flujo-subtitulos/correccion-de-limite.ts` | `7727dbff4b1fcf97a6e2a9219550b246fdfd92b33b1411155f0099bd1150c8e3` |
 | `navegador/modulos/flujo-subtitulos/flujo.ts` | `d25823a5793d013f8fd9d681f0c1aaaa797f7dcbbbbcf19355dbbd5536bac74c` |
 | `navegador/modulos/flujo-subtitulos/index.ts` | `2341abf0370fe163b53fed9828e4dbd32d034555f7ef10248809d34dbb4f8332` |

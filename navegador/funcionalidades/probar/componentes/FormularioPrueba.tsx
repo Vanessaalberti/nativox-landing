@@ -1,7 +1,9 @@
 import { useState } from "react";
 import { IDIOMAS, esquemaIdioma, validar, type Idioma } from "@nativox/compartido/contratos";
+import type { Nivel } from "@nativox/navegador/modulos/evaluar-equipo";
 import type { ConfiguracionPrueba } from "../motor/armar-prueba";
 import { NOMBRES_DE_IDIOMA, TEXTOS_PROBAR } from "../textos";
+import { BarraDeNivel } from "./BarraDeNivel";
 
 const etiqueta = "font-mono text-[10px] font-bold tracking-widest text-ink/60 uppercase";
 const campo =
@@ -12,6 +14,9 @@ export interface PropiedadesFormulario {
   ocupada: boolean;
   referencia: string;
   alCambiarReferencia: (texto: string) => void;
+  nivel: Nivel;
+  recomendado: Nivel | null;
+  alCambiarNivel: (nivel: Nivel) => void;
   alIniciar: (configuracion: ConfiguracionPrueba) => void;
 }
 
@@ -20,6 +25,9 @@ export function FormularioPrueba({
   ocupada,
   referencia,
   alCambiarReferencia,
+  nivel,
+  recomendado,
+  alCambiarNivel,
   alIniciar,
 }: PropiedadesFormulario) {
   const textos = TEXTOS_PROBAR[idioma];
@@ -50,6 +58,7 @@ export function FormularioPrueba({
           idiomaOriginal: original,
           idiomasDestino: destino,
           glosario,
+          nivel,
         });
       }}
     >
@@ -135,6 +144,13 @@ export function FormularioPrueba({
         />
         <span className="font-mono text-[11px] text-ink/50">{textos.referenciaAyuda}</span>
       </label>
+      <BarraDeNivel
+        idioma={idioma}
+        nivel={nivel}
+        recomendado={recomendado}
+        deshabilitada={ocupada}
+        alCambiar={alCambiarNivel}
+      />
       <button
         type="submit"
         disabled={ocupada || (conArchivo && !archivo)}

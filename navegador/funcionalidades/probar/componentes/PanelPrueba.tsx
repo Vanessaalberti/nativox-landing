@@ -1,21 +1,44 @@
 import { useState } from "react";
 import type { Idioma } from "@nativox/compartido/contratos";
+import type { Nivel } from "@nativox/navegador/modulos/evaluar-equipo";
+import { useEvaluacion } from "../hooks/useEvaluacion";
 import type { Prueba } from "../hooks/usePrueba";
 import { resumirPrueba } from "../resumen";
 import { describirAvance, NOMBRES_DE_IDIOMA, TEXTOS_PROBAR } from "../textos";
 import { BorrarModelos } from "./BorrarModelos";
+import { EvaluarEquipo } from "./EvaluarEquipo";
 import { FormularioPrueba } from "./FormularioPrueba";
 import { MedidasPrueba } from "./MedidasPrueba";
 
 // /probar: lo mismo que la sesión en vivo de la aplicación, pero en la placa de quien visita y con
 // las medidas de la tabla de comparación.
-export function PanelPrueba({ idioma, prueba }: { idioma: Idioma; prueba: Prueba }) {
+export function PanelPrueba({
+  idioma,
+  prueba,
+  rutaNube,
+}: {
+  idioma: Idioma;
+  prueba: Prueba;
+  // La transcripción en la nube (la portada), para quien su computadora no alcanza.
+  rutaNube: string;
+}) {
   const textos = TEXTOS_PROBAR[idioma];
   const [referencia, setReferencia] = useState("");
   const [glosarioUsado, setGlosarioUsado] = useState("");
+  // Sin evaluar empieza en el medio; la evaluación deja elegido el recomendado (se puede cambiar).
+  const [nivel, setNivel] = useState<Nivel>(2);
+  const [recomendado, setRecomendado] = useState<Nivel | null>(null);
+  const evaluacion = useEvaluacion((sugerido) => {
+    setNivel(sugerido);
+    setRecomendado(sugerido);
+  });
   const { estado } = prueba;
+  const evaluando = evaluacion.estado.fase === "evaluando";
   const ocupada =
-    estado.fase === "preparando" || estado.fase === "en-vivo" || estado.fase === "terminando";
+    estado.fase === "preparando" ||
+    estado.fase === "en-vivo" ||
+    estado.fase === "terminando" ||
+    evaluando;
   const resumen = resumirPrueba(prueba.lineas, prueba.mediciones, {
     referencia,
     glosario: glosarioUsado,
@@ -34,12 +57,23 @@ export function PanelPrueba({ idioma, prueba }: { idioma: Idioma; prueba: Prueba
       <p className="max-w-[760px] font-mono text-xs text-ink/60">{textos.primeraVez}</p>
       <BorrarModelos idioma={idioma} deshabilitado={ocupada} />
 
+      <EvaluarEquipo
+        idioma={idioma}
+        estado={evaluacion.estado}
+        deshabilitado={ocupada}
+        rutaNube={rutaNube}
+        alEvaluar={() => void evaluacion.evaluar()}
+      />
+
       <div className="border-[1.5px] border-ink/15 bg-canvas p-5">
         <FormularioPrueba
           idioma={idioma}
           ocupada={ocupada}
           referencia={referencia}
           alCambiarReferencia={setReferencia}
+          nivel={nivel}
+          recomendado={recomendado}
+          alCambiarNivel={setNivel}
           alIniciar={(configuracion) => {
             setGlosarioUsado(configuracion.glosario);
             void prueba.iniciar(configuracion);

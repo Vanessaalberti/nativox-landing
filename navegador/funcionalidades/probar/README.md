@@ -6,4 +6,6 @@
 
 **Glosario de la portada:** `nube/glosario-tecnico.ts` lee `glosario/tecnico.txt` (~380 términos, ver `glosario/README.md`) para guiar a Whisper, corregir y proteger los términos al traducir. Su prueba verifica que arregla los errores típicos de Whisper y que **no toca frases comunes**.
 
+**Evaluar la computadora y barra de nivel:** `EvaluarEquipo` corre el test (`motor/evaluar.ts` + el módulo `evaluar-equipo` de la aplicación): detecta la placa, baja los modelos una vez, transcribe y traduce un audio de muestra (`publico/muestra-equipo.wav`, voz sintética) y mide una pasada de Whisper y la traducción. Con eso recomienda la versión de Whisper (sin comprimir con f16, comprimida sin f16), el nivel y si conviene la nube, con los motivos (`textos-evaluacion.ts`, en los tres idiomas). `BarraDeNivel` (4 escalones: Ahorro, Equilibrado, Rápido, Máximo) queda elegida sola tras evaluar y se puede cambiar; el nivel define cada cuánto se actualiza el texto provisorio. TranslateGemma todavía no está integrado: el test solo avisa si la placa tendría margen.
+
 **Estructura:** `motor/` (`preparar-modelos.ts`, `armar-prueba.ts`) · `hooks/usePrueba.ts` · `resumen.ts` (con prueba) · `componentes/` (`PanelPrueba`, `FormularioPrueba`, `MedidasPrueba`) · `textos.ts` · `index.ts`.
