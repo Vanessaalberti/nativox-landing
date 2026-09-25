@@ -7,6 +7,10 @@ import {
   type RespuestaTranscripcion,
 } from "../../../../contratos-landing/nube";
 
+// Un corte de red (502/503/504) se reintenta una vez a los 2 s; el servidor no cobra los pedidos
+// que fallan, así que reintentar no gasta cupo.
+const ESPERA_REINTENTO_MS = 2000;
+
 export async function consultarCupos(): Promise<Resultado<Cupos>> {
   try {
     const respuesta = await fetch("/api/cupos", { credentials: "same-origin" });
@@ -22,15 +26,18 @@ export async function consultarCupos(): Promise<Resultado<Cupos>> {
   }
 }
 
-export async function transcribirEnLaNube(
+async function enviar(
   wav: Uint8Array<ArrayBuffer>,
   idioma: Idioma,
+  prompt: string,
 ): Promise<RespuestaTranscripcion> {
   try {
     const respuesta = await fetch(`/api/transcribir?idioma=${idioma}`, {
       method: "POST",
       credentials: "same-origin",
-      headers: { "Content-Type": "audio/wav" },
+      // En un encabezado y no en la URL: es lo que se viene diciendo, no tiene que quedar en los
+      // registros.
+      headers: { "Content-Type": "audio/wav", "X-Nativox-Prompt": encodeURIComponent(prompt) },
       body: new Blob([wav], { type: "audio/wav" }),
     });
     const leido = v.safeParse(esquemaRespuestaTranscripcion, await respuesta.json());
@@ -49,4 +56,15 @@ export async function transcribirEnLaNube(
       reintentarEnSegundos: 0,
     };
   }
+}
+
+export async function transcribirEnLaNube(
+  wav: Uint8Array<ArrayBuffer>,
+  idioma: Idioma,
+  prompt: string,
+): Promise<RespuestaTranscripcion> {
+  const primera = await enviar(wav, idioma, prompt);
+  if (primera.ok || primera.codigo !== "fallo-del-modelo") return primera;
+  await new Promise((seguir) => setTimeout(seguir, ESPERA_REINTENTO_MS));
+  return enviar(wav, idioma, prompt);
 }

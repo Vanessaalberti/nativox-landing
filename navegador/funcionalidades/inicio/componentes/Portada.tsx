@@ -15,7 +15,7 @@ export interface PropiedadesPortada {
   pruebasRestantes: number | null;
   rutaProbar: string;
   enVivo: boolean;
-  // Cuenta regresiva de la grabación (la portada deja hablar hasta 15 s); null si no hay.
+  // Cuenta regresiva de la prueba (la portada deja hablar hasta 15 s); null si no hay.
   segundosRestantes: number | null;
   ocupado: boolean;
   // Arranca la transcripción con el micrófono: `idiomaHablado` es lo que se dice y `mostrarEn`,
@@ -26,7 +26,7 @@ export interface PropiedadesPortada {
 
 export type AvisoPortada =
   | { tipo: "transcribiendo" }
-  | { tipo: "traduciendo" }
+  | { tipo: "preparando" }
   | { tipo: "sin-cupo"; reintentarEnSegundos: number }
   | { tipo: "error"; detalle: string };
 
@@ -123,7 +123,7 @@ function describirAviso(
 ): React.ReactNode {
   const textos = TEXTOS_INICIO[idioma];
   if (!aviso) return null;
-  if (aviso.tipo === "transcribiendo" || aviso.tipo === "traduciendo") return textos[aviso.tipo];
+  if (aviso.tipo === "transcribiendo" || aviso.tipo === "preparando") return textos[aviso.tipo];
   if (aviso.tipo === "error") return aviso.detalle;
   return (
     <>

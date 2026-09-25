@@ -12,7 +12,7 @@ interface TextosInicio {
   quedan: string;
   pruebas: (restantes: number) => string;
   transcribiendo: string;
-  traduciendo: string;
+  preparando: string;
   sinCupo: (horas: number) => string;
   probarLocal: string;
   enVivo: string;
@@ -42,8 +42,8 @@ export const TEXTOS_INICIO: Record<Idioma, TextosInicio> = {
     quedan: "Quedan",
     pruebas: (restantes) =>
       restantes === 1 ? "Te queda 1 prueba" : `Te quedan ${String(restantes)} pruebas`,
-    transcribiendo: "Transcribiendo en la nube…",
-    traduciendo: "Traduciendo…",
+    transcribiendo: "Terminando de transcribir…",
+    preparando: "Preparando la traducción…",
     sinCupo: (horas) =>
       `Ya usaste tus 3 pruebas en este dispositivo. Vuelven a estar disponibles en ${String(horas)} h.`,
     probarLocal: "Mientras tanto, probalo en tu computadora →",
@@ -81,8 +81,8 @@ export const TEXTOS_INICIO: Record<Idioma, TextosInicio> = {
     limite: "You can speak for up to 15 seconds",
     quedan: "Remaining:",
     pruebas: (restantes) => (restantes === 1 ? "1 try left" : `${String(restantes)} tries left`),
-    transcribiendo: "Transcribing in the cloud…",
-    traduciendo: "Translating…",
+    transcribiendo: "Finishing the transcription…",
+    preparando: "Preparing the translation…",
     sinCupo: (horas) =>
       `You used your 3 tries on this device. They come back in ${String(horas)} h.`,
     probarLocal: "Meanwhile, try it on your computer →",
@@ -121,8 +121,8 @@ export const TEXTOS_INICIO: Record<Idioma, TextosInicio> = {
     quedan: "Restam",
     pruebas: (restantes) =>
       restantes === 1 ? "Resta 1 teste" : `Restam ${String(restantes)} testes`,
-    transcribiendo: "Transcrevendo na nuvem…",
-    traduciendo: "Traduzindo…",
+    transcribiendo: "Terminando de transcrever…",
+    preparando: "Preparando a tradução…",
     sinCupo: (horas) =>
       `Você usou seus 3 testes neste dispositivo. Eles voltam em ${String(horas)} h.`,
     probarLocal: "Enquanto isso, teste no seu computador →",

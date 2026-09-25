@@ -1,20 +1,24 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import type { Idioma, Linea } from "@nativox/compartido/contratos";
 import { crearBergamot, type Traductor } from "@nativox/navegador/modulos/traduccion";
-import { consultarCupos, transcribirEnLaNube } from "../nube/cliente-nube";
-import { FRECUENCIA, grabarMicrofono, type Grabacion } from "../nube/grabadora";
-import { aWav } from "../../../../contratos-landing/wav";
+import type { PruebaArmada } from "../motor/armar-prueba";
+import { cerrarPrueba } from "../motor/cerrar-prueba";
+import { conLinea } from "../motor/lineas";
+import { armarEnVivo } from "../nube/armar-en-vivo";
+import { consultarCupos } from "../nube/cliente-nube";
+import { CUPO_POR_PRUEBA, SEGUNDOS_POR_PRUEBA } from "../../../../contratos-landing/nube";
 import { useLimiteDeTiempo } from "./useLimiteDeTiempo";
 
-// La portada deja hablar hasta 15 s (el Worker rechaza más): alcanza para ver cómo funciona y
-// gasta poco.
-const SEGUNDOS_POR_PRUEBA = 15;
+// Con menos cupo que esto (en segundos de audio) no vale la pena empezar: el servidor usa el mismo.
+const CUPO_MINIMO = 2;
+// Dos frases seguidas que la nube no pudo transcribir: se corta y se avisa.
+const FALLOS_PARA_CORTAR = 2;
 
 export type EstadoNube =
   | { fase: "inactiva" }
+  | { fase: "preparando" }
   | { fase: "escuchando" }
   | { fase: "transcribiendo" }
-  | { fase: "traduciendo" }
   | { fase: "sin-cupo"; reintentarEnSegundos: number }
   | { fase: "error"; motivo: string };
 
@@ -28,87 +32,99 @@ function obtenerTraductor(): Promise<Traductor> {
   return traductor;
 }
 
-// Portada: graba hasta 15 s, manda el audio a Whisper en Workers AI (sin descargar el modelo) y
-// muestra el texto o su traducción. El cupo por dispositivo lo lleva el servidor.
+// Portada: subtítulos en tiempo real con Whisper en Workers AI (sin descargar el modelo). Corta en
+// pausas, manda cada frase a la nube y muestra el texto o su traducción a medida que llega. El
+// cupo (segundos de audio por dispositivo) lo lleva el servidor.
 export function usePruebaEnLaNube() {
   const [estado, setEstado] = useState<EstadoNube>({ fase: "inactiva" });
-  const [linea, setLinea] = useState<Linea | null>(null);
-  const [pruebasRestantes, setPruebasRestantes] = useState<number | null>(null);
-  const grabacion = useRef<Grabacion | null>(null);
-  const idiomas = useRef<{ hablado: Idioma; mostrarEn: Idioma }>({
-    hablado: "es",
-    mostrarEn: "es",
-  });
+  const [lineas, setLineas] = useState<Linea[]>([]);
+  const [cupoRestante, setCupoRestante] = useState<number | null>(null);
+  const prueba = useRef<PruebaArmada | null>(null);
+  const fallosSeguidos = useRef(0);
 
   useEffect(() => {
     void consultarCupos().then((cupos) => {
       if (!cupos.ok) return;
-      setPruebasRestantes(cupos.valor.restantes);
-      if (cupos.valor.restantes === 0) {
+      setCupoRestante(cupos.valor.restantes);
+      if (cupos.valor.restantes < CUPO_MINIMO) {
         setEstado({ fase: "sin-cupo", reintentarEnSegundos: cupos.valor.reintentarEnSegundos });
       }
     });
   }, []);
 
-  const terminar = useCallback(async () => {
-    const actual = grabacion.current;
-    if (!actual) return;
-    grabacion.current = null;
-    setEstado({ fase: "transcribiendo" });
-    const { hablado, mostrarEn } = idiomas.current;
-    const respuesta = await transcribirEnLaNube(aWav(actual.terminar(), FRECUENCIA), hablado);
-    if (!respuesta.ok) {
-      setEstado(
-        respuesta.codigo === "sin-cupo"
-          ? { fase: "sin-cupo", reintentarEnSegundos: respuesta.reintentarEnSegundos }
-          : { fase: "error", motivo: respuesta.mensaje },
-      );
-      if (respuesta.codigo === "sin-cupo") setPruebasRestantes(0);
-      return;
+  const actualizarLinea = useCallback((linea: Linea) => {
+    if (linea.original !== "" && !linea.provisoria) fallosSeguidos.current = 0;
+    setLineas((anteriores) => conLinea(anteriores, linea));
+  }, []);
+
+  // Corta la captura, termina de transcribir y traducir lo que quedó y vuelve al reposo (salvo
+  // que mientras tanto se haya agotado el cupo o fallado algo).
+  const detener = useCallback(async () => {
+    if (await cerrarPrueba(prueba, () => setEstado({ fase: "transcribiendo" }))) {
+      setEstado((previo) => (previo.fase === "transcribiendo" ? { fase: "inactiva" } : previo));
     }
-    setPruebasRestantes(respuesta.restantes);
-    const nueva: Linea = {
-      tipo: "linea",
-      id: String(Date.now()),
-      original: respuesta.texto,
-      traducciones: {},
-      provisoria: false,
-      inicio: 0,
-      fin: 0,
-    };
-    setLinea(nueva);
-    if (mostrarEn !== hablado && respuesta.texto !== "") {
-      setEstado({ fase: "traduciendo" });
-      const traducido = await (
-        await obtenerTraductor()
-      ).traducir(respuesta.texto, hablado, mostrarEn);
-      if (traducido.ok) setLinea({ ...nueva, traducciones: { [mostrarEn]: traducido.valor } });
-    }
-    setEstado({ fase: "inactiva" });
   }, []);
 
   const iniciar = useCallback(
     async (hablado: Idioma, mostrarEn: Idioma) => {
-      idiomas.current = { hablado, mostrarEn };
-      setLinea(null);
-      const nueva = await grabarMicrofono(() => void terminar());
-      if (!nueva.ok) {
-        setEstado({ fase: "error", motivo: nueva.motivo });
+      if (prueba.current) return;
+      setLineas([]);
+      fallosSeguidos.current = 0;
+
+      let traduccion: { idioma: Idioma; traductor: Traductor } | null = null;
+      if (mostrarEn !== hablado) {
+        setEstado({ fase: "preparando" });
+        try {
+          traduccion = { idioma: mostrarEn, traductor: await obtenerTraductor() };
+        } catch (error) {
+          traductor = null;
+          setEstado({
+            fase: "error",
+            motivo: `No se pudo preparar la traducción (${error instanceof Error ? error.message : String(error)}).`,
+          });
+          return;
+        }
+      }
+
+      const armada = await armarEnVivo(
+        { idiomaHablado: hablado, traduccion },
+        {
+          alCambiarLinea: actualizarLinea,
+          alQuedarCupo: setCupoRestante,
+          alAgotarseElCupo: (reintentarEnSegundos) => {
+            setCupoRestante(0);
+            void detener().then(() => setEstado({ fase: "sin-cupo", reintentarEnSegundos }));
+          },
+          alFallar: (motivo) => {
+            fallosSeguidos.current++;
+            if (fallosSeguidos.current < FALLOS_PARA_CORTAR) return;
+            void detener().then(() => setEstado({ fase: "error", motivo }));
+          },
+          alTerminarCaptura: () => void detener(),
+        },
+      );
+      if (!armada.ok) {
+        setEstado({ fase: "error", motivo: armada.motivo });
         return;
       }
-      grabacion.current = nueva.valor;
+      prueba.current = armada.valor;
       setEstado({ fase: "escuchando" });
     },
-    [terminar],
+    [actualizarLinea, detener],
   );
 
   const segundosRestantes = useLimiteDeTiempo(
     estado.fase === "escuchando",
     SEGUNDOS_POR_PRUEBA,
-    () => {
-      void terminar();
-    },
+    () => void detener(),
   );
+  // El servidor cuenta segundos de audio facturado; a la persona se le muestran pruebas.
+  const pruebasRestantes =
+    cupoRestante === null
+      ? null
+      : cupoRestante < CUPO_MINIMO
+        ? 0
+        : Math.ceil(cupoRestante / CUPO_POR_PRUEBA);
 
-  return { estado, linea, pruebasRestantes, segundosRestantes, iniciar, terminar };
+  return { estado, lineas, pruebasRestantes, segundosRestantes, iniciar, detener };
 }

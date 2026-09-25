@@ -2,7 +2,7 @@ import * as v from "valibot";
 import { esquemaIdioma } from "@nativox/compartido/contratos";
 import type { Cupos as CuposRespuesta, RespuestaTranscripcion } from "../contratos-landing/nube";
 import { leerDispositivo } from "./dispositivo";
-import { LIMITES, SEGUNDOS_POR_PRUEBA, type Decision, type Limite } from "./limites";
+import { LIMITES, SEGUNDOS_MAXIMOS_POR_PEDIDO, type Limite } from "./limites";
 import { registrarError } from "./registrador";
 import { validarWav } from "./wav";
 
@@ -55,15 +55,17 @@ async function transcribir(pedido: Request, env: Env, claves: Claves): Promise<R
   if (!idioma.success) return error(400, "pedido-invalido", "Falta el idioma (es, en o pt).");
 
   const audio = new Uint8Array(await pedido.arrayBuffer());
-  const wav = validarWav(audio, SEGUNDOS_POR_PRUEBA);
+  const wav = validarWav(audio, SEGUNDOS_MAXIMOS_POR_PEDIDO);
   if (!wav.ok) return error(400, "audio-invalido", wav.motivo);
+  const { segundos } = wav.valor;
+  const prompt = leerPrompt(pedido);
 
-  const consumidos = await consumirEnOrden(env, claves);
+  const consumidos = await consumirEnOrden(env, claves, segundos);
   if (!consumidos.ok) {
     return error(
       429,
       "sin-cupo",
-      "Ya usaste las pruebas disponibles.",
+      "Ya usaste el audio disponible.",
       consumidos.decision.reintentarEnSegundos,
     );
   }
@@ -74,6 +76,9 @@ async function transcribir(pedido: Request, env: Env, claves: Claves): Promise<R
       task: "transcribe",
       language: idioma.output,
       vad_filter: true,
+      // El glosario y lo último que se dijo (el navegador lo arma): mantiene los términos y la
+      // continuidad entre frases.
+      ...(prompt !== "" && { initial_prompt: prompt }),
     });
     const cuerpo: RespuestaTranscripcion = {
       ok: true,
@@ -82,8 +87,10 @@ async function transcribir(pedido: Request, env: Env, claves: Claves): Promise<R
     };
     return Response.json(cuerpo);
   } catch (causa) {
-    // Si el modelo falló, la prueba no cuenta.
-    await Promise.all(consumidos.claves.map((clave) => cupos(env, clave).devolver()));
+    // Si el modelo falló, ese audio no cuenta.
+    await Promise.all(
+      consumidos.usos.map(({ clave, momento }) => cupos(env, clave).devolver(momento, segundos)),
+    );
     registrarError("Falló Whisper en Workers AI", causa);
     return error(
       502,
@@ -95,20 +102,35 @@ async function transcribir(pedido: Request, env: Env, claves: Claves): Promise<R
 
 // Primero el dispositivo, después la IP y al final el sitio: si uno dice que no, se devuelven
 // los que ya se habían descontado.
-async function consumirEnOrden(env: Env, claves: Claves) {
-  const usados: string[] = [];
+async function consumirEnOrden(env: Env, claves: Claves, segundos: number) {
+  const usos: { clave: string; momento: number }[] = [];
   let restantes = Number.POSITIVE_INFINITY;
   for (const tipo of Object.keys(LIMITES) as (keyof typeof LIMITES)[]) {
     const limite: Limite = LIMITES[tipo];
-    const decision: Decision = await cupos(env, claves[tipo]).consumir(limite);
+    const decision = await cupos(env, claves[tipo]).consumir(limite, segundos);
     if (!decision.permitido) {
-      await Promise.all(usados.map((clave) => cupos(env, clave).devolver()));
+      await Promise.all(
+        usos.map(({ clave, momento }) => cupos(env, clave).devolver(momento, segundos)),
+      );
       return { ok: false as const, decision };
     }
-    usados.push(claves[tipo]);
+    usos.push({ clave: claves[tipo], momento: decision.momento });
     restantes = Math.min(restantes, decision.restantes);
   }
-  return { ok: true as const, restantes, claves: usados };
+  return { ok: true as const, restantes, usos };
+}
+
+const LARGO_MAXIMO_PROMPT = 800;
+
+// El prompt viaja en un encabezado (codificado) y no en la URL, para que no quede en los registros.
+function leerPrompt(pedido: Request): string {
+  const crudo = pedido.headers.get("X-Nativox-Prompt");
+  if (!crudo) return "";
+  try {
+    return decodeURIComponent(crudo).slice(0, LARGO_MAXIMO_PROMPT);
+  } catch {
+    return "";
+  }
 }
 
 function error(

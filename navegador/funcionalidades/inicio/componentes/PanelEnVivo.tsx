@@ -66,7 +66,7 @@ export function PanelEnVivo(propiedades: PropiedadesPanelEnVivo) {
                     ? "…"
                     : (linea.traducciones[mostrarEn] ?? "…");
               return (
-                <p key={linea.id} className={linea.provisoria ? "text-ink/45" : ""}>
+                <p key={linea.id} className={linea.provisoria ? "text-ink/20" : ""}>
                   {texto}
                 </p>
               );

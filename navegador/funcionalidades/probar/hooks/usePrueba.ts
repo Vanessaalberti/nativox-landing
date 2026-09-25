@@ -3,6 +3,8 @@ import type { Linea } from "@nativox/compartido/contratos";
 import type { Medicion } from "@nativox/navegador/modulos/flujo-subtitulos";
 import type { VarianteWhisper } from "@nativox/navegador/modulos/modelos-compartidos";
 import { armarPrueba, type ConfiguracionPrueba, type PruebaArmada } from "../motor/armar-prueba";
+import { cerrarPrueba } from "../motor/cerrar-prueba";
+import { conLinea } from "../motor/lineas";
 import { prepararModelos, type AvanceDescarga } from "../motor/preparar-modelos";
 
 export type EstadoPrueba =
@@ -25,21 +27,13 @@ export function usePrueba() {
   }, []);
 
   const actualizarLinea = useCallback((linea: Linea) => {
-    setLineas((anteriores) => {
-      const indice = anteriores.findIndex((existente) => existente.id === linea.id);
-      if (indice === -1) return [...anteriores, linea];
-      return anteriores.map((existente, i) => (i === indice ? linea : existente));
-    });
+    setLineas((anteriores) => conLinea(anteriores, linea));
   }, []);
 
   const detener = useCallback(async () => {
-    const actual = prueba.current;
-    if (!actual) return;
-    prueba.current = null;
-    actual.captura.detener();
-    setEstado({ fase: "terminando" });
-    await actual.flujo.terminar();
-    setEstado({ fase: "inactiva" });
+    if (await cerrarPrueba(prueba, () => setEstado({ fase: "terminando" }))) {
+      setEstado({ fase: "inactiva" });
+    }
   }, []);
 
   const iniciar = useCallback(

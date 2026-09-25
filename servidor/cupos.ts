@@ -1,33 +1,45 @@
 import { DurableObject } from "cloudflare:workers";
-import { aplicarLimite, type Decision, type Limite } from "./limites";
+import { aplicarLimite, medirCupo, type Decision, type Limite, type Uso } from "./limites";
 
-// Un objeto por clave (dispositivo, IP o el sitio entero): guarda cuándo se usó y decide si
-// queda cupo. Al ser un solo objeto por clave, dos pedidos simultáneos no se saltean el límite.
+// Un objeto por clave (dispositivo, IP o el sitio entero): guarda cuándo se usó y cuántos segundos
+// de audio, y decide si queda cupo. Al ser un solo objeto por clave, dos pedidos simultáneos no se
+// saltean el límite.
 export class Cupos extends DurableObject<Env> {
-  async consumir(limite: Limite): Promise<Decision> {
-    const { usos, decision } = aplicarLimite(await this.usos(), Date.now(), limite);
+  // `momento` identifica el uso: si la transcripción falla, se devuelve exactamente ese.
+  async consumir(limite: Limite, segundos: number): Promise<Decision & { momento: number }> {
+    const momento = Date.now();
+    const { usos, decision } = aplicarLimite(await this.usos(), momento, limite, segundos);
     await this.ctx.storage.put("usos", usos);
-    return decision;
+    return { ...decision, momento };
   }
 
   async consultar(limite: Limite): Promise<Decision> {
-    const vigentes = (await this.usos()).filter(
-      (momento) => Date.now() - momento < limite.periodoMs,
-    );
-    const { decision } = aplicarLimite(vigentes, Date.now(), limite);
-    return { ...decision, restantes: decision.permitido ? decision.restantes + 1 : 0 };
+    return medirCupo(await this.usos(), Date.now(), limite);
   }
 
-  // Si la transcripción falló, el uso no cuenta.
-  async devolver(): Promise<void> {
+  // Si la transcripción falló, ese audio no cuenta.
+  async devolver(momento: number, segundos: number): Promise<void> {
     const usos = await this.usos();
-    await this.ctx.storage.put("usos", usos.slice(0, -1));
+    const indice = usos.findIndex((uso) => uso.momento === momento && uso.segundos === segundos);
+    if (indice === -1) return;
+    await this.ctx.storage.put(
+      "usos",
+      usos.filter((_uso, i) => i !== indice),
+    );
   }
 
-  private async usos(): Promise<number[]> {
+  private async usos(): Promise<Uso[]> {
     const guardados: unknown = await this.ctx.storage.get("usos");
-    return Array.isArray(guardados)
-      ? guardados.filter((valor): valor is number => typeof valor === "number")
-      : [];
+    if (!Array.isArray(guardados)) return [];
+    const lista: unknown[] = guardados;
+    return lista.filter(
+      (valor): valor is Uso =>
+        typeof valor === "object" &&
+        valor !== null &&
+        "momento" in valor &&
+        "segundos" in valor &&
+        typeof valor.momento === "number" &&
+        typeof valor.segundos === "number",
+    );
   }
 }

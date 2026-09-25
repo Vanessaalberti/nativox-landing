@@ -21,7 +21,7 @@ React + Vite + Tailwind publicado en Cloudflare, con un Worker chico para la pru
 2. Nunca "Crear evento" acá: los eventos viven en la instancia de cada organizador.
 3. `navegador/copia-modulos/` no se edita a mano: se actualiza con `npm run sincronizar`.
 4. La comparación sale de `comparacion/`: números calculados, nunca escritos a mano.
-5. "Probar" corre en la placa de quien visita: no manda audio a ningún servidor. La portada sí (a Workers AI), con 15 s como mucho y cupo por dispositivo.
+5. "Probar" corre en la placa de quien visita: no manda audio a ningún servidor. La portada sí (a Workers AI, fragmento por fragmento), con 15 s como mucho y cupo por dispositivo medido en segundos de audio facturado.
 
 ## Límites de import (`eslint-plugin-boundaries`)
 
