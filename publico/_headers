@@ -1,6 +1,12 @@
+# Sin Referer. Hugging Face (de donde se bajan los modelos) responde 404, sin encabezados CORS, a
+# los pedidos cuyo Referer es un sitio *.workers.dev (medido el 25/09: con pages.dev, un dominio
+# propio o sin Referer responde bien), y el navegador lo muestra como "Failed to fetch". Como las
+# instancias de cada organizador se despliegan en workers.dev, hay que evitarlo en todas.
+
 # Toda la landing va aislada entre orígenes (habilita SharedArrayBuffer, que ONNX Runtime usa para
 # correr Whisper con varios hilos): en la portada y en "Probar" corren los modelos en la placa de
 # quien visita. La landing no se embebe en otros sitios, así que no bloquea nada.
 /*
+  Referrer-Policy: no-referrer
   Cross-Origin-Opener-Policy: same-origin
   Cross-Origin-Embedder-Policy: credentialless

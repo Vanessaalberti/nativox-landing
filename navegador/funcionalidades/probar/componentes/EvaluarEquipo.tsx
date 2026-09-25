@@ -2,7 +2,6 @@ import { Link } from "react-router";
 import type { Idioma } from "@nativox/compartido/contratos";
 import type { EstadoEvaluacion } from "../hooks/useEvaluacion";
 import type { AvanceEvaluacion } from "../motor/evaluar";
-import { describirAvance, NOMBRES_DE_IDIOMA } from "../textos";
 import { formatearSegundos, TEXTOS_EVALUACION } from "../textos-evaluacion";
 
 export interface PropiedadesEvaluarEquipo {
@@ -15,12 +14,9 @@ export interface PropiedadesEvaluarEquipo {
   alEvaluar: () => void;
 }
 
-// Qué paso de la lista (0 a 4) corresponde a cada etapa.
+// Qué paso de la lista (0 a 2) corresponde a cada etapa: el último (recomendar) es instantáneo.
 function pasoDe(etapa: AvanceEvaluacion["etapa"]): number {
-  if (etapa === "detectando") return 0;
-  if (etapa === "grabando") return 1;
-  if (etapa === "descargando") return 2;
-  return etapa === "transcribiendo" ? 3 : 4;
+  return etapa === "detectando" ? 0 : 1;
 }
 
 export function EvaluarEquipo({
@@ -73,7 +69,8 @@ export function EvaluarEquipo({
           {estado.fase === "lista" ? textos.reevaluar : textos.evaluar}
         </button>
         <p className="font-mono text-xs" role="status">
-          {evaluando && describirProgreso(estado.avance, idioma)}
+          {evaluando &&
+            (estado.avance.etapa === "detectando" ? textos.detectando : textos.midiendo)}
           {estado.fase === "error" && (
             <span className="text-red-700">
               {textos.fallo(textos.pasos[pasoDe(estado.etapa)] ?? "")}: {estado.motivo}
@@ -81,41 +78,9 @@ export function EvaluarEquipo({
           )}
         </p>
       </div>
-      {evaluando && estado.avance.etapa === "descargando" && (
-        <BarraDeDescarga proporcion={estado.avance.avance.proporcion} />
-      )}
 
       {estado.fase === "lista" && <Resultado idioma={idioma} estado={estado} rutaNube={rutaNube} />}
     </section>
-  );
-}
-
-function describirProgreso(avance: AvanceEvaluacion, idioma: Idioma): string {
-  const textos = TEXTOS_EVALUACION[idioma];
-  switch (avance.etapa) {
-    case "detectando":
-      return textos.detectando;
-    case "grabando":
-      return textos.hablaAhora(NOMBRES_DE_IDIOMA[idioma], avance.quedan);
-    case "descargando":
-      return describirAvance(avance.avance, idioma);
-    case "transcribiendo":
-      return textos.midiendoWhisper(avance.hecho + 1, avance.total);
-    case "traduciendo":
-      return textos.midiendoTraduccion("…");
-    case "traduciendo-a":
-      return textos.midiendoTraduccion(NOMBRES_DE_IDIOMA[avance.idioma]);
-  }
-}
-
-function BarraDeDescarga({ proporcion }: { proporcion: number | null }) {
-  return (
-    <div className="h-1.5 w-full bg-ink/10" aria-hidden>
-      <div
-        className="h-full bg-naranja transition-[width]"
-        style={{ width: `${String(Math.round((proporcion ?? 0) * 100))}%` }}
-      />
-    </div>
   );
 }
 
@@ -132,16 +97,20 @@ function Resultado({
   const { equipo, medidas, recomendacion } = estado.evaluacion;
   const filas: [string, string][] = [
     [textos.placa, equipo.placa ?? textos.placaSinNombre],
+    [textos.webgpu, equipo.webgpu ? textos.si : textos.no],
     [textos.f16, equipo.f16 ? textos.si : textos.no],
+    [textos.ram, equipo.memoriaGb === null ? textos.sinDato : textos.ramValor(equipo.memoriaGb)],
+    [textos.nucleos, equipo.nucleos === null ? textos.sinDato : String(equipo.nucleos)],
+    [
+      textos.buffer,
+      equipo.bufferMaximoMb === null ? textos.sinDato : textos.bufferValor(equipo.bufferMaximoMb),
+    ],
   ];
-  if (recomendacion.version) filas.push([textos.version, textos.versiones[recomendacion.version]]);
   if (medidas) {
-    filas.push([textos.pasada, formatearSegundos(medidas.pasadaMs, idioma)]);
-    filas.push([
-      textos.traduccion,
-      `${formatearSegundos(medidas.traduccionMs, idioma)} ${textos.porIdioma}`,
-    ]);
+    filas.push([textos.potencia, `${String(Math.round(medidas.gflops))} GFLOPS`]);
+    filas.push([textos.pasada, `~${formatearSegundos(medidas.pasadaEstimadaMs, idioma)}`]);
   }
+  if (recomendacion.version) filas.push([textos.version, textos.versiones[recomendacion.version]]);
 
   return (
     <div className="grid gap-4 border-t border-linea pt-4 md:grid-cols-2">

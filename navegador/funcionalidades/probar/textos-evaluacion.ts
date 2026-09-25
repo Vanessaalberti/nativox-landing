@@ -5,9 +5,34 @@ interface TextosEvaluacion {
   etiqueta: string;
   titulo: string;
   intro: string;
-  pasos: [string, string, string, string, string];
-  hablaAhora: (idioma: string, quedan: number) => string;
+  pasos: [string, string, string];
+  evaluar: string;
+  reevaluar: string;
+  detectando: string;
+  midiendo: string;
   fallo: (paso: string) => string;
+  // Lo que se muestra del equipo.
+  placa: string;
+  placaSinNombre: string;
+  webgpu: string;
+  f16: string;
+  ram: string;
+  ramValor: (gb: number) => string;
+  nucleos: string;
+  buffer: string;
+  bufferValor: (mb: number) => string;
+  potencia: string;
+  pasada: string;
+  version: string;
+  versiones: { fp16: string; q4: string };
+  si: string;
+  no: string;
+  sinDato: string;
+  recomendado: string;
+  porQue: string;
+  nube: string;
+  irALaNube: string;
+  gemma: string;
   controles: {
     traductor: string;
     bergamot: string;
@@ -18,26 +43,6 @@ interface TextosEvaluacion {
     sinIntentos: string;
     quedan: string;
   };
-  evaluar: string;
-  reevaluar: string;
-  detectando: string;
-  midiendoWhisper: (actual: number, total: number) => string;
-  midiendoTraduccion: (idioma: string) => string;
-  placa: string;
-  placaSinNombre: string;
-  f16: string;
-  si: string;
-  no: string;
-  version: string;
-  versiones: { fp16: string; q4: string };
-  pasada: string;
-  traduccion: string;
-  porIdioma: string;
-  recomendado: string;
-  porQue: string;
-  nube: string;
-  irALaNube: string;
-  gemma: string;
   barra: {
     titulo: string;
     ayuda: string;
@@ -50,27 +55,49 @@ interface TextosEvaluacion {
   motivos: (motivo: Motivo) => string;
 }
 
-const segundos = (ms: number, idioma: Idioma) =>
-  `${(ms / 1000).toLocaleString(idioma, { minimumFractionDigits: 1, maximumFractionDigits: 1 })} s`;
+export const formatearSegundos = (ms: number, idioma: Idioma) =>
+  Number.isFinite(ms)
+    ? `${(ms / 1000).toLocaleString(idioma, { minimumFractionDigits: 1, maximumFractionDigits: 1 })} s`
+    : "—";
 
 export const TEXTOS_EVALUACION: Record<Idioma, TextosEvaluacion> = {
   es: {
     etiqueta: "Antes de probar",
     titulo: "Evaluá tu computadora",
     intro:
-      "Un clic: bajamos los modelos (una sola vez), transcribimos y traducimos un audio de muestra y medimos cuánto tarda tu placa de video. Con eso te recomendamos cómo usarla y te dejamos elegido el nivel de velocidad.",
+      "Un clic: revisamos tu placa de video y tu memoria y medimos cuánta potencia tiene (unos segundos, sin descargar nada ni usar el micrófono). Con eso te recomendamos cómo usarla y te dejamos elegido el nivel de velocidad.",
     pasos: [
-      "Detectar la placa de video",
-      "Grabar tu voz (6 s) para medir con audio real",
-      "Descargar los modelos (Whisper y Bergamot), una sola vez",
-      "Transcribir tu voz y medir",
-      "Traducir y medir",
+      "Revisar tu placa de video y tu memoria",
+      "Medir la potencia de la placa (unos segundos)",
+      "Recomendar cómo usarla",
     ],
     evaluar: "Evaluar mi computadora",
     reevaluar: "Volver a evaluar",
-    detectando: "Detectando tu placa de video…",
-    hablaAhora: (idioma, quedan) => `Hablá en ${idioma}, con normalidad: ${String(quedan)} s…`,
+    detectando: "Revisando tu placa de video y tu memoria…",
+    midiendo: "Midiendo la potencia de tu placa…",
     fallo: (paso) => `Falló en «${paso}»`,
+    placa: "Placa de video",
+    placaSinNombre: "el navegador no informa el modelo",
+    webgpu: "WebGPU",
+    f16: "Soporte de 16 bits (f16)",
+    ram: "Memoria RAM",
+    ramValor: (gb) => `${String(gb)} GB (aprox.)`,
+    nucleos: "Núcleos del procesador",
+    buffer: "Memoria máxima por modelo",
+    bufferValor: (mb) => `${(mb / 1024).toLocaleString("es", { maximumFractionDigits: 1 })} GB`,
+    potencia: "Potencia de la placa",
+    pasada: "Una pasada de Whisper (estimada)",
+    version: "Whisper",
+    versiones: { fp16: "Sin comprimir (16 bits)", q4: "Comprimido (4 bits)" },
+    si: "Sí",
+    no: "No",
+    sinDato: "el navegador no lo informa",
+    recomendado: "Recomendado para tu computadora",
+    porQue: "Por qué",
+    nube: "Tu computadora no alcanza para transcribir en vivo por sí sola. Podés usar la transcripción en la nube:",
+    irALaNube: "Probarla en la portada →",
+    gemma:
+      "Tu placa tendría margen para TranslateGemma (traducción de más calidad, pero pesa ~2 a 3 GB y es más lenta que Bergamot). Podés elegirlo abajo, en «Traductor».",
     controles: {
       traductor: "Traductor",
       bergamot: "Bergamot · liviano y al instante",
@@ -85,25 +112,6 @@ export const TEXTOS_EVALUACION: Record<Idioma, TextosEvaluacion> = {
         "Ya usaste tus 4 pruebas con micrófono de hoy. Podés seguir con un archivo de audio o volver mañana.",
       quedan: "Quedan",
     },
-    midiendoWhisper: (actual, total) =>
-      `Midiendo Whisper: pasada ${String(actual)} de ${String(total)}…`,
-    midiendoTraduccion: (idioma) => `Midiendo la traducción a ${idioma}…`,
-    placa: "Placa de video",
-    placaSinNombre: "el navegador no informa el modelo",
-    f16: "Soporte de 16 bits (f16)",
-    si: "Sí",
-    no: "No",
-    version: "Whisper",
-    versiones: { fp16: "Sin comprimir (16 bits)", q4: "Comprimido (4 bits)" },
-    pasada: "Una pasada de Whisper",
-    traduccion: "Traducción (Bergamot)",
-    porIdioma: "por idioma",
-    recomendado: "Recomendado para tu computadora",
-    porQue: "Por qué",
-    nube: "Tu computadora no alcanza para transcribir en vivo por sí sola. Podés usar la transcripción en la nube:",
-    irALaNube: "Probarla en la portada →",
-    gemma:
-      "Tu placa tendría margen para TranslateGemma (traducción de más calidad, pero pesa ~2 a 3 GB y es más lenta que Bergamot). Podés elegirlo abajo, en «Traductor».",
     barra: {
       titulo: "Nivel de velocidad",
       ayuda: "Cuánto trabajo le pedís a tu placa. Más nivel, el texto aparece antes.",
@@ -127,18 +135,22 @@ export const TEXTOS_EVALUACION: Record<Idioma, TextosEvaluacion> = {
           return "Tu placa soporta 16 bits: Whisper corre sin comprimir, con mejor calidad.";
         case "sin-f16-comprimido":
           return "Tu placa no soporta 16 bits: Whisper corre comprimido (4 bits), que rinde bien en equipos más modestos.";
+        case "poca-memoria":
+          return `Tu computadora tiene poca memoria (${String(motivo.memoriaGb)} GB): cerrá otras pestañas al usar los modelos.`;
         case "pasada-rapida":
-          return `Una pasada de Whisper tarda ${segundos(motivo.pasadaMs, "es")}: alcanza para actualizar el texto muy seguido.`;
+          return `Estimamos ${formatearSegundos(motivo.pasadaMs, "es")} por pasada de Whisper: alcanza para actualizar el texto muy seguido.`;
         case "pasada-media":
-          return `Una pasada de Whisper tarda ${segundos(motivo.pasadaMs, "es")}: el texto provisorio se actualiza cada un par de segundos.`;
+          return `Estimamos ${formatearSegundos(motivo.pasadaMs, "es")} por pasada de Whisper: el texto provisorio se actualiza cada un par de segundos.`;
         case "pasada-lenta":
-          return `Una pasada de Whisper tarda ${segundos(motivo.pasadaMs, "es")}: conviene mostrar frases completas para que no se acumule cola.`;
+          return `Estimamos ${formatearSegundos(motivo.pasadaMs, "es")} por pasada de Whisper: conviene mostrar frases completas para que no se acumule cola.`;
         case "pasada-muy-lenta":
-          return `Una pasada de Whisper tarda ${segundos(motivo.pasadaMs, "es")}: es más de lo que dura una frase.`;
+          return `Estimamos ${formatearSegundos(motivo.pasadaMs, "es")} por pasada de Whisper: es más de lo que dura una frase.`;
         case "no-llega-en-vivo":
-          return `Con ${segundos(motivo.pasadaMs, "es")} por pasada el texto se atrasaría más y más, incluso con frases completas.`;
+          return `Con ${formatearSegundos(motivo.pasadaMs, "es")} por pasada el texto se atrasaría más y más, incluso con frases completas.`;
         case "margen-para-gemma":
-          return "Tu placa es rápida y tiene 16 bits: tendría margen para un traductor de más calidad.";
+          return "Tu placa es potente y tiene 16 bits: tendría margen para un traductor de más calidad.";
+        case "gemma-pide-memoria":
+          return "TranslateGemma pide un modelo de ~2 GB y tu equipo no tiene memoria de sobra: conviene Bergamot.";
       }
     },
   },
@@ -146,19 +158,39 @@ export const TEXTOS_EVALUACION: Record<Idioma, TextosEvaluacion> = {
     etiqueta: "Before you try",
     titulo: "Check your computer",
     intro:
-      "One click: we download the models (only once), transcribe and translate a sample audio and measure how long your graphics card takes. With that we recommend how to use it and pick the speed level for you.",
+      "One click: we check your graphics card and your memory and measure how powerful the card is (a few seconds, no downloads and no microphone). With that we recommend how to use it and pick the speed level for you.",
     pasos: [
-      "Detect the graphics card",
-      "Record your voice (6 s) to measure with real audio",
-      "Download the models (Whisper and Bergamot), only once",
-      "Transcribe your voice and measure",
-      "Translate and measure",
+      "Check your graphics card and memory",
+      "Measure the card's power (a few seconds)",
+      "Recommend how to use it",
     ],
     evaluar: "Check my computer",
     reevaluar: "Check again",
-    detectando: "Detecting your graphics card…",
-    hablaAhora: (idioma, quedan) => `Speak in ${idioma}, normally: ${String(quedan)} s…`,
+    detectando: "Checking your graphics card and memory…",
+    midiendo: "Measuring your card's power…",
     fallo: (paso) => `Failed at “${paso}”`,
+    placa: "Graphics card",
+    placaSinNombre: "the browser does not report the model",
+    webgpu: "WebGPU",
+    f16: "16-bit support (f16)",
+    ram: "RAM",
+    ramValor: (gb) => `${String(gb)} GB (approx.)`,
+    nucleos: "CPU cores",
+    buffer: "Max memory per model",
+    bufferValor: (mb) => `${(mb / 1024).toLocaleString("en", { maximumFractionDigits: 1 })} GB`,
+    potencia: "Card power",
+    pasada: "One Whisper pass (estimated)",
+    version: "Whisper",
+    versiones: { fp16: "Uncompressed (16-bit)", q4: "Compressed (4-bit)" },
+    si: "Yes",
+    no: "No",
+    sinDato: "the browser does not report it",
+    recomendado: "Recommended for your computer",
+    porQue: "Why",
+    nube: "Your computer can't transcribe live on its own. You can use cloud transcription:",
+    irALaNube: "Try it on the home page →",
+    gemma:
+      "Your card would have room for TranslateGemma (higher-quality translation, but it weighs ~2 to 3 GB and is slower than Bergamot). You can pick it below, under “Translator”.",
     controles: {
       traductor: "Translator",
       bergamot: "Bergamot · light and instant",
@@ -173,25 +205,6 @@ export const TEXTOS_EVALUACION: Record<Idioma, TextosEvaluacion> = {
         "You used your 4 microphone tries for today. You can keep going with an audio file or come back tomorrow.",
       quedan: "Remaining:",
     },
-    midiendoWhisper: (actual, total) =>
-      `Measuring Whisper: pass ${String(actual)} of ${String(total)}…`,
-    midiendoTraduccion: (idioma) => `Measuring translation to ${idioma}…`,
-    placa: "Graphics card",
-    placaSinNombre: "the browser does not report the model",
-    f16: "16-bit support (f16)",
-    si: "Yes",
-    no: "No",
-    version: "Whisper",
-    versiones: { fp16: "Uncompressed (16-bit)", q4: "Compressed (4-bit)" },
-    pasada: "One Whisper pass",
-    traduccion: "Translation (Bergamot)",
-    porIdioma: "per language",
-    recomendado: "Recommended for your computer",
-    porQue: "Why",
-    nube: "Your computer can't transcribe live on its own. You can use cloud transcription:",
-    irALaNube: "Try it on the home page →",
-    gemma:
-      "Your card would have room for TranslateGemma (higher-quality translation, but it weighs ~2 to 3 GB and is slower than Bergamot). You can pick it below, under “Translator”.",
     barra: {
       titulo: "Speed level",
       ayuda:
@@ -216,18 +229,22 @@ export const TEXTOS_EVALUACION: Record<Idioma, TextosEvaluacion> = {
           return "Your card supports 16-bit: Whisper runs uncompressed, with better quality.";
         case "sin-f16-comprimido":
           return "Your card doesn't support 16-bit: Whisper runs compressed (4-bit), which works well on more modest machines.";
+        case "poca-memoria":
+          return `Your computer has little memory (${String(motivo.memoriaGb)} GB): close other tabs while using the models.`;
         case "pasada-rapida":
-          return `One Whisper pass takes ${segundos(motivo.pasadaMs, "en")}: fast enough to refresh the text very often.`;
+          return `We estimate ${formatearSegundos(motivo.pasadaMs, "en")} per Whisper pass: fast enough to refresh the text very often.`;
         case "pasada-media":
-          return `One Whisper pass takes ${segundos(motivo.pasadaMs, "en")}: the draft text refreshes every couple of seconds.`;
+          return `We estimate ${formatearSegundos(motivo.pasadaMs, "en")} per Whisper pass: the draft text refreshes every couple of seconds.`;
         case "pasada-lenta":
-          return `One Whisper pass takes ${segundos(motivo.pasadaMs, "en")}: showing full sentences avoids a growing queue.`;
+          return `We estimate ${formatearSegundos(motivo.pasadaMs, "en")} per Whisper pass: showing full sentences avoids a growing queue.`;
         case "pasada-muy-lenta":
-          return `One Whisper pass takes ${segundos(motivo.pasadaMs, "en")}: longer than a sentence lasts.`;
+          return `We estimate ${formatearSegundos(motivo.pasadaMs, "en")} per Whisper pass: longer than a sentence lasts.`;
         case "no-llega-en-vivo":
-          return `At ${segundos(motivo.pasadaMs, "en")} per pass the text would fall further and further behind, even with full sentences.`;
+          return `At ${formatearSegundos(motivo.pasadaMs, "en")} per pass the text would fall further and further behind, even with full sentences.`;
         case "margen-para-gemma":
-          return "Your card is fast and has 16-bit: it would have room for a higher-quality translator.";
+          return "Your card is powerful and has 16-bit: it would have room for a higher-quality translator.";
+        case "gemma-pide-memoria":
+          return "TranslateGemma needs a ~2 GB model and your machine has no memory to spare: Bergamot is the better fit.";
       }
     },
   },
@@ -235,19 +252,39 @@ export const TEXTOS_EVALUACION: Record<Idioma, TextosEvaluacion> = {
     etiqueta: "Antes de testar",
     titulo: "Avalie o seu computador",
     intro:
-      "Um clique: baixamos os modelos (uma única vez), transcrevemos e traduzimos um áudio de exemplo e medimos quanto tempo a sua placa de vídeo leva. Com isso recomendamos como usá-la e já deixamos escolhido o nível de velocidade.",
+      "Um clique: verificamos a sua placa de vídeo e a sua memória e medimos quanta potência ela tem (alguns segundos, sem baixar nada e sem usar o microfone). Com isso recomendamos como usá-la e já deixamos escolhido o nível de velocidade.",
     pasos: [
-      "Detectar a placa de vídeo",
-      "Gravar a sua voz (6 s) para medir com áudio real",
-      "Baixar os modelos (Whisper e Bergamot), uma única vez",
-      "Transcrever a sua voz e medir",
-      "Traduzir e medir",
+      "Verificar a sua placa de vídeo e a memória",
+      "Medir a potência da placa (alguns segundos)",
+      "Recomendar como usá-la",
     ],
     evaluar: "Avaliar o meu computador",
     reevaluar: "Avaliar de novo",
-    detectando: "Detectando a sua placa de vídeo…",
-    hablaAhora: (idioma, quedan) => `Fale em ${idioma}, normalmente: ${String(quedan)} s…`,
+    detectando: "Verificando a sua placa de vídeo e a memória…",
+    midiendo: "Medindo a potência da sua placa…",
     fallo: (paso) => `Falhou em “${paso}”`,
+    placa: "Placa de vídeo",
+    placaSinNombre: "o navegador não informa o modelo",
+    webgpu: "WebGPU",
+    f16: "Suporte a 16 bits (f16)",
+    ram: "Memória RAM",
+    ramValor: (gb) => `${String(gb)} GB (aprox.)`,
+    nucleos: "Núcleos do processador",
+    buffer: "Memória máxima por modelo",
+    bufferValor: (mb) => `${(mb / 1024).toLocaleString("pt", { maximumFractionDigits: 1 })} GB`,
+    potencia: "Potência da placa",
+    pasada: "Uma passada do Whisper (estimada)",
+    version: "Whisper",
+    versiones: { fp16: "Sem compressão (16 bits)", q4: "Comprimido (4 bits)" },
+    si: "Sim",
+    no: "Não",
+    sinDato: "o navegador não informa",
+    recomendado: "Recomendado para o seu computador",
+    porQue: "Por quê",
+    nube: "O seu computador não consegue transcrever ao vivo sozinho. Você pode usar a transcrição na nuvem:",
+    irALaNube: "Testar na página inicial →",
+    gemma:
+      "A sua placa teria margem para o TranslateGemma (tradução de mais qualidade, mas pesa ~2 a 3 GB e é mais lento que o Bergamot). Você pode escolhê-lo abaixo, em “Tradutor”.",
     controles: {
       traductor: "Tradutor",
       bergamot: "Bergamot · leve e instantâneo",
@@ -262,25 +299,6 @@ export const TEXTOS_EVALUACION: Record<Idioma, TextosEvaluacion> = {
         "Você usou seus 4 testes com microfone de hoje. Pode continuar com um arquivo de áudio ou voltar amanhã.",
       quedan: "Restam",
     },
-    midiendoWhisper: (actual, total) =>
-      `Medindo o Whisper: passada ${String(actual)} de ${String(total)}…`,
-    midiendoTraduccion: (idioma) => `Medindo a tradução para ${idioma}…`,
-    placa: "Placa de vídeo",
-    placaSinNombre: "o navegador não informa o modelo",
-    f16: "Suporte a 16 bits (f16)",
-    si: "Sim",
-    no: "Não",
-    version: "Whisper",
-    versiones: { fp16: "Sem compressão (16 bits)", q4: "Comprimido (4 bits)" },
-    pasada: "Uma passada do Whisper",
-    traduccion: "Tradução (Bergamot)",
-    porIdioma: "por idioma",
-    recomendado: "Recomendado para o seu computador",
-    porQue: "Por quê",
-    nube: "O seu computador não consegue transcrever ao vivo sozinho. Você pode usar a transcrição na nuvem:",
-    irALaNube: "Testar na página inicial →",
-    gemma:
-      "A sua placa teria folga para o TranslateGemma (tradução de mais qualidade, mas pesa ~2 a 3 GB e é mais lento que o Bergamot). Você pode escolhê-lo abaixo, em “Tradutor”.",
     barra: {
       titulo: "Nível de velocidade",
       ayuda:
@@ -305,21 +323,23 @@ export const TEXTOS_EVALUACION: Record<Idioma, TextosEvaluacion> = {
           return "A sua placa suporta 16 bits: o Whisper roda sem compressão, com melhor qualidade.";
         case "sin-f16-comprimido":
           return "A sua placa não suporta 16 bits: o Whisper roda comprimido (4 bits), que rende bem em equipamentos mais modestos.";
+        case "poca-memoria":
+          return `O seu computador tem pouca memória (${String(motivo.memoriaGb)} GB): feche outras abas ao usar os modelos.`;
         case "pasada-rapida":
-          return `Uma passada do Whisper leva ${segundos(motivo.pasadaMs, "pt")}: dá para atualizar o texto bem seguido.`;
+          return `Estimamos ${formatearSegundos(motivo.pasadaMs, "pt")} por passada do Whisper: dá para atualizar o texto bem seguido.`;
         case "pasada-media":
-          return `Uma passada do Whisper leva ${segundos(motivo.pasadaMs, "pt")}: o texto provisório se atualiza a cada par de segundos.`;
+          return `Estimamos ${formatearSegundos(motivo.pasadaMs, "pt")} por passada do Whisper: o texto provisório se atualiza a cada par de segundos.`;
         case "pasada-lenta":
-          return `Uma passada do Whisper leva ${segundos(motivo.pasadaMs, "pt")}: convém mostrar frases completas para não acumular fila.`;
+          return `Estimamos ${formatearSegundos(motivo.pasadaMs, "pt")} por passada do Whisper: convém mostrar frases completas para não acumular fila.`;
         case "pasada-muy-lenta":
-          return `Uma passada do Whisper leva ${segundos(motivo.pasadaMs, "pt")}: mais do que dura uma frase.`;
+          return `Estimamos ${formatearSegundos(motivo.pasadaMs, "pt")} por passada do Whisper: mais do que dura uma frase.`;
         case "no-llega-en-vivo":
-          return `Com ${segundos(motivo.pasadaMs, "pt")} por passada o texto ficaria cada vez mais atrasado, mesmo com frases completas.`;
+          return `Com ${formatearSegundos(motivo.pasadaMs, "pt")} por passada o texto ficaria cada vez mais atrasado, mesmo com frases completas.`;
         case "margen-para-gemma":
-          return "A sua placa é rápida e tem 16 bits: teria margem para um tradutor de mais qualidade.";
+          return "A sua placa é potente e tem 16 bits: teria margem para um tradutor de mais qualidade.";
+        case "gemma-pide-memoria":
+          return "O TranslateGemma pede um modelo de ~2 GB e o seu equipamento não tem memória de sobra: o Bergamot é mais indicado.";
       }
     },
   },
 };
-
-export { segundos as formatearSegundos };

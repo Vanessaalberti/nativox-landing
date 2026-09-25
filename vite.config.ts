@@ -20,6 +20,7 @@ const aislamientoEnDesarrollo: Plugin = {
   name: "nativox:aislamiento-en-desarrollo",
   configureServer(servidor) {
     servidor.middlewares.use((_pedido, respuesta, seguir) => {
+      respuesta.setHeader("Referrer-Policy", "no-referrer");
       respuesta.setHeader("Cross-Origin-Opener-Policy", "same-origin");
       respuesta.setHeader("Cross-Origin-Embedder-Policy", "credentialless");
       seguir();

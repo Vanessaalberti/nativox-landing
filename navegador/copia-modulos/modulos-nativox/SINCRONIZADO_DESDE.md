@@ -50,12 +50,12 @@
 | `navegador/modulos/cortador-audio/pausas.ts` | `92ebd9ea9ba08fdc0c1fd5ba6f9089c3ca78bde27220e8d7cf7fd37729ec9190` |
 | `navegador/modulos/cortador-audio/README.md` | `d22b880fb328dac71c1640966e270c8b7474bf945b6c5fe6ac2daf008052547f` |
 | `navegador/modulos/cortador-audio/silencios.ts` | `f39d167f8b92e359072234c1b5a416549f9ef053447e9e495be95171e0530c7f` |
-| `navegador/modulos/evaluar-equipo/index.ts` | `f3cfb50584d3c8a973261de3682c0f0c824cd0ee3355911eb41437be4669ba34` |
-| `navegador/modulos/evaluar-equipo/medicion.ts` | `b6a04f18e5aea419094d1010ff75b4d2d211e0ac2c00af2a4ba742f7b6cdde49` |
+| `navegador/modulos/evaluar-equipo/index.ts` | `c44db8dbf54125627183b03bb123dc8fdee1aa7a1f2479ef496168500e64fce9` |
 | `navegador/modulos/evaluar-equipo/niveles.ts` | `09d4a98f235f64949a4b8639569fb8806e4aff67f007004e738a3a8dcab81d23` |
-| `navegador/modulos/evaluar-equipo/placa.ts` | `a9401cee363335eee5af3b99039ca04f92e9c70808e3f3287c49bbe988c9ae17` |
+| `navegador/modulos/evaluar-equipo/placa.ts` | `928750ced6ae004c52b51c8180efee762967fb937a243825c9be1396bbf85a7a` |
 | `navegador/modulos/evaluar-equipo/README.md` | `517f7756f01a1384ef16d1a2885e819b96e1546f2d0690cd13cbe05d9673864e` |
-| `navegador/modulos/evaluar-equipo/recomendacion.ts` | `f3341ee47ec86ce7a4533388b91ee729353ca633e1cce4eb712e72a4d448ab51` |
+| `navegador/modulos/evaluar-equipo/recomendacion.ts` | `9e386996118f9b9a2e044a71e507e6d800e05cdec793aa9e75a6138bf83b9aba` |
+| `navegador/modulos/evaluar-equipo/rendimiento.ts` | `9f00b0ccc39d6d8cabb9ab79cefa2e39973a2139026c1e15c8532619be176372` |
 | `navegador/modulos/flujo-subtitulos/correccion-de-limite.ts` | `7727dbff4b1fcf97a6e2a9219550b246fdfd92b33b1411155f0099bd1150c8e3` |
 | `navegador/modulos/flujo-subtitulos/flujo.ts` | `d25823a5793d013f8fd9d681f0c1aaaa797f7dcbbbbcf19355dbbd5536bac74c` |
 | `navegador/modulos/flujo-subtitulos/index.ts` | `2341abf0370fe163b53fed9828e4dbd32d034555f7ef10248809d34dbb4f8332` |
