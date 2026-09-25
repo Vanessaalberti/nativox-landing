@@ -15,6 +15,8 @@ interface TextosProbar {
   idiomaOriginal: string;
   traducirA: string;
   glosario: string;
+  glosarioAyuda: string;
+  glosarioDescartado: (renglones: number) => string;
   iniciar: string;
   transcripcion: string;
   vacio: string;
@@ -44,6 +46,10 @@ export const TEXTOS_PROBAR: Record<Idioma, TextosProbar> = {
     idiomaOriginal: "Idioma que se habla",
     traducirA: "Traducir a",
     glosario: "Glosario (opcional, un término por renglón)",
+    glosarioAyuda:
+      "Solo palabras o siglas que querés que salgan bien escritas. No pegues acá lo que vas a decir: el modelo lo repetiría.",
+    glosarioDescartado: (renglones) =>
+      `Ignoramos ${String(renglones)} renglón(es) del glosario por parecer frases, no términos.`,
     iniciar: "Probar en mi computadora →",
     transcripcion: "Transcripción",
     vacio: "Acá aparece lo que se va diciendo.",
@@ -78,6 +84,10 @@ export const TEXTOS_PROBAR: Record<Idioma, TextosProbar> = {
     idiomaOriginal: "Spoken language",
     traducirA: "Translate to",
     glosario: "Glossary (optional, one term per line)",
+    glosarioAyuda:
+      "Only words or acronyms you want spelled right. Do not paste what you are going to say: the model would repeat it.",
+    glosarioDescartado: (renglones) =>
+      `We ignored ${String(renglones)} glossary line(s) because they look like sentences, not terms.`,
     iniciar: "Try it on my computer →",
     transcripcion: "Transcription",
     vacio: "What is being said shows up here.",
@@ -112,6 +122,10 @@ export const TEXTOS_PROBAR: Record<Idioma, TextosProbar> = {
     idiomaOriginal: "Idioma falado",
     traducirA: "Traduzir para",
     glosario: "Glossário (opcional, um termo por linha)",
+    glosarioAyuda:
+      "Só palavras ou siglas que você quer ver bem escritas. Não cole aqui o que vai dizer: o modelo o repetiria.",
+    glosarioDescartado: (renglones) =>
+      `Ignoramos ${String(renglones)} linha(s) do glossário por parecerem frases, não termos.`,
     iniciar: "Testar no meu computador →",
     transcripcion: "Transcrição",
     vacio: "O que está sendo dito aparece aqui.",

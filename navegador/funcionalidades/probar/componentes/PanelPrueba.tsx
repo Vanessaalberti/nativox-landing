@@ -75,7 +75,7 @@ export function PanelPrueba({
             alEvaluar={() => void evaluacion.evaluar()}
           />
         </div>
-        <div className="flex flex-col gap-4 border-[1.5px] border-ink/15 bg-canvas p-5 lg:col-span-7">
+        <div className="flex flex-col justify-center gap-4 border-[1.5px] border-ink/15 bg-canvas p-5 lg:col-span-7">
           {enCurso ? (
             <EscenarioDePrueba
               idioma={idioma}

@@ -24,7 +24,7 @@ export function EscenarioDePrueba({ idioma, prueba, alEnviar }: PropiedadesEscen
 
   return (
     <div
-      className="flex min-h-[320px] flex-col items-center justify-center gap-5 px-2 py-6 text-center"
+      className="flex min-h-[320px] w-full flex-1 flex-col items-center justify-center gap-5 px-2 py-6 text-center"
       role="status"
       aria-live="polite"
     >

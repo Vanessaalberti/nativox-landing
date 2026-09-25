@@ -2,6 +2,7 @@ import { useState } from "react";
 import { IDIOMAS, esquemaIdioma, validar, type Idioma } from "@nativox/compartido/contratos";
 import type { Nivel } from "@nativox/navegador/modulos/evaluar-equipo";
 import type { ConfiguracionElegida } from "../motor/armar-prueba";
+import { limpiarGlosarioDePrueba } from "../motor/glosario-de-prueba";
 import type { ElegirTraductor } from "../motor/preparar-modelos";
 import { NOMBRES_DE_IDIOMA, TEXTOS_PROBAR } from "../textos";
 import { TEXTOS_EVALUACION } from "../textos-evaluacion";
@@ -42,6 +43,7 @@ export function FormularioPrueba({
   // Se puede traducir a uno, a los dos o a ninguno.
   const [destino, setDestino] = useState<Idioma[]>(IDIOMAS.filter((i) => i !== idioma).slice(0, 1));
   const [glosario, setGlosario] = useState("");
+  const [descartados, setDescartados] = useState(0);
 
   const cambiarOriginal = (valor: string) => {
     const leido = validar(esquemaIdioma, valor);
@@ -60,10 +62,12 @@ export function FormularioPrueba({
       className="grid gap-4 md:grid-cols-2"
       onSubmit={(evento) => {
         evento.preventDefault();
+        const limpio = limpiarGlosarioDePrueba(glosario);
+        setDescartados(limpio.descartados);
         alIniciar({
           idiomaOriginal: original,
           idiomasDestino: destino,
-          glosario,
+          glosario: limpio.texto,
           nivel,
           traductor,
         });
@@ -107,6 +111,12 @@ export function FormularioPrueba({
           rows={3}
           className={campo}
         />
+        <span className="font-mono text-[11px] text-ink/50">{textos.glosarioAyuda}</span>
+        {descartados > 0 && (
+          <span className="font-mono text-[11px] text-naranja">
+            {textos.glosarioDescartado(descartados)}
+          </span>
+        )}
       </label>
       <SelectorDeTraductor
         idioma={idioma}
