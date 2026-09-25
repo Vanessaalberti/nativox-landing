@@ -1,6 +1,6 @@
 # Nativox — landing
 
-La página pública de Nativox: qué es, cómo funciona, **comparación con charlas reales**, "Probar en mi computadora" y el botón **"Deploy to Cloudflare"**. La despliega Vanessa una vez; los datos de los eventos nunca viven acá (cada organizador despliega su propia instancia de [nativox-app](https://github.com/Vanessaalberti/nativox-app)).
+La página pública de Nativox: qué es, cómo funciona, **comparación con charlas reales**, "Probar en mi computadora" y el botón **"Deploy to Cloudflare"**. Es un sitio aparte del producto (no es open source, ver *Licencia*) y la despliega Vanessa una vez; los datos de los eventos nunca viven acá (cada organizador despliega su propia instancia de [nativox-app](https://github.com/Vanessaalberti/nativox-app)).
 
 ## Páginas
 
@@ -39,4 +39,6 @@ npm run dev
 
 ## Licencia
 
-MIT — ver `LICENSE`.
+**Esta landing no es open source:** es propiedad de su autora y tiene todos los derechos reservados (ver `LICENSE`). Sirve solo para presentar el producto.
+
+El **producto open source es [nativox-app](https://github.com/Vanessaalberti/nativox-app)**, con licencia MIT: es el repositorio que contiene toda la funcionalidad (la aplicación que cada organizador despliega en su propia cuenta de Cloudflare) y el proyecto en sí. La única parte de este repositorio que es MIT es `navegador/copia-modulos/`, porque es una copia de código de nativox-app.

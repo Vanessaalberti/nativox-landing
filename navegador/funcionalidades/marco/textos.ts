@@ -20,7 +20,7 @@ export const TEXTOS_MARCO: Record<
     desplegar: "Desplegar",
     test: "Test",
     creadoPor: "Creado por",
-    proyecto: "Proyecto open source para la Vibeathon de Nerdearla 2026.",
+    proyecto: "Nativox es open source · Vibeathon de Nerdearla 2026.",
     idiomas: "Idioma de la página",
   },
   en: {
@@ -30,7 +30,7 @@ export const TEXTOS_MARCO: Record<
     desplegar: "Deploy",
     test: "Test",
     creadoPor: "Created by",
-    proyecto: "Open source project for the Nerdearla 2026 Vibeathon.",
+    proyecto: "Nativox is open source · Nerdearla 2026 Vibeathon.",
     idiomas: "Page language",
   },
   pt: {
@@ -40,7 +40,7 @@ export const TEXTOS_MARCO: Record<
     desplegar: "Implantar",
     test: "Teste",
     creadoPor: "Criado por",
-    proyecto: "Projeto open source para a Vibeathon da Nerdearla 2026.",
+    proyecto: "O Nativox é open source · Vibeathon da Nerdearla 2026.",
     idiomas: "Idioma da página",
   },
 };
