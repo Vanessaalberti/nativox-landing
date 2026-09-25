@@ -78,6 +78,7 @@ export const TEXTOS_PROBAR: Record<Idioma, TextosProbar> = {
       revisando: "Revisando tu placa de video…",
       whisper: "Descargando Whisper (solo la primera vez)",
       traductor: "Preparando el traductor…",
+      gemma: "Descargando TranslateGemma (~2 a 3 GB, solo la primera vez)",
     },
   },
   en: {
@@ -118,6 +119,7 @@ export const TEXTOS_PROBAR: Record<Idioma, TextosProbar> = {
       revisando: "Checking your graphics card…",
       whisper: "Downloading Whisper (first time only)",
       traductor: "Getting the translator ready…",
+      gemma: "Downloading TranslateGemma (~2 to 3 GB, first time only)",
     },
   },
   pt: {
@@ -158,6 +160,7 @@ export const TEXTOS_PROBAR: Record<Idioma, TextosProbar> = {
       revisando: "Verificando sua placa de vídeo…",
       whisper: "Baixando o Whisper (só na primeira vez)",
       traductor: "Preparando o tradutor…",
+      gemma: "Baixando o TranslateGemma (~2 a 3 GB, só na primeira vez)",
     },
   },
 };

@@ -5,7 +5,13 @@ import {
   type Modelos,
   type VarianteWhisper,
 } from "@nativox/navegador/modulos/modelos-compartidos";
-import { crearBergamot, type Traductor } from "@nativox/navegador/modulos/traduccion";
+import {
+  crearBergamot,
+  crearTranslateGemma,
+  type Traductor,
+} from "@nativox/navegador/modulos/traduccion";
+
+export type ElegirTraductor = "bergamot" | "translategemma";
 
 export interface ModelosListos {
   modelos: Modelos;
@@ -15,7 +21,7 @@ export interface ModelosListos {
 
 // 0 a 1, o null mientras no se sabe cuánto falta.
 export type AvanceDescarga = {
-  etapa: "revisando" | "whisper" | "traductor";
+  etapa: "revisando" | "whisper" | "traductor" | "gemma";
   proporcion: number | null;
 };
 
@@ -23,17 +29,55 @@ export type AvanceDescarga = {
 // vuelve a bajar, y la segunda visita los lee del disco.
 let cargados: Promise<Resultado<ModelosListos>> | null = null;
 
+// TranslateGemma pesa ~2 a 3 GB: solo se baja si se elige, y también queda cargado por pestaña.
+let gemma: Promise<Resultado<Traductor>> | null = null;
+
 export function prepararModelos(
-  pares: { de: Idioma; a: readonly Idioma[] },
+  pares: { de: Idioma; a: readonly Idioma[]; traductor: ElegirTraductor },
   alAvanzar: (avance: AvanceDescarga) => void,
 ): Promise<Resultado<ModelosListos>> {
   cargados ??= cargarUnaVez(alAvanzar).then((resultado) => {
     if (!resultado.ok) cargados = null;
     return resultado;
   });
-  return cargados.then((resultado) =>
-    resultado.ok ? prepararTraducciones(resultado.valor, pares, alAvanzar) : resultado,
-  );
+  return cargados.then((resultado) => {
+    if (!resultado.ok) return resultado;
+    return pares.traductor === "translategemma"
+      ? conGemma(resultado.valor, alAvanzar)
+      : prepararTraducciones(resultado.valor, pares, alAvanzar);
+  });
+}
+
+async function conGemma(
+  listos: ModelosListos,
+  alAvanzar: (avance: AvanceDescarga) => void,
+): Promise<Resultado<ModelosListos>> {
+  gemma ??= cargarGemma(listos, alAvanzar).then((resultado) => {
+    if (!resultado.ok) gemma = null;
+    return resultado;
+  });
+  const traductor = await gemma;
+  return traductor.ok ? { ok: true, valor: { ...listos, traductor: traductor.valor } } : traductor;
+}
+
+async function cargarGemma(
+  listos: ModelosListos,
+  alAvanzar: (avance: AvanceDescarga) => void,
+): Promise<Resultado<Traductor>> {
+  alAvanzar({ etapa: "gemma", proporcion: 0 });
+  const carga = await listos.modelos.cargarGemma(listos.variante, (cargado, total) => {
+    alAvanzar({ etapa: "gemma", proporcion: total > 0 ? cargado / total : null });
+  });
+  if (!carga.ok) return carga;
+  return {
+    ok: true,
+    valor: crearTranslateGemma({
+      traducir: async (pedido) => {
+        const traduccion = await listos.modelos.traducirGemma(pedido);
+        return traduccion.ok ? { ok: true, valor: { texto: traduccion.valor.texto } } : traduccion;
+      },
+    }),
+  };
 }
 
 async function cargarUnaVez(

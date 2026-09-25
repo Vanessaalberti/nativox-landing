@@ -1,10 +1,13 @@
 import * as v from "valibot";
 import { esquemaIdioma } from "@nativox/compartido/contratos";
-import type { Cupos as CuposRespuesta, RespuestaTranscripcion } from "../contratos-landing/nube";
+import type { RespuestaTranscripcion } from "../contratos-landing/nube";
 import { leerDispositivo } from "./dispositivo";
 import { LIMITES, SEGUNDOS_MAXIMOS_POR_PEDIDO, type Limite } from "./limites";
 import { registrarError } from "./registrador";
 import { medirAudio } from "./audio";
+
+import { cuposDe as cupos, juntarCupos } from "./cupos";
+import { consultarCuposLocales, FORMATO_UUID, registrarPruebaLocal } from "./prueba-local";
 
 export { Cupos } from "./cupos";
 
@@ -23,6 +26,10 @@ export default {
     let respuesta: Response;
     if (pathname === "/api/cupos" && pedido.method === "GET") {
       respuesta = await consultarCupos(env, claves);
+    } else if (pathname === "/api/cupos-local" && pedido.method === "GET") {
+      respuesta = await consultarCuposLocales(env, claves);
+    } else if (pathname === "/api/prueba-local" && pedido.method === "POST") {
+      respuesta = await registrarPruebaLocal(pedido, env, claves);
     } else if (pathname === "/api/transcribir" && pedido.method === "POST") {
       respuesta = await transcribir(pedido, env, claves);
     } else {
@@ -35,19 +42,13 @@ export default {
 
 type Claves = Record<keyof typeof LIMITES, string>;
 
-const cupos = (env: Env, clave: string) => env.CUPOS.get(env.CUPOS.idFromName(clave));
-
 async function consultarCupos(env: Env, claves: Claves): Promise<Response> {
   const decisiones = await Promise.all(
     (Object.keys(LIMITES) as (keyof typeof LIMITES)[]).map((tipo) =>
       cupos(env, claves[tipo]).consultar(LIMITES[tipo]),
     ),
   );
-  const cuerpo: CuposRespuesta = {
-    pruebas: Math.min(...decisiones.map((d) => d.pruebas)),
-    reintentarEnSegundos: Math.max(...decisiones.map((d) => d.reintentarEnSegundos)),
-  };
-  return Response.json(cuerpo);
+  return Response.json(juntarCupos(decisiones));
 }
 
 async function transcribir(pedido: Request, env: Env, claves: Claves): Promise<Response> {
@@ -165,7 +166,6 @@ async function consumirEnOrden(env: Env, claves: Claves, segundos: number, idPru
 }
 
 const LARGO_MAXIMO_PROMPT = 800;
-const FORMATO_UUID = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/;
 
 // El prompt viaja en un encabezado (codificado) y no en la URL, para que no quede en los registros.
 function leerPrompt(pedido: Request): string {

@@ -9,6 +9,18 @@ import {
   type Uso,
 } from "./limites";
 
+// Lo que se le dice a la portada: lo que queda en el tope más chico y la espera más larga.
+export function juntarCupos(
+  decisiones: readonly { pruebas: number; reintentarEnSegundos: number }[],
+) {
+  return {
+    pruebas: Math.min(...decisiones.map((d) => d.pruebas)),
+    reintentarEnSegundos: Math.max(...decisiones.map((d) => d.reintentarEnSegundos)),
+  };
+}
+
+export const cuposDe = (env: Env, clave: string) => env.CUPOS.get(env.CUPOS.idFromName(clave));
+
 // Un objeto por clave (dispositivo, IP o el sitio entero): guarda las pruebas y los segundos de
 // audio usados, y decide si queda cupo. Al ser un solo objeto por clave, dos pedidos simultáneos no
 // se saltean el límite. Lo guardado sobrevive a recargar la página y a reiniciar el navegador.

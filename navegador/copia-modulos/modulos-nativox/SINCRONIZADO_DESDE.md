@@ -2,7 +2,7 @@
 
 **No se edita a mano.** Se actualiza con `npm run sincronizar` y el CI comprueba (`npm run verificar-copia`) que cada archivo coincida con su resumen.
 
-- Commit de origen: `b2ecfe7` (con cambios todavía sin commitear en la aplicación)
+- Commit de origen: `7e079a0` (con cambios todavía sin commitear en la aplicación)
 - Fecha: 2026-09-25
 - Carpetas: `compartido/contratos`, `compartido/distancia-edicion`, `compartido/glosario`, `compartido/metricas`, `navegador/modulos/captura-audio`, `navegador/modulos/cortador-audio`, `navegador/modulos/evaluar-equipo`, `navegador/modulos/flujo-subtitulos`, `navegador/modulos/modelos-compartidos`, `navegador/modulos/transcripcion`, `navegador/modulos/traduccion`, `navegador/interfaz/sistema-diseno`, `navegador/interfaz/subtitulos`
 
@@ -54,8 +54,8 @@
 | `navegador/modulos/evaluar-equipo/medicion.ts` | `b6a04f18e5aea419094d1010ff75b4d2d211e0ac2c00af2a4ba742f7b6cdde49` |
 | `navegador/modulos/evaluar-equipo/niveles.ts` | `09d4a98f235f64949a4b8639569fb8806e4aff67f007004e738a3a8dcab81d23` |
 | `navegador/modulos/evaluar-equipo/placa.ts` | `a9401cee363335eee5af3b99039ca04f92e9c70808e3f3287c49bbe988c9ae17` |
-| `navegador/modulos/evaluar-equipo/README.md` | `4652f02c2a02646cee6522d193e4ed9337e7519132424cfad3629a56bedb32c1` |
-| `navegador/modulos/evaluar-equipo/recomendacion.ts` | `8af003d48ad1e2ce8bd37dc42d8f40f1168248ecfde9296041a42d32992d4ac7` |
+| `navegador/modulos/evaluar-equipo/README.md` | `517f7756f01a1384ef16d1a2885e819b96e1546f2d0690cd13cbe05d9673864e` |
+| `navegador/modulos/evaluar-equipo/recomendacion.ts` | `f3341ee47ec86ce7a4533388b91ee729353ca633e1cce4eb712e72a4d448ab51` |
 | `navegador/modulos/flujo-subtitulos/correccion-de-limite.ts` | `7727dbff4b1fcf97a6e2a9219550b246fdfd92b33b1411155f0099bd1150c8e3` |
 | `navegador/modulos/flujo-subtitulos/flujo.ts` | `d25823a5793d013f8fd9d681f0c1aaaa797f7dcbbbbcf19355dbbd5536bac74c` |
 | `navegador/modulos/flujo-subtitulos/index.ts` | `2341abf0370fe163b53fed9828e4dbd32d034555f7ef10248809d34dbb4f8332` |
@@ -63,21 +63,23 @@
 | `navegador/modulos/flujo-subtitulos/README.md` | `475e19c5dcda1290e88f93079dfb168f6fcad26f7cbd7cc85aaa9c0c9e73b1dc` |
 | `navegador/modulos/flujo-subtitulos/tipos.ts` | `671ba01fcd740c5b76ec39a56f60f00937e836fe16c8f6be6dfc7c66dbc4a1bf` |
 | `navegador/modulos/modelos-compartidos/cache-en-disco.ts` | `d4ae26f2d73eb065018f1af03003bca05b3b6472d6af20140614491e9714698c` |
-| `navegador/modulos/modelos-compartidos/cliente.ts` | `a1eeeb5e88eb51a3fc61716ec331e8fdbeebcf68d98ab07b53b360fa2ff4f9c6` |
-| `navegador/modulos/modelos-compartidos/en-worker.ts` | `b02f48798a859e849857525b29c83cbb26ab0ce34a9eabb35a93d190b0042f2a` |
+| `navegador/modulos/modelos-compartidos/cliente.ts` | `b2710001c45e6479d1d8664e054fa55537ad7c85946ebdcc7adcdf8148f52b95` |
+| `navegador/modulos/modelos-compartidos/en-worker.ts` | `c29d67e94ba2ac74702a09bb3d8178968c71056e5c0b1229ed9742d4ca39edb7` |
+| `navegador/modulos/modelos-compartidos/gemma.ts` | `ce2b6d4e9fdcd27e01c82d9374f8bb4462003e0dcaed531869b0aefd30f793bd` |
 | `navegador/modulos/modelos-compartidos/guardados.ts` | `aee1177e8ee405614d7a1ce1e63c3590bc6dd57842ab62e116de5efed3aa2d15` |
 | `navegador/modulos/modelos-compartidos/index.ts` | `b756cdcff79bd43e8ae44d6c9ac17f2405a4ff052204bff19abda9c75219fc12` |
-| `navegador/modulos/modelos-compartidos/protocolo.ts` | `2bbe9f6accfcca9a878861c22c1205a743cd3ba6ea69e62c3211ae9f85692b35` |
-| `navegador/modulos/modelos-compartidos/README.md` | `84ce3757035e9221a84c7c40e6bd15e14d1c2292aeab1f92c8889c62b5d4611f` |
+| `navegador/modulos/modelos-compartidos/protocolo.ts` | `ae61c6249c87cad30f3a2fbc8cf158c38493d80819f3c54eea0b23bbd89a0de1` |
+| `navegador/modulos/modelos-compartidos/README.md` | `dbb7e75c9b7135e4bd862d4b6326b8a18e4004ee1ebd28c6d3632a7876531a23` |
 | `navegador/modulos/modelos-compartidos/variante.ts` | `ee881fea260a1eac0821645dc8b6aeb857e04b9c823907c310ae8888d4126b40` |
 | `navegador/modulos/modelos-compartidos/whisper.ts` | `99d89e88d0e8c22a4b74ae3f9c7d58ded970cbd50459bfabf58cb3b641d0db40` |
 | `navegador/modulos/traduccion/cola.ts` | `b078019e0035698832a2166906c2588c931886e8179895a9b3627b644c649ffb` |
 | `navegador/modulos/traduccion/con-contexto.ts` | `1956f9bae7516d3209217067a3ed3766c1f5a79d358cecd047f43bacbeae6494` |
 | `navegador/modulos/traduccion/contexto.ts` | `854f9c106a53edfb530c3c80267d1b28e60c4e6fc7e3094d1d16cd92108f25b0` |
-| `navegador/modulos/traduccion/index.ts` | `201067a74c13140318666756c84e759bb36c4069ab7aaa2e07bdd647d53a6e06` |
-| `navegador/modulos/traduccion/README.md` | `768d27769ddef0cd5438f4f4700655fb7b9f119b2e61e551cc53166a1f9aacad` |
+| `navegador/modulos/traduccion/index.ts` | `fc4b7177a0d18340e88e928b4b069747f8582776ec92c114f0e9b9a78da7b72d` |
+| `navegador/modulos/traduccion/README.md` | `e33d3d45fb9319ff4d982f2711f0189788d2276f13ba7809e7f8e52550b60727` |
 | `navegador/modulos/traduccion/tipos.ts` | `dc5974b9ca01eeb526cec810002b55a24d8533780e0fa5352db22237785bc020` |
 | `navegador/modulos/traduccion/traductores/bergamot.ts` | `44bcd7478490b859d99b6fe27dff8dcd94ef15a97b333302335b9371ce8453bb` |
+| `navegador/modulos/traduccion/traductores/translategemma.ts` | `b8d2b0ffe1ec32fbeab0e96a18d5f37d478c8932c2d3e6552f5acf0eef663b21` |
 | `navegador/modulos/transcripcion/alucinaciones.ts` | `3910690d6623def741a4823e6a0b9000c919613cc8a3800189e4e5a6dfd0e7ff` |
 | `navegador/modulos/transcripcion/en-vivo/acuerdo-local.ts` | `dbc684b505a0d6080b169870f7b4e375bba3781be65d36524c582c4870a99a49` |
 | `navegador/modulos/transcripcion/index.ts` | `0968b053b3269d585d2ec879c602c48f0b4a7b6bf42e680c29bf54336711c88a` |

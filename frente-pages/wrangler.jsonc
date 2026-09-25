@@ -1,0 +1,9 @@
+// Proyecto de Cloudflare Pages que solo reenvía al Worker de la landing (ver README.md).
+// El nombre del Worker de destino tiene que ser el `name` de ../wrangler.jsonc.
+{
+  "$schema": "../node_modules/wrangler/config-schema.json",
+  "name": "nativox-frente",
+  "pages_build_output_dir": "./publico",
+  "compatibility_date": "2026-09-24",
+  "services": [{ "binding": "LANDING", "service": "nativox-landing" }],
+}

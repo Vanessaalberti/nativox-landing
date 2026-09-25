@@ -15,11 +15,12 @@ export interface PropiedadesEvaluarEquipo {
   alEvaluar: () => void;
 }
 
-// Qué paso de la lista (0 a 3) está corriendo.
-function pasoActual(avance: AvanceEvaluacion): number {
-  if (avance.etapa === "detectando") return 0;
-  if (avance.etapa === "descargando") return 1;
-  return avance.etapa === "transcribiendo" ? 2 : 3;
+// Qué paso de la lista (0 a 4) corresponde a cada etapa.
+function pasoDe(etapa: AvanceEvaluacion["etapa"]): number {
+  if (etapa === "detectando") return 0;
+  if (etapa === "grabando") return 1;
+  if (etapa === "descargando") return 2;
+  return etapa === "transcribiendo" ? 3 : 4;
 }
 
 export function EvaluarEquipo({
@@ -31,7 +32,7 @@ export function EvaluarEquipo({
 }: PropiedadesEvaluarEquipo) {
   const textos = TEXTOS_EVALUACION[idioma];
   const evaluando = estado.fase === "evaluando";
-  const actual = evaluando ? pasoActual(estado.avance) : -1;
+  const actual = evaluando ? pasoDe(estado.avance.etapa) : -1;
 
   return (
     <section className="flex flex-col gap-4 border-[1.5px] border-ink/15 bg-canvas p-5">
@@ -43,7 +44,7 @@ export function EvaluarEquipo({
         <p className="mt-2 max-w-[760px] text-sm text-ink/80">{textos.intro}</p>
       </div>
 
-      <ol className="grid gap-1.5 font-mono text-xs md:grid-cols-2">
+      <ol className="grid gap-1.5 font-mono text-xs">
         {textos.pasos.map((paso, indice) => {
           const hecho = estado.fase === "lista" || indice < actual;
           return (
@@ -73,7 +74,11 @@ export function EvaluarEquipo({
         </button>
         <p className="font-mono text-xs" role="status">
           {evaluando && describirProgreso(estado.avance, idioma)}
-          {estado.fase === "error" && <span className="text-red-700">{estado.motivo}</span>}
+          {estado.fase === "error" && (
+            <span className="text-red-700">
+              {textos.fallo(textos.pasos[pasoDe(estado.etapa)] ?? "")}: {estado.motivo}
+            </span>
+          )}
         </p>
       </div>
       {evaluando && estado.avance.etapa === "descargando" && (
@@ -90,6 +95,8 @@ function describirProgreso(avance: AvanceEvaluacion, idioma: Idioma): string {
   switch (avance.etapa) {
     case "detectando":
       return textos.detectando;
+    case "grabando":
+      return textos.hablaAhora(NOMBRES_DE_IDIOMA[idioma], avance.quedan);
     case "descargando":
       return describirAvance(avance.avance, idioma);
     case "transcribiendo":

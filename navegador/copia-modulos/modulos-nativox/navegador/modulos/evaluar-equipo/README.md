@@ -1,6 +1,6 @@
 # evaluar-equipo ♻
 
-**Qué hace:** "Evaluar esta computadora": detecta WebGPU, f16 y la placa; mide una pasada de Whisper y la traducción sobre un audio de muestra (descarta la primera pasada, que calienta la placa, y toma la mediana de las siguientes); y recomienda la versión de Whisper (sin comprimir con f16, comprimida sin f16), el nivel de la barra de velocidad, si hace falta la nube y si el equipo tendría margen para TranslateGemma.
+**Qué hace:** "Evaluar esta computadora": detecta WebGPU, f16 y la placa; mide una pasada de Whisper y la traducción sobre el audio de referencia que le pasa quien lo usa (la landing graba la voz de quien evalúa; no hay audios nuestros; descarta la primera pasada, que calienta la placa, y toma la mediana de las siguientes); y recomienda la versión de Whisper (sin comprimir con f16, comprimida sin f16), el nivel de la barra de velocidad, si hace falta la nube y si el equipo tendría margen para TranslateGemma.
 
 | Pasada de Whisper | Nivel | Qué hace |
 | --- | --- | --- |
@@ -11,7 +11,7 @@
 
 Si una pasada tarda más de 6 s, ni cortando por frases llega en vivo: recomienda la nube. Sin WebGPU, también.
 
-**Qué NO hace:** Aplicar la recomendación (la devuelve y la interfaz la muestra), cargar modelos ni descargar nada: recibe por parámetro las piezas para transcribir y traducir la muestra. Tampoco elige TranslateGemma: todavía no está integrado, así que solo dice si el equipo lo aguantaría (`margenParaGemma`).
+**Qué NO hace:** Aplicar la recomendación (la devuelve y la interfaz la muestra), cargar modelos ni descargar nada: recibe por parámetro las piezas para transcribir y traducir la muestra. Tampoco elige el traductor: recomienda Bergamot y solo dice si el equipo tendría margen para TranslateGemma (`margenParaGemma`); usarlo lo decide quien usa el módulo.
 
 ## API pública (solo desde `index.ts`)
 

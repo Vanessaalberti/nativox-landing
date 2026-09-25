@@ -7,6 +7,7 @@ export const TEXTOS_MARCO: Record<
     comoFunciona: string;
     comparacion: string;
     desplegar: string;
+    test: string;
     creadoPor: string;
     proyecto: string;
     idiomas: string;
@@ -17,6 +18,7 @@ export const TEXTOS_MARCO: Record<
     comoFunciona: "Cómo funciona",
     comparacion: "Comparación",
     desplegar: "Desplegar",
+    test: "Test",
     creadoPor: "Creado por",
     proyecto: "Proyecto open source para la Vibeathon de Nerdearla 2026.",
     idiomas: "Idioma de la página",
@@ -26,6 +28,7 @@ export const TEXTOS_MARCO: Record<
     comoFunciona: "How it works",
     comparacion: "Comparison",
     desplegar: "Deploy",
+    test: "Test",
     creadoPor: "Created by",
     proyecto: "Open source project for the Nerdearla 2026 Vibeathon.",
     idiomas: "Page language",
@@ -35,6 +38,7 @@ export const TEXTOS_MARCO: Record<
     comoFunciona: "Como funciona",
     comparacion: "Comparação",
     desplegar: "Implantar",
+    test: "Teste",
     creadoPor: "Criado por",
     proyecto: "Projeto open source para a Vibeathon da Nerdearla 2026.",
     idiomas: "Idioma da página",

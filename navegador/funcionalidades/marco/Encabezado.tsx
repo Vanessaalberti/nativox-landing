@@ -45,7 +45,15 @@ export function Encabezado({ idioma, pagina }: PropiedadesEncabezado) {
         </Link>
       </nav>
 
-      <div className="flex items-center gap-6 justify-self-end font-mono text-xs md:gap-8">
+      <div className="flex items-center gap-4 justify-self-end font-mono text-xs md:gap-8">
+        {/* "Probar en mi computadora": el test de la placa, la barra de nivel y TranslateGemma. */}
+        <Link
+          to={rutaDe("probar", idioma)}
+          aria-current={pagina === "probar" ? "page" : undefined}
+          className={`rounded-sm px-3 py-1.5 text-[11px] font-bold tracking-widest uppercase transition-colors ${pagina === "probar" ? "bg-ink text-canvas" : "bg-naranja text-ink hover:bg-ink hover:text-canvas"}`}
+        >
+          {textos.test}
+        </Link>
         <nav
           aria-label={textos.idiomas}
           className="flex items-center gap-1 text-[11px] font-semibold tracking-widest"

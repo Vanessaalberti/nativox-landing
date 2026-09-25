@@ -1,4 +1,8 @@
-import { CUPO_POR_PRUEBA, PRUEBAS_POR_DISPOSITIVO } from "../contratos-landing/nube";
+import {
+  CUPO_POR_PRUEBA,
+  PRUEBAS_LOCALES_POR_DISPOSITIVO,
+  PRUEBAS_POR_DISPOSITIVO,
+} from "../contratos-landing/nube";
 
 // Cuánto se puede usar la transcripción en la nube. Hay dos topes, los dos en el servidor (un
 // Durable Object por dispositivo, por IP y uno para todo el sitio) para que recargar la página no
@@ -39,6 +43,22 @@ export const LIMITES = {
   // Tope del sitio: 12.000 s facturados son 200 min por día, lo que cubren los 10.000 neurons
   // diarios gratis de Workers AI (Whisper turbo: $0,000513 por minuto).
   sitio: { pruebas: 130, segundos: 12_000, periodoMs: DIA_MS },
+} satisfies Record<string, Limite>;
+
+// "Probar" con micrófono: solo se cuentan pruebas (no hay audio que facture, corre en la placa de
+// quien visita). Aparte de las de la portada, y sin tope para todo el sitio.
+const SIN_TOPE_DE_AUDIO = Number.MAX_SAFE_INTEGER;
+export const LIMITES_LOCALES = {
+  dispositivo: {
+    pruebas: PRUEBAS_LOCALES_POR_DISPOSITIVO,
+    segundos: SIN_TOPE_DE_AUDIO,
+    periodoMs: DIA_MS,
+  },
+  ip: {
+    pruebas: 4 * PRUEBAS_LOCALES_POR_DISPOSITIVO,
+    segundos: SIN_TOPE_DE_AUDIO,
+    periodoMs: DIA_MS,
+  },
 } satisfies Record<string, Limite>;
 
 export interface Uso {

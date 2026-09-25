@@ -5,7 +5,19 @@ interface TextosEvaluacion {
   etiqueta: string;
   titulo: string;
   intro: string;
-  pasos: [string, string, string, string];
+  pasos: [string, string, string, string, string];
+  hablaAhora: (idioma: string, quedan: number) => string;
+  fallo: (paso: string) => string;
+  controles: {
+    traductor: string;
+    bergamot: string;
+    gemma: string;
+    gemmaAyuda: string;
+    gemmaSinMargen: string;
+    intentos: (restantes: number) => string;
+    sinIntentos: string;
+    quedan: string;
+  };
   evaluar: string;
   reevaluar: string;
   detectando: string;
@@ -49,13 +61,30 @@ export const TEXTOS_EVALUACION: Record<Idioma, TextosEvaluacion> = {
       "Un clic: bajamos los modelos (una sola vez), transcribimos y traducimos un audio de muestra y medimos cuánto tarda tu placa de video. Con eso te recomendamos cómo usarla y te dejamos elegido el nivel de velocidad.",
     pasos: [
       "Detectar la placa de video",
+      "Grabar tu voz (6 s) para medir con audio real",
       "Descargar los modelos (Whisper y Bergamot), una sola vez",
-      "Transcribir un audio de muestra y medir",
+      "Transcribir tu voz y medir",
       "Traducir y medir",
     ],
     evaluar: "Evaluar mi computadora",
     reevaluar: "Volver a evaluar",
     detectando: "Detectando tu placa de video…",
+    hablaAhora: (idioma, quedan) => `Hablá en ${idioma}, con normalidad: ${String(quedan)} s…`,
+    fallo: (paso) => `Falló en «${paso}»`,
+    controles: {
+      traductor: "Traductor",
+      bergamot: "Bergamot · liviano y al instante",
+      gemma: "TranslateGemma · más calidad (~2 a 3 GB)",
+      gemmaAyuda:
+        "Traduce mejor (números, modismos), pero baja un modelo de 2 a 3 GB y necesita una placa con margen.",
+      gemmaSinMargen:
+        "Tu placa no tiene el margen recomendado para TranslateGemma: si los subtítulos se atrasan, volvé a Bergamot.",
+      intentos: (restantes) =>
+        `Te quedan ${String(restantes)} de 4 pruebas con micrófono hoy: una por cada nivel de velocidad, de hasta 15 s cada una.`,
+      sinIntentos:
+        "Ya usaste tus 4 pruebas con micrófono de hoy. Podés seguir con un archivo de audio o volver mañana.",
+      quedan: "Quedan",
+    },
     midiendoWhisper: (actual, total) =>
       `Midiendo Whisper: pasada ${String(actual)} de ${String(total)}…`,
     midiendoTraduccion: (idioma) => `Midiendo la traducción a ${idioma}…`,
@@ -74,7 +103,7 @@ export const TEXTOS_EVALUACION: Record<Idioma, TextosEvaluacion> = {
     nube: "Tu computadora no alcanza para transcribir en vivo por sí sola. Podés usar la transcripción en la nube:",
     irALaNube: "Probarla en la portada →",
     gemma:
-      "Tu placa tendría margen para TranslateGemma (traducción de más calidad), pero todavía no está incluido en esta versión: por ahora se traduce con Bergamot.",
+      "Tu placa tendría margen para TranslateGemma (traducción de más calidad, pero pesa ~2 a 3 GB y es más lenta que Bergamot). Podés elegirlo abajo, en «Traductor».",
     barra: {
       titulo: "Nivel de velocidad",
       ayuda: "Cuánto trabajo le pedís a tu placa. Más nivel, el texto aparece antes.",
@@ -120,13 +149,30 @@ export const TEXTOS_EVALUACION: Record<Idioma, TextosEvaluacion> = {
       "One click: we download the models (only once), transcribe and translate a sample audio and measure how long your graphics card takes. With that we recommend how to use it and pick the speed level for you.",
     pasos: [
       "Detect the graphics card",
+      "Record your voice (6 s) to measure with real audio",
       "Download the models (Whisper and Bergamot), only once",
-      "Transcribe a sample audio and measure",
+      "Transcribe your voice and measure",
       "Translate and measure",
     ],
     evaluar: "Check my computer",
     reevaluar: "Check again",
     detectando: "Detecting your graphics card…",
+    hablaAhora: (idioma, quedan) => `Speak in ${idioma}, normally: ${String(quedan)} s…`,
+    fallo: (paso) => `Failed at “${paso}”`,
+    controles: {
+      traductor: "Translator",
+      bergamot: "Bergamot · light and instant",
+      gemma: "TranslateGemma · higher quality (~2 to 3 GB)",
+      gemmaAyuda:
+        "Translates better (numbers, idioms), but downloads a 2 to 3 GB model and needs a card with headroom.",
+      gemmaSinMargen:
+        "Your card does not have the recommended headroom for TranslateGemma: if the subtitles fall behind, go back to Bergamot.",
+      intentos: (restantes) =>
+        `You have ${String(restantes)} of 4 microphone tries left today: one for each speed level, up to 15 s each.`,
+      sinIntentos:
+        "You used your 4 microphone tries for today. You can keep going with an audio file or come back tomorrow.",
+      quedan: "Remaining:",
+    },
     midiendoWhisper: (actual, total) =>
       `Measuring Whisper: pass ${String(actual)} of ${String(total)}…`,
     midiendoTraduccion: (idioma) => `Measuring translation to ${idioma}…`,
@@ -145,7 +191,7 @@ export const TEXTOS_EVALUACION: Record<Idioma, TextosEvaluacion> = {
     nube: "Your computer can't transcribe live on its own. You can use cloud transcription:",
     irALaNube: "Try it on the home page →",
     gemma:
-      "Your card would have room for TranslateGemma (higher-quality translation), but it is not included in this version yet: for now translation uses Bergamot.",
+      "Your card would have room for TranslateGemma (higher-quality translation, but it weighs ~2 to 3 GB and is slower than Bergamot). You can pick it below, under “Translator”.",
     barra: {
       titulo: "Speed level",
       ayuda:
@@ -192,13 +238,30 @@ export const TEXTOS_EVALUACION: Record<Idioma, TextosEvaluacion> = {
       "Um clique: baixamos os modelos (uma única vez), transcrevemos e traduzimos um áudio de exemplo e medimos quanto tempo a sua placa de vídeo leva. Com isso recomendamos como usá-la e já deixamos escolhido o nível de velocidade.",
     pasos: [
       "Detectar a placa de vídeo",
+      "Gravar a sua voz (6 s) para medir com áudio real",
       "Baixar os modelos (Whisper e Bergamot), uma única vez",
-      "Transcrever um áudio de exemplo e medir",
+      "Transcrever a sua voz e medir",
       "Traduzir e medir",
     ],
     evaluar: "Avaliar o meu computador",
     reevaluar: "Avaliar de novo",
     detectando: "Detectando a sua placa de vídeo…",
+    hablaAhora: (idioma, quedan) => `Fale em ${idioma}, normalmente: ${String(quedan)} s…`,
+    fallo: (paso) => `Falhou em “${paso}”`,
+    controles: {
+      traductor: "Tradutor",
+      bergamot: "Bergamot · leve e instantâneo",
+      gemma: "TranslateGemma · mais qualidade (~2 a 3 GB)",
+      gemmaAyuda:
+        "Traduz melhor (números, expressões), mas baixa um modelo de 2 a 3 GB e precisa de uma placa com folga.",
+      gemmaSinMargen:
+        "A sua placa não tem a folga recomendada para o TranslateGemma: se as legendas atrasarem, volte ao Bergamot.",
+      intentos: (restantes) =>
+        `Restam ${String(restantes)} de 4 testes com microfone hoje: um para cada nível de velocidade, de até 15 s cada.`,
+      sinIntentos:
+        "Você usou seus 4 testes com microfone de hoje. Pode continuar com um arquivo de áudio ou voltar amanhã.",
+      quedan: "Restam",
+    },
     midiendoWhisper: (actual, total) =>
       `Medindo o Whisper: passada ${String(actual)} de ${String(total)}…`,
     midiendoTraduccion: (idioma) => `Medindo a tradução para ${idioma}…`,
@@ -217,7 +280,7 @@ export const TEXTOS_EVALUACION: Record<Idioma, TextosEvaluacion> = {
     nube: "O seu computador não consegue transcrever ao vivo sozinho. Você pode usar a transcrição na nuvem:",
     irALaNube: "Testar na página inicial →",
     gemma:
-      "A sua placa teria margem para o TranslateGemma (tradução de mais qualidade), mas ele ainda não está incluído nesta versão: por enquanto a tradução usa o Bergamot.",
+      "A sua placa teria folga para o TranslateGemma (tradução de mais qualidade, mas pesa ~2 a 3 GB e é mais lento que o Bergamot). Você pode escolhê-lo abaixo, em “Tradutor”.",
     barra: {
       titulo: "Nível de velocidade",
       ayuda:

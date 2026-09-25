@@ -5,13 +5,14 @@ import { useEvaluacion } from "../hooks/useEvaluacion";
 import type { Prueba } from "../hooks/usePrueba";
 import { resumirPrueba } from "../resumen";
 import { describirAvance, NOMBRES_DE_IDIOMA, TEXTOS_PROBAR } from "../textos";
+import { TEXTOS_EVALUACION } from "../textos-evaluacion";
 import { BorrarModelos } from "./BorrarModelos";
 import { EvaluarEquipo } from "./EvaluarEquipo";
 import { FormularioPrueba } from "./FormularioPrueba";
 import { MedidasPrueba } from "./MedidasPrueba";
 
 // /probar: lo mismo que la sesión en vivo de la aplicación, pero en la placa de quien visita y con
-// las medidas de la tabla de comparación.
+// las medidas de la tabla de comparación. Ocupa todo el ancho, como la portada.
 export function PanelPrueba({
   idioma,
   prueba,
@@ -23,6 +24,7 @@ export function PanelPrueba({
   rutaNube: string;
 }) {
   const textos = TEXTOS_PROBAR[idioma];
+  const controles = TEXTOS_EVALUACION[idioma].controles;
   const [referencia, setReferencia] = useState("");
   const [glosarioUsado, setGlosarioUsado] = useState("");
   // Sin evaluar empieza en el medio; la evaluación deja elegido el recomendado (se puede cambiar).
@@ -33,12 +35,15 @@ export function PanelPrueba({
     setRecomendado(sugerido);
   });
   const { estado } = prueba;
-  const evaluando = evaluacion.estado.fase === "evaluando";
   const ocupada =
     estado.fase === "preparando" ||
     estado.fase === "en-vivo" ||
     estado.fase === "terminando" ||
-    evaluando;
+    evaluacion.estado.fase === "evaluando";
+  const margenParaGemma =
+    evaluacion.estado.fase === "lista"
+      ? evaluacion.estado.evaluacion.recomendacion.margenParaGemma
+      : null;
   const resumen = resumirPrueba(prueba.lineas, prueba.mediciones, {
     referencia,
     glosario: glosarioUsado,
@@ -46,60 +51,75 @@ export function PanelPrueba({
   const conTexto = prueba.lineas.filter((linea) => linea.original.trim() !== "");
 
   return (
-    <div className="mx-auto flex max-w-[1080px] flex-col gap-6 px-5 py-14 md:px-[72px]">
-      <span className="font-mono text-[11px] tracking-widest text-naranja uppercase">
-        {textos.etiqueta}
-      </span>
-      <h1 className="font-display text-6xl leading-[0.9] tracking-tight uppercase md:text-7xl">
-        {textos.titulo}
-      </h1>
-      <p className="max-w-[760px] text-lg">{textos.intro}</p>
-      <p className="max-w-[760px] font-mono text-xs text-ink/60">{textos.primeraVez}</p>
-      <BorrarModelos idioma={idioma} deshabilitado={ocupada} />
+    <div className="mx-auto flex w-full max-w-[1680px] flex-col gap-6 px-5 py-14 md:px-8">
+      <div className="flex flex-col gap-3">
+        <span className="font-mono text-[11px] tracking-widest text-naranja uppercase">
+          {textos.etiqueta}
+        </span>
+        <h1 className="font-display text-6xl leading-[0.9] tracking-tight uppercase md:text-7xl">
+          {textos.titulo}
+        </h1>
+        <p className="max-w-[900px] text-lg">{textos.intro}</p>
+        <p className="max-w-[900px] font-mono text-xs text-ink/60">{textos.primeraVez}</p>
+        <BorrarModelos idioma={idioma} deshabilitado={ocupada} />
+      </div>
 
-      <EvaluarEquipo
-        idioma={idioma}
-        estado={evaluacion.estado}
-        deshabilitado={ocupada}
-        rutaNube={rutaNube}
-        alEvaluar={() => void evaluacion.evaluar()}
-      />
-
-      <div className="border-[1.5px] border-ink/15 bg-canvas p-5">
-        <FormularioPrueba
-          idioma={idioma}
-          ocupada={ocupada}
-          referencia={referencia}
-          alCambiarReferencia={setReferencia}
-          nivel={nivel}
-          recomendado={recomendado}
-          alCambiarNivel={setNivel}
-          alIniciar={(configuracion) => {
-            setGlosarioUsado(configuracion.glosario);
-            void prueba.iniciar(configuracion);
-          }}
-        />
-        <div className="mt-4 flex flex-wrap items-center gap-4 font-mono text-xs" role="status">
-          {estado.fase === "preparando" && <span>{describirAvance(estado.avance, idioma)}</span>}
-          {estado.fase === "en-vivo" && (
-            <button
-              type="button"
-              onClick={() => void prueba.detener()}
-              className="rounded-sm border-[1.5px] border-ink px-4 py-2 font-bold tracking-widest uppercase hover:bg-ink hover:text-canvas"
-            >
-              {textos.detener}
-            </button>
-          )}
-          {estado.fase === "error" && <span className="text-red-700">{estado.motivo}</span>}
-          {prueba.avisos.map((aviso, indice) => (
-            <span key={`${String(indice)}-${aviso}`} className="text-ink/60">
-              {aviso}
-            </span>
-          ))}
+      <div className="grid gap-6 lg:grid-cols-12">
+        <div className="lg:col-span-5">
+          <EvaluarEquipo
+            idioma={idioma}
+            estado={evaluacion.estado}
+            deshabilitado={ocupada}
+            rutaNube={rutaNube}
+            alEvaluar={() => void evaluacion.evaluar(idioma)}
+          />
+        </div>
+        <div className="flex flex-col gap-4 border-[1.5px] border-ink/15 bg-canvas p-5 lg:col-span-7">
+          <FormularioPrueba
+            idioma={idioma}
+            ocupada={ocupada}
+            referencia={referencia}
+            alCambiarReferencia={setReferencia}
+            nivel={nivel}
+            recomendado={recomendado}
+            alCambiarNivel={setNivel}
+            intentosLocales={prueba.intentosLocales}
+            margenParaGemma={margenParaGemma}
+            alIniciar={(configuracion) => {
+              setGlosarioUsado(configuracion.glosario);
+              void prueba.iniciar(configuracion);
+            }}
+          />
+          <div className="flex flex-wrap items-center gap-4 font-mono text-xs" role="status">
+            {estado.fase === "preparando" && <span>{describirAvance(estado.avance, idioma)}</span>}
+            {estado.fase === "en-vivo" && (
+              <button
+                type="button"
+                onClick={() => void prueba.detener()}
+                className="rounded-sm border-[1.5px] border-ink px-4 py-2 font-bold tracking-widest uppercase hover:bg-ink hover:text-canvas"
+              >
+                {textos.detener}
+              </button>
+            )}
+            {estado.fase === "en-vivo" && prueba.segundosRestantes !== null && (
+              <span className="font-bold">
+                {controles.quedan} {String(prueba.segundosRestantes)} s
+              </span>
+            )}
+            {estado.fase === "sin-intentos" && (
+              <span className="text-naranja">{controles.sinIntentos}</span>
+            )}
+            {estado.fase === "error" && <span className="text-red-700">{estado.motivo}</span>}
+            {prueba.avisos.map((aviso, indice) => (
+              <span key={`${String(indice)}-${aviso}`} className="text-ink/60">
+                {aviso}
+              </span>
+            ))}
+          </div>
         </div>
       </div>
 
-      <div className="grid gap-6 lg:grid-cols-[minmax(0,1.4fr)_minmax(0,1fr)]">
+      <div className="grid gap-6 lg:grid-cols-[minmax(0,1.6fr)_minmax(0,1fr)]">
         <section className="border-[1.5px] border-ink/15 bg-canvas p-5">
           <h2 className="mb-3 font-mono text-[10px] font-bold tracking-widest text-ink/55 uppercase">
             {textos.transcripcion}
@@ -131,7 +151,7 @@ export function PanelPrueba({
           <MedidasPrueba resumen={resumen} idioma={idioma} />
           {prueba.variante && (
             <p className="mt-3 font-mono text-[10px] tracking-widest text-ink/45 uppercase">
-              Whisper large-v3 turbo ({prueba.variante}) · Bergamot · {NOMBRES_DE_IDIOMA[idioma]}
+              Whisper large-v3 turbo ({prueba.variante}) · {NOMBRES_DE_IDIOMA[idioma]}
             </p>
           )}
         </section>

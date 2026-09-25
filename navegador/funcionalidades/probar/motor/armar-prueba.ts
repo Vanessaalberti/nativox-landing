@@ -19,7 +19,7 @@ import {
   traducirConContexto,
   ultimoTramoSinCerrar,
 } from "@nativox/navegador/modulos/traduccion";
-import type { ModelosListos } from "./preparar-modelos";
+import type { ElegirTraductor, ModelosListos } from "./preparar-modelos";
 
 export interface ConfiguracionPrueba {
   // Sin archivo, el micrófono del equipo.
@@ -29,6 +29,8 @@ export interface ConfiguracionPrueba {
   glosario: string;
   // La barra de velocidad: cada cuánto se muestra lo que se viene diciendo (0 = solo frases enteras).
   nivel: Nivel;
+  // Bergamot (liviano, al instante) o TranslateGemma (más calidad, ~2 a 3 GB).
+  traductor: ElegirTraductor;
 }
 
 export interface EventosPrueba {

@@ -17,9 +17,12 @@ export interface AudioEnviado {
 // que fallan, así que reintentar no gasta cupo.
 const ESPERA_REINTENTO_MS = 2000;
 
-export async function consultarCupos(): Promise<Resultado<Cupos>> {
+// La portada cuenta sus pruebas aparte de las pruebas con micrófono de "Probar".
+export async function consultarCupos(
+  ruta: "/api/cupos" | "/api/cupos-local" = "/api/cupos",
+): Promise<Resultado<Cupos>> {
   try {
-    const respuesta = await fetch("/api/cupos", { credentials: "same-origin" });
+    const respuesta = await fetch(ruta, { credentials: "same-origin" });
     const leido = v.safeParse(esquemaCupos, await respuesta.json());
     return leido.success
       ? { ok: true, valor: leido.output }

@@ -20,7 +20,7 @@ export interface Recomendacion {
   // El nivel de la barra de velocidad; 1 si no se pudo medir.
   nivel: Nivel;
   // Bergamot siempre alcanza (~60 ms por idioma). TranslateGemma da más calidad, pero pide una placa
-  // con margen y todavía no está integrado: acá solo se dice si el equipo lo aguantaría.
+  // con margen: acá solo se dice si el equipo lo aguantaría; elegirlo lo decide quien usa el módulo.
   traductor: "bergamot";
   margenParaGemma: boolean;
   // La transcripción en la nube conviene si el equipo no puede o no llega en vivo ni en el nivel 1.

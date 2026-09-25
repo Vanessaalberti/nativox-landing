@@ -36,6 +36,8 @@ const politicas = [
 export default defineConfig(
   globalIgnores([
     "node_modules/",
+    // Proyecto de Pages que solo reenvía al Worker (JavaScript suelto, sin zonas).
+    "frente-pages/",
     "dist/",
     ".wrangler/",
     "coverage/",
