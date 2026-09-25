@@ -19,7 +19,7 @@ export function TablaComparacion({ idioma, rutaProbar }: PropiedadesComparacion)
 
   return (
     <main className="grilla-fondo flex-1">
-      <div className="mx-auto max-w-[1080px] px-5 py-14 md:px-[72px]">
+      <div className="mx-auto max-w-[1680px] px-5 py-14 md:px-8">
         <span className="font-mono text-[11px] tracking-widest text-naranja uppercase">
           {textos.etiqueta}
         </span>

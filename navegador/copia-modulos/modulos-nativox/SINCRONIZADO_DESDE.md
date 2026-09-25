@@ -2,22 +2,27 @@
 
 **No se edita a mano.** Se actualiza con `npm run sincronizar` y el CI comprueba (`npm run verificar-copia`) que cada archivo coincida con su resumen.
 
-- Commit de origen: `08f82a8` (con cambios todavía sin commitear en la aplicación)
+- Commit de origen: `c5c2981` (con cambios todavía sin commitear en la aplicación)
 - Fecha: 2026-09-25
 - Carpetas: `compartido/contratos`, `compartido/distancia-edicion`, `compartido/glosario`, `compartido/metricas`, `navegador/modulos/captura-audio`, `navegador/modulos/cortador-audio`, `navegador/modulos/evaluar-equipo`, `navegador/modulos/flujo-subtitulos`, `navegador/modulos/modelos-compartidos`, `navegador/modulos/transcripcion`, `navegador/modulos/traduccion`, `navegador/interfaz/sistema-diseno`, `navegador/interfaz/subtitulos`
 
 | Archivo | SHA-256 |
 | --- | --- |
 | `compartido/contratos/api/acceso.ts` | `d98d17e707125da1ca229e8674d4b5e12f0e81222ee504eae7cd5fe55300430c` |
-| `compartido/contratos/api/charlas.ts` | `d8ce6cb07573c74d3c443db9ee5832d4579038f084d1c37df1bd020e98cfa337` |
+| `compartido/contratos/api/ajustes.ts` | `528974764c9dde8f8924657c098765f62cbfc744c30cf7efe45de48d7590774a` |
+| `compartido/contratos/api/audiencia.ts` | `cee7179f5808c6707815be3a3694a4cd6edac2d498cc07f91a494b058b3457af` |
+| `compartido/contratos/api/charlas.ts` | `6f0a786278383c7f12f28146ad53e4261e29e4f5f235a844bcf909dcc5521f03` |
 | `compartido/contratos/api/errores.ts` | `ddaff4d1fd33ba8a49552a596abef0c45b0cdad79e82882f91627b90b8b65dae` |
-| `compartido/contratos/api/evento.ts` | `0161369471b7a7e6071eb4dd806e6811c085353104673b05b9039c0346b247dc` |
+| `compartido/contratos/api/evento.ts` | `2ac93f159655263639157f8f17039a801740eb1df047d9b47747292ac4ae95f0` |
+| `compartido/contratos/api/operacion.ts` | `393ff278e6a3568c5d1bc792c8dc6731fc57fcb7c12349cae76ff496317b0b2b` |
+| `compartido/contratos/api/operadores.ts` | `bb066edfd3be2994ff11dc81f74fa7f08bd786ac30b9522200c4db1bbc9edd84` |
+| `compartido/contratos/api/produccion.ts` | `faae700f40789a3da1599c0c89071a3c2fdbb75d9001e79138b9cc6987a5ac82` |
 | `compartido/contratos/api/salas.ts` | `092f1b4d51b57ff0a9f6a70d3c46ddf097a1b809882ff55b695d7297809af6e7` |
 | `compartido/contratos/idiomas.ts` | `c5820b8070d6aa0f55763fe97a0052c41df88abf325a0208e5944440f2c21a7f` |
-| `compartido/contratos/index.ts` | `98d4b429308f3a679c0ead964e38dd9300fdfc4e76ad873a866fcde9fbe1a768` |
+| `compartido/contratos/index.ts` | `e3d25cd529380e2ffd136af33cf746ef54c2e5be2793cb703c8dbe8012e70a34` |
 | `compartido/contratos/README.md` | `b1548414a2364fc9c92f1efff6f9be0a9b05c77d95887471d4a817efca52a428` |
 | `compartido/contratos/socket-produccion.ts` | `0b5fbf5caee23ac24b452d570019e7dbd2ff7048f9a04bfaf4aed440b113a259` |
-| `compartido/contratos/socket-sala.ts` | `67dfec7fcfb9db35df76bd2137f9e0d084cab1cf88816f24bbef1a1aa00cb9bb` |
+| `compartido/contratos/socket-sala.ts` | `2da98387c12ca94d4edf4bd2afcb147acf6a12b975013c468b7785ee329ddc08` |
 | `compartido/contratos/validar.ts` | `edcf6abba07c04fbed1b625950c289b85f700cd72c2baf925a0e9be03718a6f3` |
 | `compartido/distancia-edicion/index.ts` | `cf5fdc12119c1b98c5d2483cf2e2a9e69509c33e9fe630e031e38a308facf6fa` |
 | `compartido/distancia-edicion/README.md` | `2d8c8085b0b762c4edf319cae5cc6ba9bd01318ebf6b74d034d2456dbbb00b94` |
@@ -38,18 +43,30 @@
 | `navegador/interfaz/sistema-diseno/componentes/Aviso.tsx` | `6fa10d24d0d436405c1296a420f1e151ecf1aaf207487f73416c29ad0452a34e` |
 | `navegador/interfaz/sistema-diseno/componentes/Boton.tsx` | `0f78b12e60f324dd1394487e6b2a7ee7860571693a406d6170efbc0f6830f4f6` |
 | `navegador/interfaz/sistema-diseno/componentes/CajaCopiable.tsx` | `b10af3622324a88d92e366997aac93ec720b6868aa72bb601bdc888fc3cd24e4` |
-| `navegador/interfaz/sistema-diseno/componentes/Campo.tsx` | `d617cb9f9dcfa55a347f55e7b6cd7711817ef6aea63e5d827cbb1ce303494ba5` |
+| `navegador/interfaz/sistema-diseno/componentes/Campo.tsx` | `ae0a18c0f23d26b560271287b4b3c9c3368abab246962ed665b0242a3aafef0f` |
+| `navegador/interfaz/sistema-diseno/componentes/CargaConReintento.tsx` | `54a405f66c26f3bcbf96c4dcdb844de96ce715f290bac0fef818b6366ebdff8c` |
+| `navegador/interfaz/sistema-diseno/componentes/EnlaceDeAccion.tsx` | `5a1c0e9328eb4dd37f048e10f56cefc9c5e0a398748292d1f777d1a709b94faf` |
+| `navegador/interfaz/sistema-diseno/componentes/EstadoVacio.tsx` | `e225934614ea66270a5f0f88f405c24ad07d5dee02f9c42ab1767ba39028dc93` |
+| `navegador/interfaz/sistema-diseno/componentes/Interruptor.tsx` | `36feea3a87a5daf5b686828dc62e8fcca87910083f0fd7306d840a19f2879a76` |
 | `navegador/interfaz/sistema-diseno/componentes/ListaDeDatos.tsx` | `a23464a5d883e4f760e1600ce39917f91080d67cf4b1d0c7bcf71fb0d9db6713` |
+| `navegador/interfaz/sistema-diseno/componentes/LogoYNombre.tsx` | `90f814628beb2e5ff81461b3d129d3d5dcdc145e775929966862bd2cc1816017` |
 | `navegador/interfaz/sistema-diseno/componentes/Modal.tsx` | `aa241ecb8b0178ea47ab4631e68fddba317579d89f85528857bc40a7335d74a1` |
+| `navegador/interfaz/sistema-diseno/componentes/PieDeFormulario.tsx` | `87ea1f9b914909b4e45eb85e9ec0f4b0fcf8c91d755099190f69c3095e7340b6` |
 | `navegador/interfaz/sistema-diseno/componentes/Seleccion.tsx` | `c39ba56f6cee268c567c470d7f0fcbbadda1c5b94c213b90f702ea9ea0823d80` |
+| `navegador/interfaz/sistema-diseno/componentes/TarjetaDeLista.tsx` | `e573071b3dcbb94ad7d9540a63a0ea4778780dd34b922efdeba5ad4289a12183` |
 | `navegador/interfaz/sistema-diseno/componentes/ZonaDeEliminar.tsx` | `750b98ba174eb37554d3cb02ad6bda010e491cf66514335e2bee1c8740b10e50` |
 | `navegador/interfaz/sistema-diseno/estilos.css` | `974ecd039b16a75f6dceaa506b295969d05d07d73953d6e57593b2129d67b6c7` |
-| `navegador/interfaz/sistema-diseno/hooks/useEnvio.ts` | `a5629a3cfa1a1c1f0657f2550e618f3ac2604473e36edf406a6e56d63c33a57a` |
-| `navegador/interfaz/sistema-diseno/index.ts` | `e6347f8c6fe885d4b715dc34630b11f0d157e3cb22fd81cfef01000c533ba2f0` |
+| `navegador/interfaz/sistema-diseno/hooks/useConRecarga.ts` | `6391c35d88f6a3f9d5873dcf149971dcd4e9f2c174258267cf8470f54f86f1e2` |
+| `navegador/interfaz/sistema-diseno/hooks/useEnvio.ts` | `71e06a81d62059f7b32b1fe9f0acaa187e6fbf34aa06978efa9fcccaee0e773f` |
+| `navegador/interfaz/sistema-diseno/index.ts` | `e448f9c5039b206a807e06014470872df6f14a055d828958ead4b14424c1d7f7` |
+| `navegador/interfaz/sistema-diseno/logo.ts` | `1b2ea75b1f32ff80bec092a696d159855041616e13cbb712a75aac992df4ff13` |
 | `navegador/interfaz/sistema-diseno/README.md` | `8fb5d7b8feca28e8e93486ae68a3024acf394b5b1a4da380608c29daa2059f1d` |
-| `navegador/interfaz/subtitulos/index.ts` | `a21556e70797436a55b7d490a4f8d690df7793a37eefda8302ed97c03b3c0b89` |
+| `navegador/interfaz/subtitulos/EditorDeEstilo.tsx` | `76bb6cb3fdcc74d1acaceb99197473f5eaffb7aaa07b985bfe846c0533d66ff3` |
+| `navegador/interfaz/subtitulos/index.ts` | `6e0ba6e06442b0eddb4b7533d16c98a7c6e077938358bad7d81c44ef07c6413e` |
 | `navegador/interfaz/subtitulos/LineaSubtitulo.tsx` | `f1e0e48a343012fa294571095c074d1516ce3592025793a1de98555c5a6ee9c4` |
 | `navegador/interfaz/subtitulos/README.md` | `647eedcb9e0b681e6ccb2699527a8194072841d4863178db24b5d384a7f06866` |
+| `navegador/interfaz/subtitulos/SubtitulosDeTransmision.tsx` | `5a53de9204ec3715c2dcb0e2a5be76f13994c75c0a2b41a1235b771b65716001` |
+| `navegador/interfaz/subtitulos/VistaPreviaDeEstilo.tsx` | `4ef003c8961d9d69ea5196113fbaf7978f49690a04696052609c5608a2b80466` |
 | `navegador/interfaz/subtitulos/VistaSubtitulos.tsx` | `fde7b65b096d2b49ce24f477558b93537a9e7fa15a55ef4ec2a46f4804aa19e8` |
 | `navegador/modulos/captura-audio/entrada-archivo.ts` | `97fe42b7c6980b6e135e2904d823d3139ff7d3ae4a6ef6dda7ad544b5ef9912d` |
 | `navegador/modulos/captura-audio/entrada-equipo.ts` | `f77fb1f574c0cd771314f94e6b5ee9e2b3f44218f869b9740bd37eb3abbe6e6f` |
