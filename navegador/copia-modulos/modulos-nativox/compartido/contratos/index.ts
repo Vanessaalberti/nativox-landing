@@ -84,10 +84,16 @@ export {
 } from "./api/operadores";
 export {
   esquemaAudiencia,
+  esquemaEnlaceDeAudiencia,
   type Audiencia,
   type CharlaPublica,
   type SalaPublica,
 } from "./api/audiencia";
+export {
+  SEGUNDOS_MAXIMOS_POR_PEDIDO,
+  esquemaTranscripcionNube,
+  type TranscripcionNube,
+} from "./api/transcribir";
 export {
   ESTILO_POR_DEFECTO,
   esquemaDatosDeSalida,

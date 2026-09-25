@@ -2,7 +2,7 @@
 
 **No se edita a mano.** Se actualiza con `npm run sincronizar` y el CI comprueba (`npm run verificar-copia`) que cada archivo coincida con su resumen.
 
-- Commit de origen: `c5c2981` (con cambios todavía sin commitear en la aplicación)
+- Commit de origen: `4f722b0` (con cambios todavía sin commitear en la aplicación)
 - Fecha: 2026-09-25
 - Carpetas: `compartido/contratos`, `compartido/distancia-edicion`, `compartido/glosario`, `compartido/metricas`, `navegador/modulos/captura-audio`, `navegador/modulos/cortador-audio`, `navegador/modulos/evaluar-equipo`, `navegador/modulos/flujo-subtitulos`, `navegador/modulos/modelos-compartidos`, `navegador/modulos/transcripcion`, `navegador/modulos/traduccion`, `navegador/interfaz/sistema-diseno`, `navegador/interfaz/subtitulos`
 
@@ -10,16 +10,17 @@
 | --- | --- |
 | `compartido/contratos/api/acceso.ts` | `d98d17e707125da1ca229e8674d4b5e12f0e81222ee504eae7cd5fe55300430c` |
 | `compartido/contratos/api/ajustes.ts` | `528974764c9dde8f8924657c098765f62cbfc744c30cf7efe45de48d7590774a` |
-| `compartido/contratos/api/audiencia.ts` | `cee7179f5808c6707815be3a3694a4cd6edac2d498cc07f91a494b058b3457af` |
+| `compartido/contratos/api/audiencia.ts` | `a78a3770488a404a4a2205aee8f5b3229f1c581ab20e8f6ded22fe772d50e8b3` |
 | `compartido/contratos/api/charlas.ts` | `6f0a786278383c7f12f28146ad53e4261e29e4f5f235a844bcf909dcc5521f03` |
 | `compartido/contratos/api/errores.ts` | `ddaff4d1fd33ba8a49552a596abef0c45b0cdad79e82882f91627b90b8b65dae` |
-| `compartido/contratos/api/evento.ts` | `2ac93f159655263639157f8f17039a801740eb1df047d9b47747292ac4ae95f0` |
+| `compartido/contratos/api/evento.ts` | `9626d829baff8989fd9e0fddc4c83e80dd2b08dcef61cee5f5ad28b211fe9825` |
 | `compartido/contratos/api/operacion.ts` | `393ff278e6a3568c5d1bc792c8dc6731fc57fcb7c12349cae76ff496317b0b2b` |
 | `compartido/contratos/api/operadores.ts` | `bb066edfd3be2994ff11dc81f74fa7f08bd786ac30b9522200c4db1bbc9edd84` |
 | `compartido/contratos/api/produccion.ts` | `faae700f40789a3da1599c0c89071a3c2fdbb75d9001e79138b9cc6987a5ac82` |
 | `compartido/contratos/api/salas.ts` | `092f1b4d51b57ff0a9f6a70d3c46ddf097a1b809882ff55b695d7297809af6e7` |
+| `compartido/contratos/api/transcribir.ts` | `39bb625878b30f48ef6fd11481a2e22eebc5c38fdd557cdc70fc4545fb746fc0` |
 | `compartido/contratos/idiomas.ts` | `c5820b8070d6aa0f55763fe97a0052c41df88abf325a0208e5944440f2c21a7f` |
-| `compartido/contratos/index.ts` | `e3d25cd529380e2ffd136af33cf746ef54c2e5be2793cb703c8dbe8012e70a34` |
+| `compartido/contratos/index.ts` | `095452ba846fb7c9996fb2e353378ddf8877fc1695722747e0c6103094345286` |
 | `compartido/contratos/README.md` | `b1548414a2364fc9c92f1efff6f9be0a9b05c77d95887471d4a817efca52a428` |
 | `compartido/contratos/socket-produccion.ts` | `0b5fbf5caee23ac24b452d570019e7dbd2ff7048f9a04bfaf4aed440b113a259` |
 | `compartido/contratos/socket-sala.ts` | `2da98387c12ca94d4edf4bd2afcb147acf6a12b975013c468b7785ee329ddc08` |
@@ -43,22 +44,26 @@
 | `navegador/interfaz/sistema-diseno/componentes/Aviso.tsx` | `6fa10d24d0d436405c1296a420f1e151ecf1aaf207487f73416c29ad0452a34e` |
 | `navegador/interfaz/sistema-diseno/componentes/Boton.tsx` | `0f78b12e60f324dd1394487e6b2a7ee7860571693a406d6170efbc0f6830f4f6` |
 | `navegador/interfaz/sistema-diseno/componentes/CajaCopiable.tsx` | `b10af3622324a88d92e366997aac93ec720b6868aa72bb601bdc888fc3cd24e4` |
-| `navegador/interfaz/sistema-diseno/componentes/Campo.tsx` | `ae0a18c0f23d26b560271287b4b3c9c3368abab246962ed665b0242a3aafef0f` |
+| `navegador/interfaz/sistema-diseno/componentes/Campo.tsx` | `0d31e4d34c35fc40dff7a101adc12ca0bf5d70e6931286bedac2d6ae6e668626` |
 | `navegador/interfaz/sistema-diseno/componentes/CargaConReintento.tsx` | `54a405f66c26f3bcbf96c4dcdb844de96ce715f290bac0fef818b6366ebdff8c` |
 | `navegador/interfaz/sistema-diseno/componentes/EnlaceDeAccion.tsx` | `5a1c0e9328eb4dd37f048e10f56cefc9c5e0a398748292d1f777d1a709b94faf` |
 | `navegador/interfaz/sistema-diseno/componentes/EstadoVacio.tsx` | `e225934614ea66270a5f0f88f405c24ad07d5dee02f9c42ab1767ba39028dc93` |
 | `navegador/interfaz/sistema-diseno/componentes/Interruptor.tsx` | `36feea3a87a5daf5b686828dc62e8fcca87910083f0fd7306d840a19f2879a76` |
 | `navegador/interfaz/sistema-diseno/componentes/ListaDeDatos.tsx` | `a23464a5d883e4f760e1600ce39917f91080d67cf4b1d0c7bcf71fb0d9db6713` |
 | `navegador/interfaz/sistema-diseno/componentes/LogoYNombre.tsx` | `90f814628beb2e5ff81461b3d129d3d5dcdc145e775929966862bd2cc1816017` |
-| `navegador/interfaz/sistema-diseno/componentes/Modal.tsx` | `aa241ecb8b0178ea47ab4631e68fddba317579d89f85528857bc40a7335d74a1` |
+| `navegador/interfaz/sistema-diseno/componentes/Modal.tsx` | `95ec4e9a1dd0a5e82b2121e5987bf0d18f257afeb0c3be9fa879b9cd728cc9bf` |
 | `navegador/interfaz/sistema-diseno/componentes/PieDeFormulario.tsx` | `87ea1f9b914909b4e45eb85e9ec0f4b0fcf8c91d755099190f69c3095e7340b6` |
-| `navegador/interfaz/sistema-diseno/componentes/Seleccion.tsx` | `c39ba56f6cee268c567c470d7f0fcbbadda1c5b94c213b90f702ea9ea0823d80` |
+| `navegador/interfaz/sistema-diseno/componentes/PieDeModal.tsx` | `59a630e7c1586384698d713420faa217fb484bc5c6de0d34c248ff12a1e32f0e` |
+| `navegador/interfaz/sistema-diseno/componentes/PiePaginado.tsx` | `d7c9f4642e2a82b346a9aef65fd4933b1550786ebf745122fb0b2d1a27fc0854` |
+| `navegador/interfaz/sistema-diseno/componentes/Seleccion.tsx` | `06a38940b5ecbf26af02bb7d79aab7d98008f1cf6ea767b0a314d04105d81765` |
 | `navegador/interfaz/sistema-diseno/componentes/TarjetaDeLista.tsx` | `e573071b3dcbb94ad7d9540a63a0ea4778780dd34b922efdeba5ad4289a12183` |
 | `navegador/interfaz/sistema-diseno/componentes/ZonaDeEliminar.tsx` | `750b98ba174eb37554d3cb02ad6bda010e491cf66514335e2bee1c8740b10e50` |
 | `navegador/interfaz/sistema-diseno/estilos.css` | `974ecd039b16a75f6dceaa506b295969d05d07d73953d6e57593b2129d67b6c7` |
+| `navegador/interfaz/sistema-diseno/hooks/useAlMostrarse.ts` | `c3409c7fe9bc35c69fc9c1955340df6869a427c37c218d10a04e8e22908394ec` |
 | `navegador/interfaz/sistema-diseno/hooks/useConRecarga.ts` | `6391c35d88f6a3f9d5873dcf149971dcd4e9f2c174258267cf8470f54f86f1e2` |
 | `navegador/interfaz/sistema-diseno/hooks/useEnvio.ts` | `71e06a81d62059f7b32b1fe9f0acaa187e6fbf34aa06978efa9fcccaee0e773f` |
-| `navegador/interfaz/sistema-diseno/index.ts` | `e448f9c5039b206a807e06014470872df6f14a055d828958ead4b14424c1d7f7` |
+| `navegador/interfaz/sistema-diseno/hooks/useFilasQueEntran.ts` | `a680cc0b0bf04d53effce3aac7dde51848e1eeb5ba1def2b78c314b1f03babe3` |
+| `navegador/interfaz/sistema-diseno/index.ts` | `5835d5dcc0a5fba5e79bdcfe54115bbcc499318c139ab6d0e9a036f9e11a9014` |
 | `navegador/interfaz/sistema-diseno/logo.ts` | `1b2ea75b1f32ff80bec092a696d159855041616e13cbb712a75aac992df4ff13` |
 | `navegador/interfaz/sistema-diseno/README.md` | `8fb5d7b8feca28e8e93486ae68a3024acf394b5b1a4da380608c29daa2059f1d` |
 | `navegador/interfaz/subtitulos/EditorDeEstilo.tsx` | `76bb6cb3fdcc74d1acaceb99197473f5eaffb7aaa07b985bfe846c0533d66ff3` |
@@ -69,12 +74,15 @@
 | `navegador/interfaz/subtitulos/VistaPreviaDeEstilo.tsx` | `4ef003c8961d9d69ea5196113fbaf7978f49690a04696052609c5608a2b80466` |
 | `navegador/interfaz/subtitulos/VistaSubtitulos.tsx` | `fde7b65b096d2b49ce24f477558b93537a9e7fa15a55ef4ec2a46f4804aa19e8` |
 | `navegador/modulos/captura-audio/entrada-archivo.ts` | `97fe42b7c6980b6e135e2904d823d3139ff7d3ae4a6ef6dda7ad544b5ef9912d` |
-| `navegador/modulos/captura-audio/entrada-equipo.ts` | `f77fb1f574c0cd771314f94e6b5ee9e2b3f44218f869b9740bd37eb3abbe6e6f` |
-| `navegador/modulos/captura-audio/index.ts` | `de68a1aceaa893c666fb6ac08d366e68ede530014cafab257943acc1fc0aadd9` |
+| `navegador/modulos/captura-audio/entrada-enlace.ts` | `b6b41d839104eec180b0eda7223961219f58b65777c2667e5fb0208c768ac497` |
+| `navegador/modulos/captura-audio/entrada-equipo.ts` | `5270c6e44786de019ba82bc000b3e2144cfc4708495859c87d2bc2982281e446` |
+| `navegador/modulos/captura-audio/entrada-pestana.ts` | `f0b43f567eb33313fbfcf5d0d77439d75b946de8b738586bac37dd31da5e7bb1` |
+| `navegador/modulos/captura-audio/index.ts` | `0813cb2d59b345eadda63e9732283e19a0ecbb5bef5d471c12cbc4bc23b551dc` |
+| `navegador/modulos/captura-audio/nodo-de-captura.ts` | `dc63576eff551539766e97d0659df910a6d8af6821b2dc70733ebf49a48818a8` |
 | `navegador/modulos/captura-audio/procesador.ts` | `3cacd03f62576732652daed9f48f53091fc933cf4c83c9be035788bd2372d9e7` |
-| `navegador/modulos/captura-audio/README.md` | `0ddbcc8bf2a882aebc1562c41aa25d90d5d29fbd3aa948fe6a3d4503c2b97734` |
+| `navegador/modulos/captura-audio/README.md` | `20c7d44e7407119221c677b459981591f8b96407286c0758863257baea1ed509` |
 | `navegador/modulos/captura-audio/tiempo-real.ts` | `04601a8e56d3eeb93644261dc68d2c79f446544edb4a1e3a80bf7b893366b732` |
-| `navegador/modulos/captura-audio/tipos.ts` | `9a11201c8bc5a33f61b24288e25c098f6f570ac0b555bd2fc0b8c50713106297` |
+| `navegador/modulos/captura-audio/tipos.ts` | `f0c9828a1ffb215970e575d749309458f72b28b3e16a0e35e1e48f7286391458` |
 | `navegador/modulos/cortador-audio/cortador.ts` | `f774f4c39d4dccf2e5bbcdfc575169a84430b45ef75872c9e37f9deaa2765f0d` |
 | `navegador/modulos/cortador-audio/energia.ts` | `0c15bb30cf241e9a9bd8bc2002740a107eb3cc299fe121b6f78df1d9a2184b5e` |
 | `navegador/modulos/cortador-audio/index.ts` | `2a4a5a9cc3bf5402fae100ab03e0305759825e4810d2c054c5b8715d8625aa67` |
@@ -82,15 +90,17 @@
 | `navegador/modulos/cortador-audio/README.md` | `d22b880fb328dac71c1640966e270c8b7474bf945b6c5fe6ac2daf008052547f` |
 | `navegador/modulos/cortador-audio/silencios.ts` | `f39d167f8b92e359072234c1b5a416549f9ef053447e9e495be95171e0530c7f` |
 | `navegador/modulos/evaluar-equipo/evaluar.ts` | `d00da6d521b1468090fdcccb39f81b84b2e8fc56af003441d6025a953a613ad7` |
-| `navegador/modulos/evaluar-equipo/index.ts` | `46ceaf10ca8b367657890752702c72a34c20560efff7c8770e23c850793ecf57` |
+| `navegador/modulos/evaluar-equipo/index.ts` | `241d92f606488cc922fe52c869a3e32b4be58b08155692cc12deb59f29745e86` |
 | `navegador/modulos/evaluar-equipo/niveles.ts` | `09d4a98f235f64949a4b8639569fb8806e4aff67f007004e738a3a8dcab81d23` |
 | `navegador/modulos/evaluar-equipo/placa.ts` | `928750ced6ae004c52b51c8180efee762967fb937a243825c9be1396bbf85a7a` |
 | `navegador/modulos/evaluar-equipo/README.md` | `71045b6fb13e250ac451cfb2ca77ac69c352aa6d624fc9015f9a9e7676473306` |
 | `navegador/modulos/evaluar-equipo/recomendacion.ts` | `9e386996118f9b9a2e044a71e507e6d800e05cdec793aa9e75a6138bf83b9aba` |
 | `navegador/modulos/evaluar-equipo/rendimiento.ts` | `9f00b0ccc39d6d8cabb9ab79cefa2e39973a2139026c1e15c8532619be176372` |
+| `navegador/modulos/evaluar-equipo/textos-es.ts` | `afd1fea2420e2fa0be802e1d333160036345b271808fa291727dd958af0d16c8` |
+| `navegador/modulos/evaluar-equipo/useEvaluacion.ts` | `dca7b0f0006e3e4c7b482025ce1294b347d1861bef6a32763b26ceeaca399532` |
 | `navegador/modulos/flujo-subtitulos/correccion-de-limite.ts` | `7727dbff4b1fcf97a6e2a9219550b246fdfd92b33b1411155f0099bd1150c8e3` |
-| `navegador/modulos/flujo-subtitulos/flujo.ts` | `d25823a5793d013f8fd9d681f0c1aaaa797f7dcbbbbcf19355dbbd5536bac74c` |
-| `navegador/modulos/flujo-subtitulos/index.ts` | `2341abf0370fe163b53fed9828e4dbd32d034555f7ef10248809d34dbb4f8332` |
+| `navegador/modulos/flujo-subtitulos/flujo.ts` | `27763a7bcfa28dc2a869a685dce214208149d60a6ee0dc8e9d683313125a3f32` |
+| `navegador/modulos/flujo-subtitulos/index.ts` | `2d115ee8bfae46c3258db6a2761d225aec3d3bf7ba11909eba8d2ec19b9e5f2a` |
 | `navegador/modulos/flujo-subtitulos/minimo-adaptativo.ts` | `831ba1ab4a3ab93e232563e201c9f29369ef247a9f61bb5792cf5c015f0f49e9` |
 | `navegador/modulos/flujo-subtitulos/README.md` | `475e19c5dcda1290e88f93079dfb168f6fcad26f7cbd7cc85aaa9c0c9e73b1dc` |
 | `navegador/modulos/flujo-subtitulos/tipos.ts` | `671ba01fcd740c5b76ec39a56f60f00937e836fe16c8f6be6dfc7c66dbc4a1bf` |
@@ -114,8 +124,9 @@
 | `navegador/modulos/traduccion/traductores/translategemma.ts` | `b8d2b0ffe1ec32fbeab0e96a18d5f37d478c8932c2d3e6552f5acf0eef663b21` |
 | `navegador/modulos/transcripcion/alucinaciones.ts` | `3910690d6623def741a4823e6a0b9000c919613cc8a3800189e4e5a6dfd0e7ff` |
 | `navegador/modulos/transcripcion/en-vivo/acuerdo-local.ts` | `dbc684b505a0d6080b169870f7b4e375bba3781be65d36524c582c4870a99a49` |
-| `navegador/modulos/transcripcion/index.ts` | `0968b053b3269d585d2ec879c602c48f0b4a7b6bf42e680c29bf54336711c88a` |
+| `navegador/modulos/transcripcion/index.ts` | `607362870a7b766508bc1c079fe45729e39ee921928b8e54304855555adfb16d` |
 | `navegador/modulos/transcripcion/motores/whisper-local.ts` | `fe81436a931314589b91b241c2c9e1a71b561cd86bcc9427734b78ddad80a911` |
+| `navegador/modulos/transcripcion/motores/whisper-nube.ts` | `e76fe26fe2d3d9003e0e56872076e33dd48f6d7c00aeb77248324329b5e410b2` |
 | `navegador/modulos/transcripcion/README.md` | `d070fc57875f97bbd76f0cce35a3eb5ceaa298eafc533880495aca8e0bda1d42` |
 | `navegador/modulos/transcripcion/superposicion.ts` | `35e7799e1cb0bd6a821036eec790e0d81c223b78913931988a817b6a183daf0e` |
 | `navegador/modulos/transcripcion/texto.ts` | `b0837d651bfeaa0415bb5b248ebaa93c5470017ed98505e2f2f664712e465288` |
