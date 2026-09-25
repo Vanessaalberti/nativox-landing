@@ -27,4 +27,4 @@ React + Vite + Tailwind publicado en Cloudflare, con un Worker chico para la pru
 
 `rutas` → `funcionalidades` y la copia (tipos) · `funcionalidades` → la copia y `contratos-landing` · `arranque` → `rutas` y la copia · `segundo-plano` → la copia · `servidor` → `contratos-landing` y la copia. Una funcionalidad no importa a otra: lo que comparten lo junta la ruta (por ejemplo, la portada recibe el encabezado y la transcripción en vivo por parámetro).
 
-**Por qué una copia y no un import:** la aplicación y la landing son repositorios separados (el botón de despliegue necesita la aplicación aislada). La copia lleva `SINCRONIZADO_DESDE.md` con el commit de origen y el resumen de cada archivo, y la integración continua comprueba que no se haya editado a mano.
+**Por qué una copia y no un import:** la aplicación y la landing son repositorios separados (el botón de deploy necesita la aplicación aislada). La copia lleva `SINCRONIZADO_DESDE.md` con el commit de origen y el resumen de cada archivo, y el CI comprueba que no se haya editado a mano.

@@ -1,4 +1,4 @@
-// En la integración continua: falla si navegador/copia-modulos/ se editó a mano.
+// En el CI: falla si navegador/copia-modulos/ se editó a mano.
 import { readFileSync } from "node:fs";
 import { join, resolve } from "node:path";
 import {

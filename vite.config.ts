@@ -65,7 +65,7 @@ const publicarBergamot: Plugin = {
 
 // Transformers.js baja el WebAssembly de ONNX Runtime de jsDelivr (y lo guarda en la caché en
 // disco), así que la copia que Vite publica nunca se usa. Además pesa 26,9 MB y Cloudflare acepta
-// hasta 25 MiB por archivo estático: se saca de la construcción.
+// hasta 25 MiB por archivo estático: se saca del build.
 const sinWasmDeOnnx: Plugin = {
   name: "nativox:sin-wasm-de-onnx",
   generateBundle(_opciones, paquete) {

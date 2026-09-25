@@ -7,4 +7,4 @@
 | `charlas/` | Lista de charlas usadas (link, fragmento, idioma, licencia) |
 | `referencias/` | Transcripción revisada y glosario de cada fragmento |
 
-La página valida los archivos al construirse: uno roto hace fallar la construcción en lugar de publicar una tabla equivocada. Método: `documentacion/metodo-comparacion.md`.
+La página valida los archivos en el build: uno roto hace fallar el build en lugar de publicar una tabla equivocada. Método: `documentacion/metodo-comparacion.md`.

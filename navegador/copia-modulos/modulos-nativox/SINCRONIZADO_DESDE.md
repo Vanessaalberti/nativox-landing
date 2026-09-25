@@ -1,8 +1,8 @@
 # Sincronizado desde nativox-app
 
-**No se edita a mano.** Se actualiza con `npm run sincronizar` y la integración continua comprueba (`npm run verificar-copia`) que cada archivo coincida con su resumen.
+**No se edita a mano.** Se actualiza con `npm run sincronizar` y el CI comprueba (`npm run verificar-copia`) que cada archivo coincida con su resumen.
 
-- Commit de origen: `80dd676` (con cambios todavía sin commitear en la aplicación)
+- Commit de origen: `d583054` (con cambios todavía sin commitear en la aplicación)
 - Fecha: 2026-09-25
 - Carpetas: `compartido/contratos`, `compartido/distancia-edicion`, `compartido/glosario`, `compartido/metricas`, `navegador/modulos/captura-audio`, `navegador/modulos/cortador-audio`, `navegador/modulos/flujo-subtitulos`, `navegador/modulos/modelos-compartidos`, `navegador/modulos/transcripcion`, `navegador/modulos/traduccion`, `navegador/interfaz/sistema-diseno`, `navegador/interfaz/subtitulos`
 
@@ -62,7 +62,7 @@
 | `navegador/modulos/modelos-compartidos/guardados.ts` | `aee1177e8ee405614d7a1ce1e63c3590bc6dd57842ab62e116de5efed3aa2d15` |
 | `navegador/modulos/modelos-compartidos/index.ts` | `b756cdcff79bd43e8ae44d6c9ac17f2405a4ff052204bff19abda9c75219fc12` |
 | `navegador/modulos/modelos-compartidos/protocolo.ts` | `2bbe9f6accfcca9a878861c22c1205a743cd3ba6ea69e62c3211ae9f85692b35` |
-| `navegador/modulos/modelos-compartidos/README.md` | `18acca9d00bb7f41594f2dadaff28337bc987234fefb6ac9d65699c052270577` |
+| `navegador/modulos/modelos-compartidos/README.md` | `84ce3757035e9221a84c7c40e6bd15e14d1c2292aeab1f92c8889c62b5d4611f` |
 | `navegador/modulos/modelos-compartidos/variante.ts` | `ee881fea260a1eac0821645dc8b6aeb857e04b9c823907c310ae8888d4126b40` |
 | `navegador/modulos/modelos-compartidos/whisper.ts` | `99d89e88d0e8c22a4b74ae3f9c7d58ded970cbd50459bfabf58cb3b641d0db40` |
 | `navegador/modulos/traduccion/cola.ts` | `b078019e0035698832a2166906c2588c931886e8179895a9b3627b644c649ffb` |

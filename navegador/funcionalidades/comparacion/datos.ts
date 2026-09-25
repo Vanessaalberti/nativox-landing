@@ -8,13 +8,13 @@ import {
 } from "./filas";
 
 // Los resultados se calculan una vez con la aplicación y se suben a comparacion/resultados/: la
-// página los lee al construirse y no gasta nada al mostrarlos.
+// página los lee en el build y no gasta nada al mostrarlos.
 const resultadosCrudos = import.meta.glob<unknown>("../../../comparacion/resultados/*.json", {
   eager: true,
   import: "default",
 });
 
-// Un archivo roto hace fallar la construcción: mejor eso que publicar una tabla equivocada.
+// Un archivo roto hace fallar el build: mejor eso que publicar una tabla equivocada.
 export function leerDatosComparacion(): {
   combinaciones: Combinacion[];
   resultados: ResultadoMedido[];

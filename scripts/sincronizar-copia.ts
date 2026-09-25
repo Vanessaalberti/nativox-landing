@@ -47,7 +47,7 @@ writeFileSync(
   join(destino, ARCHIVO_ORIGEN),
   `# Sincronizado desde nativox-app
 
-**No se edita a mano.** Se actualiza con \`npm run sincronizar\` y la integración continua comprueba (\`npm run verificar-copia\`) que cada archivo coincida con su resumen.
+**No se edita a mano.** Se actualiza con \`npm run sincronizar\` y el CI comprueba (\`npm run verificar-copia\`) que cada archivo coincida con su resumen.
 
 - Commit de origen: \`${commit}\`${conCambios ? " (con cambios todavía sin commitear en la aplicación)" : ""}
 - Fecha: ${new Date().toISOString().slice(0, 10)}
