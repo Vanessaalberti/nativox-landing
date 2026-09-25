@@ -2,18 +2,20 @@
 
 **No se edita a mano.** Se actualiza con `npm run sincronizar` y el CI comprueba (`npm run verificar-copia`) que cada archivo coincida con su resumen.
 
-- Commit de origen: `1c45561` (con cambios todavía sin commitear en la aplicación)
+- Commit de origen: `08f82a8` (con cambios todavía sin commitear en la aplicación)
 - Fecha: 2026-09-25
 - Carpetas: `compartido/contratos`, `compartido/distancia-edicion`, `compartido/glosario`, `compartido/metricas`, `navegador/modulos/captura-audio`, `navegador/modulos/cortador-audio`, `navegador/modulos/evaluar-equipo`, `navegador/modulos/flujo-subtitulos`, `navegador/modulos/modelos-compartidos`, `navegador/modulos/transcripcion`, `navegador/modulos/traduccion`, `navegador/interfaz/sistema-diseno`, `navegador/interfaz/subtitulos`
 
 | Archivo | SHA-256 |
 | --- | --- |
 | `compartido/contratos/api/acceso.ts` | `d98d17e707125da1ca229e8674d4b5e12f0e81222ee504eae7cd5fe55300430c` |
+| `compartido/contratos/api/charlas.ts` | `d8ce6cb07573c74d3c443db9ee5832d4579038f084d1c37df1bd020e98cfa337` |
 | `compartido/contratos/api/errores.ts` | `ddaff4d1fd33ba8a49552a596abef0c45b0cdad79e82882f91627b90b8b65dae` |
 | `compartido/contratos/api/evento.ts` | `0161369471b7a7e6071eb4dd806e6811c085353104673b05b9039c0346b247dc` |
-| `compartido/contratos/idiomas.ts` | `2ddf807b52504260b75e82c2772862a9c257124e8e8ebd2536a255580f760370` |
-| `compartido/contratos/index.ts` | `14be938d47647f64bb6c0f95f774bf096ba11322e55fe8584236c0209bbce2d1` |
-| `compartido/contratos/README.md` | `4230cbab9b12c8ada6a879f09466fa0986767455e56f3baaca876a7a357c7eb5` |
+| `compartido/contratos/api/salas.ts` | `092f1b4d51b57ff0a9f6a70d3c46ddf097a1b809882ff55b695d7297809af6e7` |
+| `compartido/contratos/idiomas.ts` | `c5820b8070d6aa0f55763fe97a0052c41df88abf325a0208e5944440f2c21a7f` |
+| `compartido/contratos/index.ts` | `98d4b429308f3a679c0ead964e38dd9300fdfc4e76ad873a866fcde9fbe1a768` |
+| `compartido/contratos/README.md` | `b1548414a2364fc9c92f1efff6f9be0a9b05c77d95887471d4a817efca52a428` |
 | `compartido/contratos/socket-produccion.ts` | `0b5fbf5caee23ac24b452d570019e7dbd2ff7048f9a04bfaf4aed440b113a259` |
 | `compartido/contratos/socket-sala.ts` | `67dfec7fcfb9db35df76bd2137f9e0d084cab1cf88816f24bbef1a1aa00cb9bb` |
 | `compartido/contratos/validar.ts` | `edcf6abba07c04fbed1b625950c289b85f700cd72c2baf925a0e9be03718a6f3` |
@@ -38,8 +40,12 @@
 | `navegador/interfaz/sistema-diseno/componentes/CajaCopiable.tsx` | `b10af3622324a88d92e366997aac93ec720b6868aa72bb601bdc888fc3cd24e4` |
 | `navegador/interfaz/sistema-diseno/componentes/Campo.tsx` | `d617cb9f9dcfa55a347f55e7b6cd7711817ef6aea63e5d827cbb1ce303494ba5` |
 | `navegador/interfaz/sistema-diseno/componentes/ListaDeDatos.tsx` | `a23464a5d883e4f760e1600ce39917f91080d67cf4b1d0c7bcf71fb0d9db6713` |
+| `navegador/interfaz/sistema-diseno/componentes/Modal.tsx` | `aa241ecb8b0178ea47ab4631e68fddba317579d89f85528857bc40a7335d74a1` |
+| `navegador/interfaz/sistema-diseno/componentes/Seleccion.tsx` | `c39ba56f6cee268c567c470d7f0fcbbadda1c5b94c213b90f702ea9ea0823d80` |
+| `navegador/interfaz/sistema-diseno/componentes/ZonaDeEliminar.tsx` | `750b98ba174eb37554d3cb02ad6bda010e491cf66514335e2bee1c8740b10e50` |
 | `navegador/interfaz/sistema-diseno/estilos.css` | `974ecd039b16a75f6dceaa506b295969d05d07d73953d6e57593b2129d67b6c7` |
-| `navegador/interfaz/sistema-diseno/index.ts` | `eb8de7a61174df07413f901667e6750ab9df0cb30477147fae789b1b7f3e6e6c` |
+| `navegador/interfaz/sistema-diseno/hooks/useEnvio.ts` | `a5629a3cfa1a1c1f0657f2550e618f3ac2604473e36edf406a6e56d63c33a57a` |
+| `navegador/interfaz/sistema-diseno/index.ts` | `e6347f8c6fe885d4b715dc34630b11f0d157e3cb22fd81cfef01000c533ba2f0` |
 | `navegador/interfaz/sistema-diseno/README.md` | `8fb5d7b8feca28e8e93486ae68a3024acf394b5b1a4da380608c29daa2059f1d` |
 | `navegador/interfaz/subtitulos/index.ts` | `a21556e70797436a55b7d490a4f8d690df7793a37eefda8302ed97c03b3c0b89` |
 | `navegador/interfaz/subtitulos/LineaSubtitulo.tsx` | `f1e0e48a343012fa294571095c074d1516ce3592025793a1de98555c5a6ee9c4` |
