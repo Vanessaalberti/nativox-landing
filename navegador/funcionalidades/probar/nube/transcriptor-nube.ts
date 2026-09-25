@@ -7,26 +7,34 @@ import { transcribirEnLaNube, type AudioEnviado } from "./cliente-nube";
 import { codificarEnOgg, opusDisponible } from "./codificador-opus";
 
 export interface EventosTranscriptorNube {
-  // Después de cada pedido: los segundos de audio que le quedan de cupo a este dispositivo.
-  alQuedarCupo: (segundos: number) => void;
+  // Después de cada pedido: las pruebas que le quedan a este dispositivo.
+  alQuedarCupo: (pruebas: number) => void;
   alAgotarseElCupo: (reintentarEnSegundos: number) => void;
 }
 
 // Whisper large-v3 turbo en Workers AI con la misma interfaz que el motor local: el corte en
 // pausas, el contexto, el filtro de alucinaciones y la traducción son los del resto de la app.
-export function crearTranscriptorNube(eventos: EventosTranscriptorNube): Transcriptor {
+export function crearTranscriptorNube(
+  idPrueba: string,
+  eventos: EventosTranscriptorNube,
+): Transcriptor {
   return {
     info: { nombre: "Whisper turbo (Workers AI)", local: false, vadPropio: true },
     async transcribir(audio, { prompt, idioma, segundosDeContexto = 0 }) {
       if (!esIdioma(idioma)) return { ok: false, motivo: `Idioma no soportado: ${idioma}` };
       const inicio = performance.now();
-      const respuesta = await transcribirEnLaNube(await empaquetar(audio), idioma, prompt);
+      const respuesta = await transcribirEnLaNube(
+        await empaquetar(audio),
+        idioma,
+        prompt,
+        idPrueba,
+      );
       if (!respuesta.ok) {
         if (respuesta.codigo === "sin-cupo")
           eventos.alAgotarseElCupo(respuesta.reintentarEnSegundos);
         return { ok: false, motivo: respuesta.mensaje };
       }
-      eventos.alQuedarCupo(respuesta.restantes);
+      eventos.alQuedarCupo(respuesta.pruebas);
       return {
         ok: true,
         valor: {

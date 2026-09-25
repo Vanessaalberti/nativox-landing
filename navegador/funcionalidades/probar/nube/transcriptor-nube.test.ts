@@ -4,7 +4,7 @@ import { sinElContexto } from "./transcriptor-nube";
 const respuesta = {
   ok: true as const,
   texto: " para ver como funciona esto de verdad",
-  restantes: 100,
+  pruebas: 2,
   palabras: [
     { palabra: " para", inicio: 0, fin: 0.3 },
     { palabra: " ver", inicio: 0.3, fin: 0.6 },

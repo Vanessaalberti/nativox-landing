@@ -44,7 +44,7 @@ async function consultarCupos(env: Env, claves: Claves): Promise<Response> {
     ),
   );
   const cuerpo: CuposRespuesta = {
-    restantes: Math.min(...decisiones.map((d) => d.restantes)),
+    pruebas: Math.min(...decisiones.map((d) => d.pruebas)),
     reintentarEnSegundos: Math.max(...decisiones.map((d) => d.reintentarEnSegundos)),
   };
   return Response.json(cuerpo);
@@ -54,18 +54,22 @@ async function transcribir(pedido: Request, env: Env, claves: Claves): Promise<R
   const idioma = v.safeParse(esquemaIdioma, new URL(pedido.url).searchParams.get("idioma"));
   if (!idioma.success) return error(400, "pedido-invalido", "Falta el idioma (es, en o pt).");
 
+  const idPrueba = pedido.headers.get("X-Nativox-Prueba") ?? "";
+  if (!FORMATO_UUID.test(idPrueba))
+    return error(400, "pedido-invalido", "Falta el id de la prueba.");
+
   const audio = new Uint8Array(await pedido.arrayBuffer());
   const wav = medirAudio(audio, SEGUNDOS_MAXIMOS_POR_PEDIDO);
   if (!wav.ok) return error(400, "audio-invalido", wav.motivo);
   const { segundos } = wav.valor;
   const prompt = leerPrompt(pedido);
 
-  const consumidos = await consumirEnOrden(env, claves, segundos);
+  const consumidos = await consumirEnOrden(env, claves, segundos, idPrueba);
   if (!consumidos.ok) {
     return error(
       429,
       "sin-cupo",
-      "Ya usaste el audio disponible.",
+      "Ya usaste las pruebas disponibles.",
       consumidos.decision.reintentarEnSegundos,
     );
   }
@@ -91,14 +95,12 @@ async function transcribir(pedido: Request, env: Env, claves: Claves): Promise<R
             : [],
         ),
       ),
-      restantes: consumidos.restantes,
+      pruebas: consumidos.pruebas,
     };
     return Response.json(cuerpo);
   } catch (causa) {
-    // Si el modelo falló, ese audio no cuenta.
-    await Promise.all(
-      consumidos.usos.map(({ clave, momento }) => cupos(env, clave).devolver(momento, segundos)),
-    );
+    // Si el modelo falló, ese audio no cuenta (ni la prueba, si este pedido era el primero).
+    await devolver(env, consumidos.usos, idPrueba, segundos);
     registrarError("Falló Whisper en Workers AI", causa);
     return error(
       502,
@@ -108,27 +110,62 @@ async function transcribir(pedido: Request, env: Env, claves: Claves): Promise<R
   }
 }
 
-// Primero el dispositivo, después la IP y al final el sitio: si uno dice que no, se devuelven
-// los que ya se habían descontado.
-async function consumirEnOrden(env: Env, claves: Claves, segundos: number) {
-  const usos: { clave: string; momento: number }[] = [];
-  let restantes = Number.POSITIVE_INFINITY;
+interface UsoRegistrado {
+  clave: string;
+  // El uso de audio de este pedido y, si el pedido abrió una prueba, cuándo se abrió.
+  momento: number;
+  pruebaAbiertaEn: number | null;
+}
+
+async function devolver(
+  env: Env,
+  usos: readonly UsoRegistrado[],
+  idPrueba: string,
+  segundos: number,
+) {
+  await Promise.all(
+    usos.flatMap(({ clave, momento, pruebaAbiertaEn }) => [
+      cupos(env, clave).devolver(momento, segundos),
+      ...(pruebaAbiertaEn === null
+        ? []
+        : [cupos(env, clave).devolverPrueba(idPrueba, pruebaAbiertaEn)]),
+    ]),
+  );
+}
+
+// Primero el dispositivo, después la IP y al final el sitio; en cada uno se cuenta la prueba (una
+// sola vez por sesión) y los segundos de audio. Si alguno dice que no, se devuelve lo que ya se
+// había descontado.
+async function consumirEnOrden(env: Env, claves: Claves, segundos: number, idPrueba: string) {
+  const usos: UsoRegistrado[] = [];
+  let pruebas = Number.POSITIVE_INFINITY;
   for (const tipo of Object.keys(LIMITES) as (keyof typeof LIMITES)[]) {
     const limite: Limite = LIMITES[tipo];
-    const decision = await cupos(env, claves[tipo]).consumir(limite, segundos);
-    if (!decision.permitido) {
-      await Promise.all(
-        usos.map(({ clave, momento }) => cupos(env, clave).devolver(momento, segundos)),
-      );
-      return { ok: false as const, decision };
+    const cupo = cupos(env, claves[tipo]);
+    const prueba = await cupo.registrarPrueba(limite, idPrueba);
+    const pruebaAbiertaEn = prueba.creada ? prueba.inicio : null;
+    if (!prueba.permitido) {
+      await devolver(env, usos, idPrueba, segundos);
+      return { ok: false as const, decision: prueba };
     }
-    usos.push({ clave: claves[tipo], momento: decision.momento });
-    restantes = Math.min(restantes, decision.restantes);
+    const audio = await cupo.consumir(limite, segundos);
+    if (!audio.permitido) {
+      await devolver(
+        env,
+        [...usos, { clave: claves[tipo], momento: -1, pruebaAbiertaEn }],
+        idPrueba,
+        segundos,
+      );
+      return { ok: false as const, decision: audio };
+    }
+    usos.push({ clave: claves[tipo], momento: audio.momento, pruebaAbiertaEn });
+    pruebas = Math.min(pruebas, prueba.restantes);
   }
-  return { ok: true as const, restantes, usos };
+  return { ok: true as const, pruebas, usos };
 }
 
 const LARGO_MAXIMO_PROMPT = 800;
+const FORMATO_UUID = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/;
 
 // El prompt viaja en un encabezado (codificado) y no en la URL, para que no quede en los registros.
 function leerPrompt(pedido: Request): string {

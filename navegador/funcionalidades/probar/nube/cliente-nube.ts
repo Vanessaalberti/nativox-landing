@@ -36,6 +36,7 @@ async function enviar(
   audio: AudioEnviado,
   idioma: Idioma,
   prompt: string,
+  idPrueba: string,
 ): Promise<RespuestaTranscripcion> {
   try {
     const respuesta = await fetch(`/api/transcribir?idioma=${idioma}`, {
@@ -43,7 +44,12 @@ async function enviar(
       credentials: "same-origin",
       // En un encabezado y no en la URL: es lo que se viene diciendo, no tiene que quedar en los
       // registros.
-      headers: { "Content-Type": audio.tipo, "X-Nativox-Prompt": encodeURIComponent(prompt) },
+      headers: {
+        "Content-Type": audio.tipo,
+        "X-Nativox-Prompt": encodeURIComponent(prompt),
+        // Todos los pedidos de una sesión llevan el mismo id: el servidor los cuenta como una prueba.
+        "X-Nativox-Prueba": idPrueba,
+      },
       body: new Blob([audio.datos], { type: audio.tipo }),
     });
     const leido = v.safeParse(esquemaRespuestaTranscripcion, await respuesta.json());
@@ -68,9 +74,10 @@ export async function transcribirEnLaNube(
   audio: AudioEnviado,
   idioma: Idioma,
   prompt: string,
+  idPrueba: string,
 ): Promise<RespuestaTranscripcion> {
-  const primera = await enviar(audio, idioma, prompt);
+  const primera = await enviar(audio, idioma, prompt, idPrueba);
   if (primera.ok || primera.codigo !== "fallo-del-modelo") return primera;
   await new Promise((seguir) => setTimeout(seguir, ESPERA_REINTENTO_MS));
-  return enviar(audio, idioma, prompt);
+  return enviar(audio, idioma, prompt, idPrueba);
 }

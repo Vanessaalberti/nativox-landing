@@ -23,6 +23,8 @@ const MINIMO_SEGUNDOS = 1;
 const PASADA_PROVISORIA_MS = 1000;
 
 export interface ConfiguracionEnVivo {
+  // Identifica esta prueba ante el servidor: todos sus pedidos cuentan como uno.
+  idPrueba: string;
   idiomaHablado: Idioma;
   // Solo si se pide otro idioma: el traductor ya cargado.
   traduccion: { idioma: Idioma; traductor: Traductor } | null;
@@ -41,7 +43,7 @@ export async function armarEnVivo(
   configuracion: ConfiguracionEnVivo,
   eventos: EventosEnVivo,
 ): Promise<Resultado<PruebaArmada>> {
-  const transcriptor = crearTranscriptorNube(eventos);
+  const transcriptor = crearTranscriptorNube(configuracion.idPrueba, eventos);
   const cola = crearCola();
   const cortador = crearCortador({ minimoSegundos: MINIMO_SEGUNDOS });
   const { traduccion } = configuracion;
