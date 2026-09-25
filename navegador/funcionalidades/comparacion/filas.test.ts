@@ -1,7 +1,7 @@
 import * as v from "valibot";
 import { describe, expect, it } from "vitest";
 import combinaciones from "../../../comparacion/combinaciones.json";
-import { armarFilas, esquemaCombinaciones } from "./filas";
+import { armarFilas, esquemaCombinaciones, esquemaResultado } from "./filas";
 
 describe("comparación", () => {
   const leidas = v.parse(esquemaCombinaciones, combinaciones);
@@ -40,5 +40,44 @@ describe("comparación", () => {
         retrasoSegundos: 3.8,
       }),
     );
+  });
+});
+
+describe("comparación con medidas parciales", () => {
+  const leidas = v.parse(esquemaCombinaciones, combinaciones);
+
+  it("una medida que falta queda como null y las que están se muestran", () => {
+    const filas = armarFilas(
+      leidas,
+      [
+        {
+          combinacion: "whisper-q4-bergamot-sin-glosario",
+          terminos: { bien: 39, total: 56 },
+          fuente: { es: "laboratorio", en: "lab", pt: "laboratório" },
+        },
+      ],
+      "es",
+    );
+    expect(filas[0]).toEqual(
+      expect.objectContaining({
+        wer: null,
+        retrasoSegundos: null,
+        terminos: { bien: 39, total: 56 },
+        fuente: "laboratorio",
+      }),
+    );
+    // Las combinaciones sin archivo no muestran ningún número ni fuente.
+    expect(filas[2]).toEqual(expect.objectContaining({ wer: null, terminos: null, fuente: null }));
+  });
+
+  it("todos los archivos de resultados publicados son válidos y de una combinación que existe", () => {
+    const ids = new Set(leidas.map((combinacion) => combinacion.id));
+    const publicados = import.meta.glob<unknown>("../../../comparacion/resultados/*.json", {
+      eager: true,
+      import: "default",
+    });
+    const resultados = Object.values(publicados).map((crudo) => v.parse(esquemaResultado, crudo));
+    expect(resultados.length).toBeGreaterThan(0);
+    for (const resultado of resultados) expect(ids.has(resultado.combinacion)).toBe(true);
   });
 });

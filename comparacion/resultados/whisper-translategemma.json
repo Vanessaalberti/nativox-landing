@@ -1,0 +1,11 @@
+{
+  "combinacion": "whisper-translategemma",
+  "wer": 0.014,
+  "terminos": { "bien": 52, "total": 56 },
+  "retrasoSegundos": 7.6,
+  "fuente": {
+    "es": "WER: es la misma transcripción de Whisper que en la fila con Bergamot. Términos 52/56: traducción del guion con el glosario protegido (laboratorio, 24/09). Retraso: el subtítulo traducido aparece a los 7,6 s con el contexto corto (laboratorio, 24/09); con dos idiomas no llega en vivo en esta placa (1,3 veces lo que dura una frase).",
+    "en": "WER: it is the same Whisper transcription as in the Bergamot row. Terms 52/56: translation of the script with the glossary protected (lab, 24/09). Delay: the translated subtitle shows up at 7.6 s with the short context (lab, 24/09); with two languages it does not keep up live on this card (1.3 times the length of a sentence).",
+    "pt": "WER: é a mesma transcrição do Whisper da linha com o Bergamot. Termos 52/56: tradução do roteiro com o glossário protegido (laboratório, 24/09). Atraso: a legenda traduzida aparece aos 7,6 s com o contexto curto (laboratório, 24/09); com dois idiomas não acompanha ao vivo nesta placa (1,3 vez a duração de uma frase)."
+  }
+}

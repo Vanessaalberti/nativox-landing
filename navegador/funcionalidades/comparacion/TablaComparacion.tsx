@@ -60,6 +60,23 @@ export function TablaComparacion({ idioma, rutaProbar }: PropiedadesComparacion)
           </table>
         </div>
         <p className="mt-4 max-w-[760px] font-mono text-xs text-ink/60">{textos.pie}</p>
+        {filas.some((fila) => fila.fuente !== null) && (
+          <section className="mt-6 max-w-[900px]">
+            <h2 className="mb-2 font-mono text-[10px] font-bold tracking-widest text-ink/55 uppercase">
+              {textos.fuentes}
+            </h2>
+            <ul className="flex flex-col gap-2 font-mono text-xs leading-relaxed text-ink/70">
+              {filas.map(
+                (fila) =>
+                  fila.fuente !== null && (
+                    <li key={fila.id}>
+                      <span className="font-bold text-ink">{fila.nombre}:</span> {fila.fuente}
+                    </li>
+                  ),
+              )}
+            </ul>
+          </section>
+        )}
         <div className="mt-12 border-l-4 border-naranja bg-canvas p-6">
           <span className="font-mono text-[11px] tracking-widest text-naranja uppercase">
             {textos.probaloVos}

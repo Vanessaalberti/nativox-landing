@@ -13,12 +13,15 @@ const esquemaCombinacion = v.object({
   nota: v.optional(textoPorIdioma),
 });
 
-// Lo que escribe `scripts/informe-calidad` de la aplicación, uno por combinación.
+// Lo medido de una combinación, uno por archivo. Cada medida es opcional: lo que falta la página
+// lo muestra como "a medir". Hasta que exista `scripts/informe-calidad` (paso 12), se cargan a
+// partir de las mediciones del laboratorio y `fuente` dice de dónde sale cada número.
 const esquemaResultado = v.object({
   combinacion: v.pipe(v.string(), v.nonEmpty()),
-  wer: v.pipe(v.number(), v.minValue(0)),
-  terminos: v.object({ bien: v.number(), total: v.number() }),
-  retrasoSegundos: v.pipe(v.number(), v.minValue(0)),
+  wer: v.optional(v.pipe(v.number(), v.minValue(0), v.maxValue(1))),
+  terminos: v.optional(v.object({ bien: v.number(), total: v.number() })),
+  retrasoSegundos: v.optional(v.pipe(v.number(), v.minValue(0))),
+  fuente: v.optional(textoPorIdioma),
 });
 
 export const esquemaCombinaciones = v.array(esquemaCombinacion);
@@ -39,6 +42,8 @@ export interface Fila {
   costoAproximado: boolean;
   sinInternet: boolean;
   nota: string | null;
+  // De dónde salen los números de la fila (null si no hay ninguno medido).
+  fuente: string | null;
 }
 
 export function armarFilas(
@@ -60,6 +65,7 @@ export function armarFilas(
       costoAproximado: combinacion.costoAproximado,
       sinInternet: combinacion.sinInternet,
       nota: combinacion.nota?.[idioma] ?? null,
+      fuente: medido?.fuente?.[idioma] ?? null,
     };
   });
 }

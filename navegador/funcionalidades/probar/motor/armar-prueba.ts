@@ -1,6 +1,6 @@
 import type { Idioma, Linea, Resultado } from "@nativox/compartido/contratos";
 import { leerGlosario } from "@nativox/compartido/glosario";
-import { abrirArchivo, abrirEntrada, type Captura } from "@nativox/navegador/modulos/captura-audio";
+import { abrirArchivo, type Captura } from "@nativox/navegador/modulos/captura-audio";
 import { crearCortador } from "@nativox/navegador/modulos/cortador-audio";
 import { pasadaProvisoriaDelNivel, type Nivel } from "@nativox/navegador/modulos/evaluar-equipo";
 import {
@@ -19,11 +19,13 @@ import {
   traducirConContexto,
   ultimoTramoSinCerrar,
 } from "@nativox/navegador/modulos/traduccion";
+import { conFlujo } from "./cerrar-prueba";
 import type { ElegirTraductor, ModelosListos } from "./preparar-modelos";
 
 export interface ConfiguracionPrueba {
-  // Sin archivo, el micrófono del equipo.
-  archivo: File | null;
+  // La grabación de quien prueba, como archivo: se procesa como si se dijera en vivo (a la
+  // velocidad real, sin sonar), así se ve cómo se comporta el nivel elegido.
+  archivo: File;
   idiomaOriginal: Idioma;
   idiomasDestino: readonly Idioma[];
   glosario: string;
@@ -32,6 +34,9 @@ export interface ConfiguracionPrueba {
   // Bergamot (liviano, al instante) o TranslateGemma (más calidad, ~2 a 3 GB).
   traductor: ElegirTraductor;
 }
+
+// Lo que se elige en el formulario, antes de grabar: el archivo (la grabación) se suma después.
+export type ConfiguracionElegida = Omit<ConfiguracionPrueba, "archivo">;
 
 export interface EventosPrueba {
   alCambiarLinea: (linea: Linea) => void;
@@ -80,13 +85,11 @@ export async function armarPrueba(
     alFallar: eventos.alFallar,
   });
 
-  const opcionesCaptura = {
-    alRecibir: (bloque: Float32Array) => flujo.agregarAudio(bloque),
-    alTerminar: eventos.alTerminarCaptura,
-  };
-  const captura = configuracion.archivo
-    ? await abrirArchivo(configuracion.archivo, opcionesCaptura)
-    : await abrirEntrada(null, opcionesCaptura);
-  if (!captura.ok) return captura;
-  return { ok: true, valor: { captura: captura.valor, flujo } };
+  return conFlujo(
+    await abrirArchivo(configuracion.archivo, {
+      alRecibir: (bloque) => flujo.agregarAudio(bloque),
+      alTerminar: eventos.alTerminarCaptura,
+    }),
+    flujo,
+  );
 }

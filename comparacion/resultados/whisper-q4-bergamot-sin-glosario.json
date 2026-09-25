@@ -1,0 +1,9 @@
+{
+  "combinacion": "whisper-q4-bergamot-sin-glosario",
+  "terminos": { "bien": 39, "total": 56 },
+  "fuente": {
+    "es": "Términos: traducción del guion de prueba al inglés y al portugués con Bergamot, sin proteger los términos (laboratorio, 24/09). WER y retraso: a medir.",
+    "en": "Terms: translation of the test script into English and Portuguese with Bergamot, without protecting the terms (lab, 24/09). WER and delay: to be measured.",
+    "pt": "Termos: tradução do roteiro de teste para inglês e português com o Bergamot, sem proteger os termos (laboratório, 24/09). WER e atraso: a medir."
+  }
+}

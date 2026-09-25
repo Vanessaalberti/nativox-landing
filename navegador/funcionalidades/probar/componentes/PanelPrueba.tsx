@@ -4,12 +4,16 @@ import type { Nivel } from "@nativox/navegador/modulos/evaluar-equipo";
 import { useEvaluacion } from "../hooks/useEvaluacion";
 import type { Prueba } from "../hooks/usePrueba";
 import { resumirPrueba } from "../resumen";
-import { describirAvance, NOMBRES_DE_IDIOMA, TEXTOS_PROBAR } from "../textos";
-import { TEXTOS_EVALUACION } from "../textos-evaluacion";
+import { NOMBRES_DE_IDIOMA, TEXTOS_PROBAR } from "../textos";
+import { TEXTOS_ESCENARIO } from "../textos-escenario";
 import { BorrarModelos } from "./BorrarModelos";
+import { EscenarioDePrueba } from "./EscenarioDePrueba";
 import { EvaluarEquipo } from "./EvaluarEquipo";
 import { FormularioPrueba } from "./FormularioPrueba";
 import { MedidasPrueba } from "./MedidasPrueba";
+
+// Las fases en las que el recuadro del centro reemplaza al formulario.
+const FASES_EN_CURSO = new Set(["preparando", "listo", "grabando", "revisando", "procesando"]);
 
 // /probar: lo mismo que la sesión en vivo de la aplicación, pero en la placa de quien visita y con
 // las medidas de la tabla de comparación. Ocupa todo el ancho, como la portada.
@@ -24,7 +28,7 @@ export function PanelPrueba({
   rutaNube: string;
 }) {
   const textos = TEXTOS_PROBAR[idioma];
-  const controles = TEXTOS_EVALUACION[idioma].controles;
+  const escenario = TEXTOS_ESCENARIO[idioma];
   const [referencia, setReferencia] = useState("");
   const [glosarioUsado, setGlosarioUsado] = useState("");
   // Sin evaluar empieza en el medio; la evaluación deja elegido el recomendado (se puede cambiar).
@@ -35,11 +39,8 @@ export function PanelPrueba({
     setRecomendado(sugerido);
   });
   const { estado } = prueba;
-  const ocupada =
-    estado.fase === "preparando" ||
-    estado.fase === "en-vivo" ||
-    estado.fase === "terminando" ||
-    evaluacion.estado.fase === "evaluando";
+  const enCurso = FASES_EN_CURSO.has(estado.fase);
+  const ocupada = enCurso || evaluacion.estado.fase === "evaluando";
   const margenParaGemma =
     evaluacion.estado.fase === "lista"
       ? evaluacion.estado.evaluacion.recomendacion.margenParaGemma
@@ -75,47 +76,48 @@ export function PanelPrueba({
           />
         </div>
         <div className="flex flex-col gap-4 border-[1.5px] border-ink/15 bg-canvas p-5 lg:col-span-7">
-          <FormularioPrueba
-            idioma={idioma}
-            ocupada={ocupada}
-            referencia={referencia}
-            alCambiarReferencia={setReferencia}
-            nivel={nivel}
-            recomendado={recomendado}
-            alCambiarNivel={setNivel}
-            intentosLocales={prueba.intentosLocales}
-            margenParaGemma={margenParaGemma}
-            alIniciar={(configuracion) => {
-              setGlosarioUsado(configuracion.glosario);
-              void prueba.iniciar(configuracion);
-            }}
-          />
-          <div className="flex flex-wrap items-center gap-4 font-mono text-xs" role="status">
-            {estado.fase === "preparando" && <span>{describirAvance(estado.avance, idioma)}</span>}
-            {estado.fase === "en-vivo" && (
-              <button
-                type="button"
-                onClick={() => void prueba.detener()}
-                className="rounded-sm border-[1.5px] border-ink px-4 py-2 font-bold tracking-widest uppercase hover:bg-ink hover:text-canvas"
-              >
-                {textos.detener}
-              </button>
-            )}
-            {estado.fase === "en-vivo" && prueba.segundosRestantes !== null && (
-              <span className="font-bold">
-                {controles.quedan} {String(prueba.segundosRestantes)} s
-              </span>
-            )}
-            {estado.fase === "sin-intentos" && (
-              <span className="text-naranja">{controles.sinIntentos}</span>
-            )}
-            {estado.fase === "error" && <span className="text-red-700">{estado.motivo}</span>}
-            {prueba.avisos.map((aviso, indice) => (
-              <span key={`${String(indice)}-${aviso}`} className="text-ink/60">
-                {aviso}
-              </span>
-            ))}
-          </div>
+          {enCurso ? (
+            <EscenarioDePrueba
+              idioma={idioma}
+              prueba={prueba}
+              alEnviar={(dicho) => {
+                setReferencia(dicho);
+                void prueba.enviar();
+              }}
+            />
+          ) : (
+            <>
+              <FormularioPrueba
+                idioma={idioma}
+                nivel={nivel}
+                recomendado={recomendado}
+                alCambiarNivel={setNivel}
+                intentosLocales={prueba.intentosLocales}
+                margenParaGemma={margenParaGemma}
+                alIniciar={(configuracion) => {
+                  setGlosarioUsado(configuracion.glosario);
+                  void prueba.preparar(configuracion);
+                }}
+              />
+              <div className="flex flex-col gap-1 font-mono text-xs" role="status">
+                {estado.fase === "sin-intentos" && (
+                  <span className="text-naranja">{escenario.sinIntentos}</span>
+                )}
+                {estado.fase === "error" && (
+                  <span className="text-red-700">
+                    {escenario.error}: {estado.motivo}
+                  </span>
+                )}
+              </div>
+            </>
+          )}
+          {prueba.avisos.length > 0 && (
+            <div className="flex flex-col gap-1 font-mono text-xs text-ink/60">
+              {prueba.avisos.map((aviso, indice) => (
+                <span key={`${String(indice)}-${aviso}`}>{aviso}</span>
+              ))}
+            </div>
+          )}
         </div>
       </div>
 

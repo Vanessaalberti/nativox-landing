@@ -14,6 +14,7 @@ import {
 } from "@nativox/navegador/modulos/traduccion";
 import { GLOSARIO_TECNICO } from "./glosario-tecnico";
 import type { PruebaArmada } from "../motor/armar-prueba";
+import { conFlujo } from "../motor/cerrar-prueba";
 import { crearTranscriptorNube, type EventosTranscriptorNube } from "./transcriptor-nube";
 
 // El laboratorio dejó la nube en cortes de 4 a 8 s para cuidar el límite de pedidos de una sala en
@@ -79,12 +80,13 @@ export async function armarEnVivo(
     alFallar: eventos.alFallar,
   });
 
-  const captura = await abrirEntrada(null, {
-    // Micrófono de notebook o auricular: con los filtros de eco, ruido y volumen del navegador.
-    conFiltrosDeVoz: true,
-    alRecibir: (bloque) => flujo.agregarAudio(bloque),
-    alTerminar: eventos.alTerminarCaptura,
-  });
-  if (!captura.ok) return captura;
-  return { ok: true, valor: { captura: captura.valor, flujo } };
+  return conFlujo(
+    await abrirEntrada(null, {
+      // Micrófono de notebook o auricular: con los filtros de eco, ruido y volumen del navegador.
+      conFiltrosDeVoz: true,
+      alRecibir: (bloque) => flujo.agregarAudio(bloque),
+      alTerminar: eventos.alTerminarCaptura,
+    }),
+    flujo,
+  );
 }

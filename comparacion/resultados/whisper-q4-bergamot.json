@@ -1,0 +1,11 @@
+{
+  "combinacion": "whisper-q4-bergamot",
+  "wer": 0.014,
+  "terminos": { "bien": 56, "total": 56 },
+  "retrasoSegundos": 5.4,
+  "fuente": {
+    "es": "WER 1,4 %: guion de prueba medido en «Probar» (voz sintética), placa AMD sin 16 bits. Términos 56/56: traducción del guion con el glosario protegido (laboratorio, 24/09). Retraso: el subtítulo traducido aparece 5,4 s después de decir la palabra, con frases completas (laboratorio, 24/09).",
+    "en": "WER 1.4%: test script measured in “Try it” (synthetic voice), AMD card without 16-bit. Terms 56/56: translation of the script with the glossary protected (lab, 24/09). Delay: the translated subtitle shows up 5.4 s after the word is said, with full sentences (lab, 24/09).",
+    "pt": "WER 1,4 %: roteiro de teste medido em «Testar» (voz sintética), placa AMD sem 16 bits. Termos 56/56: tradução do roteiro com o glossário protegido (laboratório, 24/09). Atraso: a legenda traduzida aparece 5,4 s depois de dizer a palavra, com frases completas (laboratório, 24/09)."
+  }
+}

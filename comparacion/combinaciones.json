@@ -45,7 +45,12 @@
     "glosario": true,
     "costoPorHora": 0,
     "costoAproximado": false,
-    "sinInternet": true
+    "sinInternet": true,
+    "nota": {
+      "es": "con dos idiomas no llega en vivo sin 16 bits",
+      "en": "with two languages it does not keep up live without 16-bit",
+      "pt": "com dois idiomas não acompanha ao vivo sem 16 bits"
+    }
   },
   {
     "id": "workers-ai-bergamot",
@@ -57,7 +62,12 @@
     "glosario": true,
     "costoPorHora": 0.037,
     "costoAproximado": true,
-    "sinInternet": false
+    "sinInternet": false,
+    "nota": {
+      "es": "respuesta 1,6 s tras el corte con audio Opus (3,7 s con WAV)",
+      "en": "response 1.6 s after the cut with Opus audio (3.7 s with WAV)",
+      "pt": "resposta 1,6 s após o corte com áudio Opus (3,7 s com WAV)"
+    }
   },
   {
     "id": "gemma-4-e2b",
