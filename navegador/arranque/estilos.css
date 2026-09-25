@@ -1,0 +1,42 @@
+@import "../copia-modulos/modulos-nativox/navegador/interfaz/sistema-diseno/estilos.css";
+
+/* Movimiento propio de la portada (documento de decisiones → "Movimiento"): el cursor que titila,
+   el anillo punteado que gira muy lento y la marquesina de la franja, lenta para no robar el foco. */
+@theme {
+  --animate-titilar-cursor: titilar-cursor 1s steps(1) infinite;
+  --animate-girar: girar 45s linear infinite;
+  /* Cada mitad de la cinta mide el doble que antes: se duplica el tiempo para mantener la velocidad. */
+  --animate-marquesina: marquesina 96s linear infinite;
+  --animate-latir: latir 1.2s ease-in-out infinite;
+
+  @keyframes titilar-cursor {
+    50% {
+      opacity: 0;
+    }
+  }
+  @keyframes girar {
+    to {
+      transform: rotate(360deg);
+    }
+  }
+  /* translate3d: el navegador la mueve en la placa de video, sin redibujar la página. */
+  @keyframes marquesina {
+    from {
+      transform: translate3d(0, 0, 0);
+    }
+    to {
+      transform: translate3d(-50%, 0, 0);
+    }
+  }
+  @keyframes latir {
+    50% {
+      transform: scaleY(0.55);
+    }
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation: none !important;
+  }
+}

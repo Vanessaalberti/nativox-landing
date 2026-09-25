@@ -1,0 +1,7 @@
+# Los documentos se escriben a mano (tablas incluidas): Prettier no los reformatea.
+*.md
+package-lock.json
+
+# Copia sincronizada desde nativox-app: ya viene con el formato de la aplicación.
+navegador/copia-modulos/
+servidor/env.d.ts

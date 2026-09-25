@@ -1,0 +1,79 @@
+[
+  {
+    "id": "whisper-q4-bergamot-sin-glosario",
+    "nombre": {
+      "es": "Whisper turbo local (comprimido) + Bergamot",
+      "en": "Local Whisper turbo (compressed) + Bergamot",
+      "pt": "Whisper turbo local (comprimido) + Bergamot"
+    },
+    "glosario": false,
+    "costoPorHora": 0,
+    "costoAproximado": false,
+    "sinInternet": true
+  },
+  {
+    "id": "whisper-q4-bergamot",
+    "nombre": {
+      "es": "Whisper turbo local (comprimido) + Bergamot",
+      "en": "Local Whisper turbo (compressed) + Bergamot",
+      "pt": "Whisper turbo local (comprimido) + Bergamot"
+    },
+    "glosario": true,
+    "costoPorHora": 0,
+    "costoAproximado": false,
+    "sinInternet": true
+  },
+  {
+    "id": "whisper-fp16-bergamot",
+    "nombre": {
+      "es": "Whisper turbo local (16 bits) + Bergamot",
+      "en": "Local Whisper turbo (16-bit) + Bergamot",
+      "pt": "Whisper turbo local (16 bits) + Bergamot"
+    },
+    "glosario": true,
+    "costoPorHora": 0,
+    "costoAproximado": false,
+    "sinInternet": true
+  },
+  {
+    "id": "whisper-translategemma",
+    "nombre": {
+      "es": "Whisper turbo local + TranslateGemma 4B",
+      "en": "Local Whisper turbo + TranslateGemma 4B",
+      "pt": "Whisper turbo local + TranslateGemma 4B"
+    },
+    "glosario": true,
+    "costoPorHora": 0,
+    "costoAproximado": false,
+    "sinInternet": true
+  },
+  {
+    "id": "workers-ai-bergamot",
+    "nombre": {
+      "es": "Whisper turbo en Workers AI + Bergamot",
+      "en": "Whisper turbo on Workers AI + Bergamot",
+      "pt": "Whisper turbo no Workers AI + Bergamot"
+    },
+    "glosario": true,
+    "costoPorHora": 0.037,
+    "costoAproximado": true,
+    "sinInternet": false
+  },
+  {
+    "id": "gemma-4-e2b",
+    "nombre": {
+      "es": "Gemma 4 E2B local (transcribe y traduce)",
+      "en": "Local Gemma 4 E2B (transcribes and translates)",
+      "pt": "Gemma 4 E2B local (transcreve e traduz)"
+    },
+    "glosario": true,
+    "costoPorHora": 0,
+    "costoAproximado": false,
+    "sinInternet": true,
+    "nota": {
+      "es": "descartado: transcribe peor que Whisper",
+      "en": "discarded: transcribes worse than Whisper",
+      "pt": "descartado: transcreve pior que o Whisper"
+    }
+  }
+]

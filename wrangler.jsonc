@@ -1,0 +1,24 @@
+// La landing es un sitio estático con un Worker chico: la prueba en la nube de la portada
+// (Whisper en Workers AI, con cupo por dispositivo). Sin secretos.
+// Configuración: https://developers.cloudflare.com/workers/wrangler/configuration/
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "nativox-landing",
+  "main": "servidor/index.ts",
+  "compatibility_date": "2026-09-24",
+  "assets": {
+    "not_found_handling": "single-page-application",
+    // Sin esto, una navegación directa a /api/* recibiría el index.html.
+    "run_worker_first": ["/api/*"],
+  },
+  "observability": {
+    "enabled": true,
+  },
+  "ai": {
+    "binding": "AI",
+  },
+  "durable_objects": {
+    "bindings": [{ "name": "CUPOS", "class_name": "Cupos" }],
+  },
+  "migrations": [{ "tag": "v1", "new_sqlite_classes": ["Cupos"] }],
+}

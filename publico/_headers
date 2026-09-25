@@ -1,0 +1,6 @@
+# Toda la landing va aislada entre orígenes (habilita SharedArrayBuffer, que ONNX Runtime usa para
+# correr Whisper con varios hilos): en la portada y en "Probar" corren los modelos en la placa de
+# quien visita. La landing no se embebe en otros sitios, así que no bloquea nada.
+/*
+  Cross-Origin-Opener-Policy: same-origin
+  Cross-Origin-Embedder-Policy: credentialless

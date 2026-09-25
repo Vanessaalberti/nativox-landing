@@ -1,5 +1,5 @@
 # como-funciona
 
-**Qué cubre:** Guía paso a paso de instalación y operación (sin API keys; lista de control de las computadoras de sala; avisos por Discord).
+**Qué cubre:** la página de la maqueta tal cual: la guía paso a paso todavía no está definida, así que dice qué va a tener y no inventa pasos. Enlaces a la portada y a la comparación.
 
-**Estructura:** `componentes/` · `index.ts`.
+**Estructura:** `ComoFunciona.tsx` (textos ES/EN/PT adentro) · `index.ts`.

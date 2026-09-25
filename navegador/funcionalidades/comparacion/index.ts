@@ -1,0 +1,1 @@
+export { TablaComparacion } from "./TablaComparacion";
