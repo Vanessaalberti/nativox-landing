@@ -1,7 +1,7 @@
 import { Link } from "react-router";
 import type { Idioma } from "@nativox/compartido/contratos";
 import type { EstadoEvaluacion } from "../hooks/useEvaluacion";
-import type { AvanceEvaluacion } from "../motor/evaluar";
+import type { AvanceEvaluacion } from "@nativox/navegador/modulos/evaluar-equipo";
 import { formatearSegundos, TEXTOS_EVALUACION } from "../textos-evaluacion";
 
 export interface PropiedadesEvaluarEquipo {

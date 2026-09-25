@@ -2,15 +2,17 @@
 
 **No se edita a mano.** Se actualiza con `npm run sincronizar` y el CI comprueba (`npm run verificar-copia`) que cada archivo coincida con su resumen.
 
-- Commit de origen: `7e079a0` (con cambios todavía sin commitear en la aplicación)
+- Commit de origen: `1c45561` (con cambios todavía sin commitear en la aplicación)
 - Fecha: 2026-09-25
 - Carpetas: `compartido/contratos`, `compartido/distancia-edicion`, `compartido/glosario`, `compartido/metricas`, `navegador/modulos/captura-audio`, `navegador/modulos/cortador-audio`, `navegador/modulos/evaluar-equipo`, `navegador/modulos/flujo-subtitulos`, `navegador/modulos/modelos-compartidos`, `navegador/modulos/transcripcion`, `navegador/modulos/traduccion`, `navegador/interfaz/sistema-diseno`, `navegador/interfaz/subtitulos`
 
 | Archivo | SHA-256 |
 | --- | --- |
+| `compartido/contratos/api/acceso.ts` | `d98d17e707125da1ca229e8674d4b5e12f0e81222ee504eae7cd5fe55300430c` |
 | `compartido/contratos/api/errores.ts` | `ddaff4d1fd33ba8a49552a596abef0c45b0cdad79e82882f91627b90b8b65dae` |
+| `compartido/contratos/api/evento.ts` | `0161369471b7a7e6071eb4dd806e6811c085353104673b05b9039c0346b247dc` |
 | `compartido/contratos/idiomas.ts` | `2ddf807b52504260b75e82c2772862a9c257124e8e8ebd2536a255580f760370` |
-| `compartido/contratos/index.ts` | `f58c9053b847ef585e5fe2a080b8c3699de1269e3555a2d00924c7f918a59608` |
+| `compartido/contratos/index.ts` | `14be938d47647f64bb6c0f95f774bf096ba11322e55fe8584236c0209bbce2d1` |
 | `compartido/contratos/README.md` | `4230cbab9b12c8ada6a879f09466fa0986767455e56f3baaca876a7a357c7eb5` |
 | `compartido/contratos/socket-produccion.ts` | `0b5fbf5caee23ac24b452d570019e7dbd2ff7048f9a04bfaf4aed440b113a259` |
 | `compartido/contratos/socket-sala.ts` | `67dfec7fcfb9db35df76bd2137f9e0d084cab1cf88816f24bbef1a1aa00cb9bb` |
@@ -31,8 +33,14 @@
 | `compartido/metricas/texto.ts` | `afa9d307f5f368ebfa41b5ba47b7f29d7c9a21aa51712cd105b9f8d15c0a8ad2` |
 | `compartido/metricas/tiempos.ts` | `9d459e727fee4951ec62d7a514e8369793b979a40ecac8183123e77740736f49` |
 | `compartido/metricas/wer.ts` | `eadfba2f0fe11ce7d953468beaa5c68f8ad2225357b13375d9d730736a7c8085` |
+| `navegador/interfaz/sistema-diseno/componentes/Aviso.tsx` | `6fa10d24d0d436405c1296a420f1e151ecf1aaf207487f73416c29ad0452a34e` |
+| `navegador/interfaz/sistema-diseno/componentes/Boton.tsx` | `0f78b12e60f324dd1394487e6b2a7ee7860571693a406d6170efbc0f6830f4f6` |
+| `navegador/interfaz/sistema-diseno/componentes/CajaCopiable.tsx` | `b10af3622324a88d92e366997aac93ec720b6868aa72bb601bdc888fc3cd24e4` |
+| `navegador/interfaz/sistema-diseno/componentes/Campo.tsx` | `d617cb9f9dcfa55a347f55e7b6cd7711817ef6aea63e5d827cbb1ce303494ba5` |
+| `navegador/interfaz/sistema-diseno/componentes/ListaDeDatos.tsx` | `a23464a5d883e4f760e1600ce39917f91080d67cf4b1d0c7bcf71fb0d9db6713` |
 | `navegador/interfaz/sistema-diseno/estilos.css` | `974ecd039b16a75f6dceaa506b295969d05d07d73953d6e57593b2129d67b6c7` |
-| `navegador/interfaz/sistema-diseno/README.md` | `bcc0a7826e5b019342066bdd3eac767d2d8197ae70471d10bfbf6567716a90d6` |
+| `navegador/interfaz/sistema-diseno/index.ts` | `eb8de7a61174df07413f901667e6750ab9df0cb30477147fae789b1b7f3e6e6c` |
+| `navegador/interfaz/sistema-diseno/README.md` | `8fb5d7b8feca28e8e93486ae68a3024acf394b5b1a4da380608c29daa2059f1d` |
 | `navegador/interfaz/subtitulos/index.ts` | `a21556e70797436a55b7d490a4f8d690df7793a37eefda8302ed97c03b3c0b89` |
 | `navegador/interfaz/subtitulos/LineaSubtitulo.tsx` | `f1e0e48a343012fa294571095c074d1516ce3592025793a1de98555c5a6ee9c4` |
 | `navegador/interfaz/subtitulos/README.md` | `647eedcb9e0b681e6ccb2699527a8194072841d4863178db24b5d384a7f06866` |
@@ -50,10 +58,11 @@
 | `navegador/modulos/cortador-audio/pausas.ts` | `92ebd9ea9ba08fdc0c1fd5ba6f9089c3ca78bde27220e8d7cf7fd37729ec9190` |
 | `navegador/modulos/cortador-audio/README.md` | `d22b880fb328dac71c1640966e270c8b7474bf945b6c5fe6ac2daf008052547f` |
 | `navegador/modulos/cortador-audio/silencios.ts` | `f39d167f8b92e359072234c1b5a416549f9ef053447e9e495be95171e0530c7f` |
-| `navegador/modulos/evaluar-equipo/index.ts` | `c44db8dbf54125627183b03bb123dc8fdee1aa7a1f2479ef496168500e64fce9` |
+| `navegador/modulos/evaluar-equipo/evaluar.ts` | `d00da6d521b1468090fdcccb39f81b84b2e8fc56af003441d6025a953a613ad7` |
+| `navegador/modulos/evaluar-equipo/index.ts` | `46ceaf10ca8b367657890752702c72a34c20560efff7c8770e23c850793ecf57` |
 | `navegador/modulos/evaluar-equipo/niveles.ts` | `09d4a98f235f64949a4b8639569fb8806e4aff67f007004e738a3a8dcab81d23` |
 | `navegador/modulos/evaluar-equipo/placa.ts` | `928750ced6ae004c52b51c8180efee762967fb937a243825c9be1396bbf85a7a` |
-| `navegador/modulos/evaluar-equipo/README.md` | `517f7756f01a1384ef16d1a2885e819b96e1546f2d0690cd13cbe05d9673864e` |
+| `navegador/modulos/evaluar-equipo/README.md` | `71045b6fb13e250ac451cfb2ca77ac69c352aa6d624fc9015f9a9e7676473306` |
 | `navegador/modulos/evaluar-equipo/recomendacion.ts` | `9e386996118f9b9a2e044a71e507e6d800e05cdec793aa9e75a6138bf83b9aba` |
 | `navegador/modulos/evaluar-equipo/rendimiento.ts` | `9f00b0ccc39d6d8cabb9ab79cefa2e39973a2139026c1e15c8532619be176372` |
 | `navegador/modulos/flujo-subtitulos/correccion-de-limite.ts` | `7727dbff4b1fcf97a6e2a9219550b246fdfd92b33b1411155f0099bd1150c8e3` |

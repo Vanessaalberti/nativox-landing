@@ -1,13 +1,7 @@
-import type { Resultado } from "@nativox/compartido/contratos";
-import {
-  detectarEquipo,
-  estimarPasada,
-  medirRendimiento,
-  recomendar,
-  type Equipo,
-  type Medidas,
-  type Recomendacion,
-} from "@nativox/navegador/modulos/evaluar-equipo";
+import type { Resultado } from "@compartido/contratos";
+import { detectarEquipo, type Equipo } from "./placa";
+import { estimarPasada, recomendar, type Medidas, type Recomendacion } from "./recomendacion";
+import { medirRendimiento } from "./rendimiento";
 
 export interface Evaluacion {
   equipo: Equipo;

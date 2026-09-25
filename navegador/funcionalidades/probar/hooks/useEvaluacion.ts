@@ -1,6 +1,10 @@
 import { useCallback, useState } from "react";
-import type { Nivel } from "@nativox/navegador/modulos/evaluar-equipo";
-import { evaluarEquipo, type AvanceEvaluacion, type Evaluacion } from "../motor/evaluar";
+import {
+  evaluarEquipo,
+  type AvanceEvaluacion,
+  type Evaluacion,
+  type Nivel,
+} from "@nativox/navegador/modulos/evaluar-equipo";
 
 export type EstadoEvaluacion =
   | { fase: "inactiva" }
