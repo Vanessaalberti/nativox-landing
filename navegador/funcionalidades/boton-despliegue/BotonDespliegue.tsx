@@ -8,7 +8,7 @@ const URL_DESPLIEGUE =
 
 const TEXTOS: Record<
   Idioma,
-  { titulo: string; requisitos: [string, string, string]; boton: string }
+  { titulo: string; requisitos: [string, string, string]; boton: string; despues: string }
 > = {
   es: {
     titulo: "Desplegá tu instancia",
@@ -18,6 +18,8 @@ const TEXTOS: Record<
       "Ninguna API key: la inteligencia artificial corre en el navegador de cada sala.",
     ],
     boton: "Deploy to Cloudflare",
+    despues:
+      "Cuando termine, tu dirección aparece en Cloudflare: Workers y Pages → tu Worker → «Visitar». Abrila enseguida y creá tu evento: la primera persona que lo crea queda como dueña. Esta pestaña queda abierta para que vuelvas.",
   },
   en: {
     titulo: "Deploy your instance",
@@ -27,6 +29,8 @@ const TEXTOS: Record<
       "No API keys: the AI runs in the browser of each room.",
     ],
     boton: "Deploy to Cloudflare",
+    despues:
+      "When it finishes, your address shows up in Cloudflare: Workers & Pages → your Worker → “Visit”. Open it right away and create your event: whoever creates it first becomes the owner. This tab stays open so you can come back.",
   },
   pt: {
     titulo: "Implante a sua instância",
@@ -36,6 +40,8 @@ const TEXTOS: Record<
       "Nenhuma API key: a inteligência artificial roda no navegador de cada sala.",
     ],
     boton: "Deploy to Cloudflare",
+    despues:
+      "Quando terminar, o seu endereço aparece na Cloudflare: Workers e Pages → o seu Worker → «Visitar». Abra-o logo e crie o seu evento: quem criar primeiro fica como dono. Esta aba continua aberta para você voltar.",
   },
 };
 
@@ -63,6 +69,7 @@ export function BotonDespliegue({ idioma }: { idioma: Idioma }) {
       >
         {textos.boton} <span>↗</span>
       </a>
+      <p className="mt-3 font-mono text-[11px] leading-relaxed text-ink/65">{textos.despues}</p>
     </div>
   );
 }
