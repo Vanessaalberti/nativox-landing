@@ -7,6 +7,12 @@ import {
   type RespuestaTranscripcion,
 } from "../../../../contratos-landing/nube";
 
+// Un fragmento listo para mandar: Opus en Ogg (lo normal) o WAV (si el navegador no codifica Opus).
+export interface AudioEnviado {
+  datos: Uint8Array<ArrayBuffer>;
+  tipo: "audio/ogg" | "audio/wav";
+}
+
 // Un corte de red (502/503/504) se reintenta una vez a los 2 s; el servidor no cobra los pedidos
 // que fallan, así que reintentar no gasta cupo.
 const ESPERA_REINTENTO_MS = 2000;
@@ -27,7 +33,7 @@ export async function consultarCupos(): Promise<Resultado<Cupos>> {
 }
 
 async function enviar(
-  wav: Uint8Array<ArrayBuffer>,
+  audio: AudioEnviado,
   idioma: Idioma,
   prompt: string,
 ): Promise<RespuestaTranscripcion> {
@@ -37,8 +43,8 @@ async function enviar(
       credentials: "same-origin",
       // En un encabezado y no en la URL: es lo que se viene diciendo, no tiene que quedar en los
       // registros.
-      headers: { "Content-Type": "audio/wav", "X-Nativox-Prompt": encodeURIComponent(prompt) },
-      body: new Blob([wav], { type: "audio/wav" }),
+      headers: { "Content-Type": audio.tipo, "X-Nativox-Prompt": encodeURIComponent(prompt) },
+      body: new Blob([audio.datos], { type: audio.tipo }),
     });
     const leido = v.safeParse(esquemaRespuestaTranscripcion, await respuesta.json());
     if (leido.success) return leido.output;
@@ -59,12 +65,12 @@ async function enviar(
 }
 
 export async function transcribirEnLaNube(
-  wav: Uint8Array<ArrayBuffer>,
+  audio: AudioEnviado,
   idioma: Idioma,
   prompt: string,
 ): Promise<RespuestaTranscripcion> {
-  const primera = await enviar(wav, idioma, prompt);
+  const primera = await enviar(audio, idioma, prompt);
   if (primera.ok || primera.codigo !== "fallo-del-modelo") return primera;
   await new Promise((seguir) => setTimeout(seguir, ESPERA_REINTENTO_MS));
-  return enviar(wav, idioma, prompt);
+  return enviar(audio, idioma, prompt);
 }

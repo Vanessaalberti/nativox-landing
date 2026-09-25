@@ -4,7 +4,7 @@ import type { Cupos as CuposRespuesta, RespuestaTranscripcion } from "../contrat
 import { leerDispositivo } from "./dispositivo";
 import { LIMITES, SEGUNDOS_MAXIMOS_POR_PEDIDO, type Limite } from "./limites";
 import { registrarError } from "./registrador";
-import { validarWav } from "./wav";
+import { medirAudio } from "./audio";
 
 export { Cupos } from "./cupos";
 
@@ -55,7 +55,7 @@ async function transcribir(pedido: Request, env: Env, claves: Claves): Promise<R
   if (!idioma.success) return error(400, "pedido-invalido", "Falta el idioma (es, en o pt).");
 
   const audio = new Uint8Array(await pedido.arrayBuffer());
-  const wav = validarWav(audio, SEGUNDOS_MAXIMOS_POR_PEDIDO);
+  const wav = medirAudio(audio, SEGUNDOS_MAXIMOS_POR_PEDIDO);
   if (!wav.ok) return error(400, "audio-invalido", wav.motivo);
   const { segundos } = wav.valor;
   const prompt = leerPrompt(pedido);
@@ -83,6 +83,14 @@ async function transcribir(pedido: Request, env: Env, claves: Claves): Promise<R
     const cuerpo: RespuestaTranscripcion = {
       ok: true,
       texto: salida.text.trim(),
+      // El horario de cada palabra: el navegador lo usa para sacar el audio de contexto.
+      palabras: (salida.segments ?? []).flatMap((segmento) =>
+        (segmento.words ?? []).flatMap(({ word, start, end }) =>
+          word !== undefined && start !== undefined && end !== undefined
+            ? [{ palabra: word, inicio: start, fin: end }]
+            : [],
+        ),
+      ),
       restantes: consumidos.restantes,
     };
     return Response.json(cuerpo);
