@@ -19,7 +19,7 @@ const TEXTOS: Record<
     ],
     boton: "Deploy to Cloudflare",
     despues:
-      "Cuando termine, tu dirección aparece en Cloudflare: Workers y Pages → tu Worker → «Visitar». Abrila enseguida y creá tu evento: la primera persona que lo crea queda como dueña. Esta pestaña queda abierta para que vuelvas.",
+      "Al terminar, un paso a mano: en Cloudflare abrí tu Worker → Settings → Domains & Routes y activá «workers.dev». Esa es tu dirección; abrila enseguida y creá tu evento, porque quien lo crea primero queda como dueño. Esta pestaña queda abierta para volver.",
   },
   en: {
     titulo: "Deploy your instance",
@@ -30,7 +30,7 @@ const TEXTOS: Record<
     ],
     boton: "Deploy to Cloudflare",
     despues:
-      "When it finishes, your address shows up in Cloudflare: Workers & Pages → your Worker → “Visit”. Open it right away and create your event: whoever creates it first becomes the owner. This tab stays open so you can come back.",
+      "When it finishes, one manual step: in Cloudflare open your Worker → Settings → Domains & Routes and enable “workers.dev”. That is your address; open it right away and create your event, because whoever creates it first becomes the owner. This tab stays open so you can come back.",
   },
   pt: {
     titulo: "Implante a sua instância",
@@ -41,7 +41,7 @@ const TEXTOS: Record<
     ],
     boton: "Deploy to Cloudflare",
     despues:
-      "Quando terminar, o seu endereço aparece na Cloudflare: Workers e Pages → o seu Worker → «Visitar». Abra-o logo e crie o seu evento: quem criar primeiro fica como dono. Esta aba continua aberta para você voltar.",
+      "Ao terminar, um passo manual: na Cloudflare abra o seu Worker → Settings → Domains & Routes e ative «workers.dev». Esse é o seu endereço; abra-o logo e crie o seu evento, porque quem criar primeiro fica como dono. Esta aba continua aberta para você voltar.",
   },
 };
 
