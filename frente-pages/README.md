@@ -6,8 +6,8 @@ Un proyecto de Cloudflare Pages de una sola función que reenvía todos los pedi
 
 **Cómo se arma** (una vez, desde el panel de Cloudflare):
 
-1. *Workers y Pages → Crear → Pages → Conectar con Git* → repositorio `nativox-landing`. Nombre del proyecto: `nativox-frente`. Rama: `main`.
-2. **Directorio raíz:** `frente-pages`. **Comando de compilación:** vacío. **Directorio de salida:** `publico`.
+1. *Workers y Pages → Crear aplicación*. **Tiene que ser un proyecto de Pages, no de Workers**: el formulario principal crea un Worker (y falla con "Missing entry-point to Worker script", porque este proyecto no tiene ninguno). Abajo del todo dice *"¿Buscas implementar Pages? Empieza aquí"* (*Looking to deploy Pages? Get started*): entrá por ahí → *Importar un repositorio Git existente* → repo `nativox-landing`. Rama de producción: `main`. Nombre del proyecto: `nativox-frente` (si ya existe un Worker con ese nombre por un intento anterior, borralo antes).
+2. **Configuración de la compilación:** preajuste *Ninguno*, **comando de compilación: vacío**, **directorio de salida: `publico`**, **directorio raíz: `frente-pages`** (en las opciones avanzadas). No hay comando de despliegue: Pages publica solo.
 3. Después del primer deploy: *Settings → Bindings → Add → Service binding*: variable `LANDING`, servicio `nativox-landing`. Volvé a desplegar (*Deployments → Retry*). (Si el `wrangler.jsonc` de esta carpeta ya lo trae, Cloudflare lo toma solo.)
 4. *Custom domains → Set up a domain* → `nativox.dev.ar`. Cloudflare te muestra a qué apuntar: en el panel de DNS ponés **CNAME** `nativox.dev.ar` → `nativox-frente.pages.dev`. Hay que agregar el dominio en Pages **antes** de crear el CNAME (si no, da error 522).
 
