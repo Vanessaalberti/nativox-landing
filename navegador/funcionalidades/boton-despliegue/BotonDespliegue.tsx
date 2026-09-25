@@ -14,8 +14,8 @@ const TEXTOS: Record<
     titulo: "Desplegá tu instancia",
     requisitos: [
       "Una cuenta de Cloudflare (alcanza la gratuita).",
-      "Una cuenta de GitHub o GitLab: el botón copia el proyecto ahí y lo conecta con Cloudflare.",
-      "Ninguna API key: la inteligencia artificial corre en el navegador de cada sala.",
+      "Una cuenta de GitHub: el botón copia el proyecto ahí y lo conecta con Cloudflare.",
+      "Ninguna API key: la inteligencia artificial corre en el navegador, en la placa de video de tu computadora.",
     ],
     boton: "Deploy to Cloudflare",
     despues:
@@ -25,8 +25,8 @@ const TEXTOS: Record<
     titulo: "Deploy your instance",
     requisitos: [
       "A Cloudflare account (the free one is enough).",
-      "A GitHub or GitLab account: the button copies the project there and connects it to Cloudflare.",
-      "No API keys: the AI runs in the browser of each room.",
+      "A GitHub account: the button copies the project there and connects it to Cloudflare.",
+      "No API keys: the AI runs in your browser, on your computer's graphics card.",
     ],
     boton: "Deploy to Cloudflare",
     despues:
@@ -36,8 +36,8 @@ const TEXTOS: Record<
     titulo: "Implante a sua instância",
     requisitos: [
       "Uma conta da Cloudflare (a gratuita é suficiente).",
-      "Uma conta do GitHub ou GitLab: o botão copia o projeto para lá e o conecta à Cloudflare.",
-      "Nenhuma API key: a inteligência artificial roda no navegador de cada sala.",
+      "Uma conta do GitHub: o botão copia o projeto para lá e o conecta à Cloudflare.",
+      "Nenhuma API key: a inteligência artificial roda no navegador, na placa de vídeo do seu computador.",
     ],
     boton: "Deploy to Cloudflare",
     despues:

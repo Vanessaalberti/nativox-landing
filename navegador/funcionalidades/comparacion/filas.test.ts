@@ -53,7 +53,7 @@ describe("comparación con medidas parciales", () => {
         {
           combinacion: "whisper-q4-bergamot-sin-glosario",
           terminos: { bien: 39, total: 56 },
-          fuente: { es: "laboratorio", en: "lab", pt: "laboratório" },
+          fuente: { es: "mediciones propias", en: "own measurements", pt: "medições próprias" },
         },
       ],
       "es",
@@ -63,7 +63,7 @@ describe("comparación con medidas parciales", () => {
         wer: null,
         retrasoSegundos: null,
         terminos: { bien: 39, total: 56 },
-        fuente: "laboratorio",
+        fuente: "mediciones propias",
       }),
     );
     // Las combinaciones sin archivo no muestran ningún número ni fuente.

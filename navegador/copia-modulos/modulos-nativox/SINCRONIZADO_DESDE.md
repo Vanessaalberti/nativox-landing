@@ -2,7 +2,7 @@
 
 **No se edita a mano.** Se actualiza con `npm run sincronizar` y el CI comprueba (`npm run verificar-copia`) que cada archivo coincida con su resumen.
 
-- Commit de origen: `4f722b0` (con cambios todavía sin commitear en la aplicación)
+- Commit de origen: `fbe470f` (con cambios todavía sin commitear en la aplicación)
 - Fecha: 2026-09-25
 - Carpetas: `compartido/contratos`, `compartido/distancia-edicion`, `compartido/glosario`, `compartido/metricas`, `navegador/modulos/captura-audio`, `navegador/modulos/cortador-audio`, `navegador/modulos/evaluar-equipo`, `navegador/modulos/flujo-subtitulos`, `navegador/modulos/modelos-compartidos`, `navegador/modulos/transcripcion`, `navegador/modulos/traduccion`, `navegador/interfaz/sistema-diseno`, `navegador/interfaz/subtitulos`
 
@@ -21,7 +21,7 @@
 | `compartido/contratos/api/transcribir.ts` | `39bb625878b30f48ef6fd11481a2e22eebc5c38fdd557cdc70fc4545fb746fc0` |
 | `compartido/contratos/idiomas.ts` | `c5820b8070d6aa0f55763fe97a0052c41df88abf325a0208e5944440f2c21a7f` |
 | `compartido/contratos/index.ts` | `095452ba846fb7c9996fb2e353378ddf8877fc1695722747e0c6103094345286` |
-| `compartido/contratos/README.md` | `b1548414a2364fc9c92f1efff6f9be0a9b05c77d95887471d4a817efca52a428` |
+| `compartido/contratos/README.md` | `cf1a0be41e004f921b0e31608f0c577c562f2ef07b9462cdc38b82e7843173e5` |
 | `compartido/contratos/socket-produccion.ts` | `0b5fbf5caee23ac24b452d570019e7dbd2ff7048f9a04bfaf4aed440b113a259` |
 | `compartido/contratos/socket-sala.ts` | `2da98387c12ca94d4edf4bd2afcb147acf6a12b975013c468b7785ee329ddc08` |
 | `compartido/contratos/validar.ts` | `edcf6abba07c04fbed1b625950c289b85f700cd72c2baf925a0e9be03718a6f3` |
@@ -33,7 +33,7 @@
 | `compartido/glosario/leer.ts` | `de128cd2f77edd38ce8a531d1b8b725cca7b0fa13c7606a52fe425005e558b22` |
 | `compartido/glosario/prompt-whisper.ts` | `6ab982ead4529160e81df454ff1500b8e524c97dad8132bb5bd8277f6abd2b8d` |
 | `compartido/glosario/proteger.ts` | `8b67259eb5782a14b0cb5bd31b101f5e324eac96b19b87656c71d4043003f00a` |
-| `compartido/glosario/README.md` | `7360c9cdf5737c26443487a706155707d5542dd17e96b57f7e37d9b273f3a212` |
+| `compartido/glosario/README.md` | `6a21b5173930b7c28cb3a29a31530513e80343dd47d21290f72e5fbde5c7852c` |
 | `compartido/glosario/texto.ts` | `92b6d8bc2ca9369a4270c0ca80e25ffd44abde5b66c88e9ed180fe6bf0d102e5` |
 | `compartido/metricas/index.ts` | `2e80d6945b9af5526681c6fa56e0d823e3d18ecc22a215a58bbd3695b89d0780` |
 | `compartido/metricas/README.md` | `6fdeea62c986b6a452f19390c813b83ac447614c53b6355b8e9a09faa0b6e418` |
@@ -80,7 +80,7 @@
 | `navegador/modulos/captura-audio/index.ts` | `0813cb2d59b345eadda63e9732283e19a0ecbb5bef5d471c12cbc4bc23b551dc` |
 | `navegador/modulos/captura-audio/nodo-de-captura.ts` | `dc63576eff551539766e97d0659df910a6d8af6821b2dc70733ebf49a48818a8` |
 | `navegador/modulos/captura-audio/procesador.ts` | `3cacd03f62576732652daed9f48f53091fc933cf4c83c9be035788bd2372d9e7` |
-| `navegador/modulos/captura-audio/README.md` | `20c7d44e7407119221c677b459981591f8b96407286c0758863257baea1ed509` |
+| `navegador/modulos/captura-audio/README.md` | `5cf5654a91bfa6706db10582cde96659a9e18ae66ec59b8a23ef0838d1cb9eef` |
 | `navegador/modulos/captura-audio/tiempo-real.ts` | `04601a8e56d3eeb93644261dc68d2c79f446544edb4a1e3a80bf7b893366b732` |
 | `navegador/modulos/captura-audio/tipos.ts` | `f0c9828a1ffb215970e575d749309458f72b28b3e16a0e35e1e48f7286391458` |
 | `navegador/modulos/cortador-audio/cortador.ts` | `f774f4c39d4dccf2e5bbcdfc575169a84430b45ef75872c9e37f9deaa2765f0d` |
@@ -88,13 +88,13 @@
 | `navegador/modulos/cortador-audio/index.ts` | `2a4a5a9cc3bf5402fae100ab03e0305759825e4810d2c054c5b8715d8625aa67` |
 | `navegador/modulos/cortador-audio/pausas.ts` | `92ebd9ea9ba08fdc0c1fd5ba6f9089c3ca78bde27220e8d7cf7fd37729ec9190` |
 | `navegador/modulos/cortador-audio/README.md` | `d22b880fb328dac71c1640966e270c8b7474bf945b6c5fe6ac2daf008052547f` |
-| `navegador/modulos/cortador-audio/silencios.ts` | `f39d167f8b92e359072234c1b5a416549f9ef053447e9e495be95171e0530c7f` |
+| `navegador/modulos/cortador-audio/silencios.ts` | `77bc9710a23e298474cb8c43dc5b4407d5be4d9678bb2993bd8c7312f7b806c7` |
 | `navegador/modulos/evaluar-equipo/evaluar.ts` | `d00da6d521b1468090fdcccb39f81b84b2e8fc56af003441d6025a953a613ad7` |
 | `navegador/modulos/evaluar-equipo/index.ts` | `241d92f606488cc922fe52c869a3e32b4be58b08155692cc12deb59f29745e86` |
 | `navegador/modulos/evaluar-equipo/niveles.ts` | `09d4a98f235f64949a4b8639569fb8806e4aff67f007004e738a3a8dcab81d23` |
 | `navegador/modulos/evaluar-equipo/placa.ts` | `928750ced6ae004c52b51c8180efee762967fb937a243825c9be1396bbf85a7a` |
 | `navegador/modulos/evaluar-equipo/README.md` | `71045b6fb13e250ac451cfb2ca77ac69c352aa6d624fc9015f9a9e7676473306` |
-| `navegador/modulos/evaluar-equipo/recomendacion.ts` | `9e386996118f9b9a2e044a71e507e6d800e05cdec793aa9e75a6138bf83b9aba` |
+| `navegador/modulos/evaluar-equipo/recomendacion.ts` | `757d2e3b6578d8768ec582230ac8dc12545bcee6c4188828987edd42990fce3f` |
 | `navegador/modulos/evaluar-equipo/rendimiento.ts` | `9f00b0ccc39d6d8cabb9ab79cefa2e39973a2139026c1e15c8532619be176372` |
 | `navegador/modulos/evaluar-equipo/textos-es.ts` | `afd1fea2420e2fa0be802e1d333160036345b271808fa291727dd958af0d16c8` |
 | `navegador/modulos/evaluar-equipo/useEvaluacion.ts` | `dca7b0f0006e3e4c7b482025ce1294b347d1861bef6a32763b26ceeaca399532` |
@@ -102,7 +102,7 @@
 | `navegador/modulos/flujo-subtitulos/flujo.ts` | `27763a7bcfa28dc2a869a685dce214208149d60a6ee0dc8e9d683313125a3f32` |
 | `navegador/modulos/flujo-subtitulos/index.ts` | `2d115ee8bfae46c3258db6a2761d225aec3d3bf7ba11909eba8d2ec19b9e5f2a` |
 | `navegador/modulos/flujo-subtitulos/minimo-adaptativo.ts` | `831ba1ab4a3ab93e232563e201c9f29369ef247a9f61bb5792cf5c015f0f49e9` |
-| `navegador/modulos/flujo-subtitulos/README.md` | `475e19c5dcda1290e88f93079dfb168f6fcad26f7cbd7cc85aaa9c0c9e73b1dc` |
+| `navegador/modulos/flujo-subtitulos/README.md` | `87f041d42b4597ea7572a8d2d0d594d40bf18307af4970a3cd6f010c19eb0611` |
 | `navegador/modulos/flujo-subtitulos/tipos.ts` | `671ba01fcd740c5b76ec39a56f60f00937e836fe16c8f6be6dfc7c66dbc4a1bf` |
 | `navegador/modulos/modelos-compartidos/cache-en-disco.ts` | `d4ae26f2d73eb065018f1af03003bca05b3b6472d6af20140614491e9714698c` |
 | `navegador/modulos/modelos-compartidos/cliente.ts` | `b2710001c45e6479d1d8664e054fa55537ad7c85946ebdcc7adcdf8148f52b95` |
@@ -111,7 +111,7 @@
 | `navegador/modulos/modelos-compartidos/guardados.ts` | `aee1177e8ee405614d7a1ce1e63c3590bc6dd57842ab62e116de5efed3aa2d15` |
 | `navegador/modulos/modelos-compartidos/index.ts` | `b756cdcff79bd43e8ae44d6c9ac17f2405a4ff052204bff19abda9c75219fc12` |
 | `navegador/modulos/modelos-compartidos/protocolo.ts` | `ae61c6249c87cad30f3a2fbc8cf158c38493d80819f3c54eea0b23bbd89a0de1` |
-| `navegador/modulos/modelos-compartidos/README.md` | `dbb7e75c9b7135e4bd862d4b6326b8a18e4004ee1ebd28c6d3632a7876531a23` |
+| `navegador/modulos/modelos-compartidos/README.md` | `f97382700122649aa84342d5123870411dcc8e03b180c9506ffbc07a122fc374` |
 | `navegador/modulos/modelos-compartidos/variante.ts` | `ee881fea260a1eac0821645dc8b6aeb857e04b9c823907c310ae8888d4126b40` |
 | `navegador/modulos/modelos-compartidos/whisper.ts` | `99d89e88d0e8c22a4b74ae3f9c7d58ded970cbd50459bfabf58cb3b641d0db40` |
 | `navegador/modulos/traduccion/cola.ts` | `b078019e0035698832a2166906c2588c931886e8179895a9b3627b644c649ffb` |
@@ -127,7 +127,7 @@
 | `navegador/modulos/transcripcion/index.ts` | `607362870a7b766508bc1c079fe45729e39ee921928b8e54304855555adfb16d` |
 | `navegador/modulos/transcripcion/motores/whisper-local.ts` | `fe81436a931314589b91b241c2c9e1a71b561cd86bcc9427734b78ddad80a911` |
 | `navegador/modulos/transcripcion/motores/whisper-nube.ts` | `e76fe26fe2d3d9003e0e56872076e33dd48f6d7c00aeb77248324329b5e410b2` |
-| `navegador/modulos/transcripcion/README.md` | `d070fc57875f97bbd76f0cce35a3eb5ceaa298eafc533880495aca8e0bda1d42` |
+| `navegador/modulos/transcripcion/README.md` | `b6e9370fa93d794f02f96a3d06576727449174084fe1a97878674d037583a873` |
 | `navegador/modulos/transcripcion/superposicion.ts` | `35e7799e1cb0bd6a821036eec790e0d81c223b78913931988a817b6a183daf0e` |
 | `navegador/modulos/transcripcion/texto.ts` | `b0837d651bfeaa0415bb5b248ebaa93c5470017ed98505e2f2f664712e465288` |
 | `navegador/modulos/transcripcion/tipos.ts` | `4074fb1a4480b6332f61313b290b34426c5966a5ed92bf357a07b60d47f7fb2f` |

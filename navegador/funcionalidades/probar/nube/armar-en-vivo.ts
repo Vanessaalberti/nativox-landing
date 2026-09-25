@@ -17,7 +17,7 @@ import type { PruebaArmada } from "../motor/armar-prueba";
 import { conFlujo } from "../motor/cerrar-prueba";
 import { crearTranscriptorNube, type EventosTranscriptorNube } from "./transcriptor-nube";
 
-// El laboratorio dejó la nube en cortes de 4 a 8 s para cuidar el límite de pedidos de una sala en
+// La sesión en vivo deja la nube en cortes de 4 a 8 s para cuidar el límite de pedidos de una sala en
 // vivo. La portada es una demo de 15 s por visitante: prioriza la respuesta rápida, con cortes de
 // ~1 s en la primera pausa y dos pasadas, como el modo local: una provisoria cada 1 s, casi
 // invisible, y la confirmada al cortar la frase.

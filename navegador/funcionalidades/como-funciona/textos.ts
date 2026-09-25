@@ -23,7 +23,7 @@ export const TEXTOS_COMO_FUNCIONA: Record<Idioma, TextosComoFunciona> = {
     intro: {
       titulo: "Sin API keys, con modelos que corren en tu computadora",
       parrafos: [
-        "Nativox no le pide ninguna API key a nadie. La transcripción y la traducción las hacen modelos que corren en el navegador de cada sala, usando su placa de video: Whisper transcribe lo que se dice y Bergamot (o TranslateGemma, si la placa tiene margen) lo traduce. Los modelos se descargan una sola vez, quedan guardados en la computadora y, con eso, la sala sigue funcionando aunque se corte internet.",
+        "Nativox no le pide ninguna API key a nadie. La transcripción y la traducción las hacen modelos que corren en el navegador, usando la placa de video de tu computadora: Whisper transcribe lo que se dice y Bergamot (o TranslateGemma, si la placa tiene margen) lo traduce. Los modelos se descargan una sola vez, quedan guardados en la computadora y, con eso, la sala sigue funcionando aunque se corte internet.",
         "Y para tenerlo funcionando no hay que clonar ningún repositorio ni instalar nada: con un clic en «Deploy to Cloudflare» y aceptar, se copia el repositorio a tu cuenta de GitHub y se despliega en tu cuenta de Cloudflare. Con ese clic y el aceptar, ya tenés casi todo armado.",
       ],
       puntos: [
@@ -71,7 +71,7 @@ export const TEXTOS_COMO_FUNCIONA: Record<Idioma, TextosComoFunciona> = {
     intro: {
       titulo: "No API keys, with models that run on your own computer",
       parrafos: [
-        "Nativox does not ask anyone for an API key. Transcription and translation are done by models that run in the browser of each room, using its graphics card: Whisper transcribes what is said and Bergamot (or TranslateGemma, if the card has room for it) translates it. The models are downloaded once and kept on the computer, so the room keeps working even if the internet drops.",
+        "Nativox does not ask anyone for an API key. Transcription and translation are done by models that run in the browser, using your computer's graphics card: Whisper transcribes what is said and Bergamot (or TranslateGemma, if the card has room for it) translates it. The models are downloaded once and kept on the computer, so the room keeps working even if the internet drops.",
         "And to get it running you do not clone any repository or install anything: one click on “Deploy to Cloudflare” and accepting copies the repository to your GitHub account and deploys it to your Cloudflare account. With that click and the accept, you already have almost everything set up.",
       ],
       puntos: [
@@ -119,7 +119,7 @@ export const TEXTOS_COMO_FUNCIONA: Record<Idioma, TextosComoFunciona> = {
     intro: {
       titulo: "Sem API keys, com modelos que rodam no seu computador",
       parrafos: [
-        "O Nativox não pede nenhuma API key a ninguém. A transcrição e a tradução são feitas por modelos que rodam no navegador de cada sala, usando a sua placa de vídeo: o Whisper transcreve o que é dito e o Bergamot (ou o TranslateGemma, se a placa tiver folga) traduz. Os modelos são baixados uma única vez e ficam guardados no computador, então a sala continua funcionando mesmo se a internet cair.",
+        "O Nativox não pede nenhuma API key a ninguém. A transcrição e a tradução são feitas por modelos que rodam no navegador, usando a placa de vídeo do seu computador: o Whisper transcreve o que é dito e o Bergamot (ou o TranslateGemma, se a placa tiver folga) traduz. Os modelos são baixados uma única vez e ficam guardados no computador, então a sala continua funcionando mesmo se a internet cair.",
         "E para deixá-lo funcionando não é preciso clonar nenhum repositório nem instalar nada: com um clique em «Deploy to Cloudflare» e aceitando, o repositório é copiado para a sua conta do GitHub e publicado na sua conta da Cloudflare. Com esse clique e o aceite, você já tem quase tudo pronto.",
       ],
       puntos: [

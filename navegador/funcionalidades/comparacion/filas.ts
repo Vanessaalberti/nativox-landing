@@ -14,8 +14,8 @@ const esquemaCombinacion = v.object({
 });
 
 // Lo medido de una combinación, uno por archivo. Cada medida es opcional: lo que falta la página
-// lo muestra como "a medir". Hasta que exista `scripts/informe-calidad` (paso 12), se cargan a
-// partir de las mediciones del laboratorio y `fuente` dice de dónde sale cada número.
+// lo muestra como "a medir". Se cargan a
+// mano a partir de mediciones propias y `fuente` dice de dónde sale cada número.
 const esquemaResultado = v.object({
   combinacion: v.pipe(v.string(), v.nonEmpty()),
   wer: v.optional(v.pipe(v.number(), v.minValue(0), v.maxValue(1))),

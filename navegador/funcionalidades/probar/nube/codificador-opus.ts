@@ -2,7 +2,7 @@ import { FRECUENCIA } from "@nativox/navegador/modulos/captura-audio";
 import { armarOgg, PREINICIO_POR_DEFECTO } from "../../../../contratos-landing/ogg";
 
 // Opus a 24 kbps: misma calidad para la voz que el WAV, pero ~14 KB en lugar de ~146 KB por
-// fragmento. En el laboratorio la respuesta tras el corte pasó de 3,7 s a 1,6 s: casi todo el
+// fragmento. Medido, la respuesta tras el corte pasó de 3,7 s a 1,6 s: casi todo el
 // retraso de la nube era subir el audio.
 const CONFIGURACION: AudioEncoderConfig = {
   codec: "opus",
